@@ -12,28 +12,30 @@ import Menu from "../pages/Pedidos";
 
 const styles = StyleSheet.create({
   navbar: {
+    fontSize: '18px',
     borderRadius: "5px",
     backgroundColor: "#F2B885",
-    color: "black"
-    // display: "flex",
+    // color: "red",
+    display: "flex",
     // justifyContent: "space-around",
     // flexGrow: 1
   },
+
   tabBox: {
-    backgroundColor: "white"
+    backgroundColor: "white",
     // flexGrow: 1
   }
 });
 
 const navTab = () => (
-  <Tabs className={css(styles.navbar)} defaultActiveKey="menu">
-    <Tab
+  <Tabs className={css(styles.navbar)} defaultActiveKey="pedidos">
+      <Tab
       className={css(styles.tabBox)}
       eventKey="pedidos"
       title="REALIZAR PEDIDO"
     >
       <Menu />
-    </Tab>
+      </Tab>
     <Tab
       className={css(styles.tabBox)}
       eventKey="cozinha"

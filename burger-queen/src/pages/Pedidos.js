@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 })
 
 const Menu = () => {
-  // const [menu, setMenu] = useState('')
+  // const [menu, setMenu] = useState('');
 
   const breakfast = []
   const hamburguer = []
@@ -30,14 +30,8 @@ const Menu = () => {
   firebase.firestore().collection('MENU').get()
     .then(querySnapshot => {
       querySnapshot.forEach((query)=> {
-        console.log('item:', query.data().item, 'valor:', query.data().value );
-        
-        const item = {
-          item: query.data().item,
-          valor: query.data().value
-        }
-
-        switch (query.data().type) {
+        const item = query.data();
+        switch (item.type) {
           case 'breakfast':
             breakfast.push(item);
             break;
@@ -50,12 +44,14 @@ const Menu = () => {
           case 'side-dishes':
             side.push(item);
             break;
-
           default:
         } 
       })
-console.log(breakfast)
     });
+
+  // for(const element of breakfast) {
+      // <Button handleClick = {() => console.log('click')} title={element.item} />
+  // }
 
   return (
     <section className={css(styles.menu)}>
