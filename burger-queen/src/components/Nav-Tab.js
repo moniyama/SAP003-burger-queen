@@ -13,43 +13,57 @@ import Cozinha from '../pages/Cozinha'
 
 const styles = StyleSheet.create({
   navbar: {
-    fontSize: '18px',
+    fontSize: "large",
     borderRadius: "5px",
     backgroundColor: "#F2B885",
     // color: "red",
-    display: "flex",
+    // display: "flex"
     // justifyContent: "space-around",
     // flexGrow: 1
   },
 
   tabBox: {
     backgroundColor: "white",
-    display: 'flex',
+    display: "flex",
     flexGrow: 1
   }
 });
 
-const navTab = () => (
-  <Tabs className={css(styles.navbar)} defaultActiveKey="pedidos">
-    <Tab
-      className={css(styles.tabBox)}
-      eventKey="pedidos"
-      title="REALIZAR PEDIDO"
-    >
-      <Menu />
-    </Tab>
-      
-    <Tab
-      className={css(styles.tabBox)}
-      eventKey="cozinha"
-      title="EM PREPARAÇÃO"
-    >
-      cozinha
-    </Tab>
-    <Tab className={css(styles.tabBox)} eventKey="pronto" title="PARA ENTREGA">
-      ENTREGA
-    </Tab>
-  </Tabs>
-);
-
-export default navTab;
+export default function navTab() {
+  return (
+    <Tabs className={css(styles.navbar)} transition={false} defaultActiveKey="pedidos" id="uncontrolled-tab-example">
+  <Tab eventKey="pedidos" title="REALIZAR PEDIDO">
+    <Menu />
+  </Tab>
+  <Tab eventKey="cozinha" title="EM PREPARAÇÃO">
+    <Cozinha />
+  </Tab>
+  <Tab eventKey="pronto" title="PARA ENTREGA">
+    asdfasfdasdfasdf
+  </Tab>
+</Tabs>
+    // <Tabs
+    //   className={css(styles.navbar)}
+    //   defaultActiveKey="pedidos"
+    //   transition={false}
+    // >
+    //   <Tab eventKey="pedidos" title="REALIZAR PEDIDO">
+    //     <Menu />
+    //   </Tab>
+    //   <Tab
+    //     className={css(styles.tabBox)}
+    //     eventKey="cozinha"
+    //     title="EM PREPARAÇÃO"
+    //   >
+    //     <Cozinha />
+    //   </Tab>
+    //   <Tab
+    //     className={css(styles.tabBox)}
+    //     eventKey="pronto"
+    //     title="PARA ENTREGA"
+    //   >
+    //     asdfasdfads
+    //   </Tab>
+    // </Tabs>
+  );
+}

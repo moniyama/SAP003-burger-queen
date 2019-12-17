@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
   },
   menuItem:{
     color:'red',
-    display:'flex'
+    display:'flex',
+    justifyContent:'center',
+    alignContent:''
   }
 });
 
@@ -41,6 +43,7 @@ const Menu = () => {
         setMenu(products);
       });
   }, []);
+  console.log(menu)
 
   // const item = query.data();
   // switch (item.type) {
@@ -59,57 +62,60 @@ const Menu = () => {
   //   default:
   // }
 
-  useEffect(() => {
-    menu.forEach(item => {
-      if (item.type === "breakfast") {
-        document.getElementById("breakfast").innerHTML += `
-        <p>${item.item} ${item.value}
-        ${<Button handleClick={() => console.log("click")} title={"as"} />}</p>
-        `;
-      } if (item.type === "hamburguer") {
-        document.getElementById("hamburguer").innerHTML += `
-        <p>${item.item} ${item.value}
-        ${<Button handleClick={() => console.log("click")} title={"as"} />}</p>
-        `;
-      } if (item.type === "side-dishes") {
-        document.getElementById("side").innerHTML += `
-        <p>${item.item} ${item.value}
-        ${<Button handleClick={() => console.log("click")} title={"as"} />}</p>
-        `;
-      } if (item.type === "beverages") {
-        document.getElementById("beverages").innerHTML += `
-        <p>${item.item} ${item.value}
-        ${<Button handleClick={() => console.log("click")} title={"as"} />}</p>
-        `;
-      }
+  // useEffect(() => {
+  //   menu.forEach(item => {
+  //     if (item.type === "breakfast") {
+  //       document.getElementById("breakfast").innerHTML += `
+  //       <p>${item.item} ${item.value}
+  //       ${<Button handleClick={() => console.log("click")} title={"as"} />}</p>
+  //       `;
+  //     } if (item.type === "hamburguer") {
+  //       document.getElementById("hamburguer").innerHTML += `
+  //       <p>${item.item} ${item.value}
+  //       ${<Button handleClick={() => console.log("click")} title={"as"} />}</p>
+  //       `;
+  //     } if (item.type === "side-dishes") {
+  //       document.getElementById("side").innerHTML += `
+  //       <p>${item.item} ${item.value}
+  //       ${<Button handleClick={() => console.log("click")} title={"as"} />}</p>
+  //       `;
+  //     } if (item.type === "beverages") {
+  //       document.getElementById("beverages").innerHTML += `
+  //       <p>${item.item} ${item.value}
+  //       ${<Button handleClick={() => console.log("click")} title={"as"} />}</p>
+  //       `;
+  //     }
 
-    })
-  }, [menu]);
-
-  // return (
-  //   <main className={css(styles.menuList)}>
-  //     <section >
-  // { menuGroups.map( (group) => {
-
-  //   return <MenuGroup key={group.key} title={group.title} arrayItens={group.array} />
-  // })}
-  //     </section>
-  //     <section>
-  //     </section>
-  //   </main>
-  // )
+  //   })
+  // }, [menu]);
 
   return (
     <main className={css(styles.main)}>
       <section id="Menu" className={css(styles.menu)}>
         <section className={css(styles.menuGroupTitle)}>Café da Manhã</section>
           <p className={css(styles.menuItem)} id="breakfast"></p>
+          { menu.map((item) => {
+          if(item.type === 'breakfast')
+            return <Button handleClick={() => console.log("click")} title={item.item} value={item.value} key={'key-' + item.item} />
+          })}
         <section className={css(styles.menuGroupTitle)}>Hamburguer</section>
           <p className={css(styles.menuItem)} id="hamburguer"></p>
+          { menu.map((item) => {
+          if(item.type === 'hamburguer')
+            return <Button handleClick={() => console.log("click")} title={item.item} value={item.value} key={'key-' + item.item} />
+          })}
         <section className={css(styles.menuGroupTitle)}>Acompanhamentos</section>
           <p className={css(styles.menuItem)} id="side"></p>
+          { menu.map((item) => {
+          if(item.type === 'side-dishes')
+            return <Button handleClick={() => console.log("click")} title={item.item} value={item.value} key={'key-' + item.item} />
+          })}
         <section className={css(styles.menuGroupTitle)}>Bebidas</section>
           <p className={css(styles.menuItem)} id="beverages"></p>
+          { menu.map((item) => {
+          if(item.type === 'beverages')
+            return <Button handleClick={() => console.log("click")} title={item.item} value={item.value} key={'key-' + item.item} />
+          })}
         </section>
       <section className="order"> RESUMO </section>
     </main>
