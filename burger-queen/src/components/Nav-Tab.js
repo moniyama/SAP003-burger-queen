@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import Menu from "../pages/Pedidos";
+import Cozinha from '../pages/Cozinha'
 
 // azul #99AABF
 // verde #6E8C03
@@ -23,19 +24,21 @@ const styles = StyleSheet.create({
 
   tabBox: {
     backgroundColor: "white",
-    // flexGrow: 1
+    display: 'flex',
+    flexGrow: 1
   }
 });
 
 const navTab = () => (
   <Tabs className={css(styles.navbar)} defaultActiveKey="pedidos">
-      <Tab
+    <Tab
       className={css(styles.tabBox)}
       eventKey="pedidos"
       title="REALIZAR PEDIDO"
     >
       <Menu />
-      </Tab>
+    </Tab>
+      
     <Tab
       className={css(styles.tabBox)}
       eventKey="cozinha"

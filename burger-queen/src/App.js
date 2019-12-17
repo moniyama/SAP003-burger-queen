@@ -5,13 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './index.css'
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <Header />
       <NavTab />
     </div>
-  );
+  )
 }
-
-export default App;

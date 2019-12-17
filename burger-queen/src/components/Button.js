@@ -1,7 +1,16 @@
-import React from "react"
+import React from "react";
+import { StyleSheet, css } from "aphrodite";
 
-const button = (props) => (
-    <button onClick={props.handleClick}>{props.title}</button>
-)
+const styles = StyleSheet.create({
+  button: {
+    width: "100px"
+  }
+});
 
-export default button
+const button = props => (
+  <button className={css(styles.button)} onClick={props.handleClick}>
+    {props.title}
+  </button>
+);
+
+export default button;
