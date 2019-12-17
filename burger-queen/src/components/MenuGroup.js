@@ -3,38 +3,37 @@ import Button from "../components/Button";
 import { StyleSheet, css } from "aphrodite";
 
 const styles = StyleSheet.create({
-  title: {
-    color: "red",
-    paddingTop: "5px",
-    textAlign: "center"
+  menuGroupSection: {
+    textAlign:'center',
   },
-  menu: {
-    width: "100%",
-    backgroundColor: "gray"
-  }
+  menuTitle: {
+    color:'red',
+    fontSize:'18px',
+  },
+  menuItem:{
+    display:'flex',
+    justifyContent:'space-evenly',
+  },
 });
 
-const menuGroup = props => {
-  const itensList = props.arrayItens;
-  console.log(itensList);
-  itensList.map(element => {
-    console.log(element.item);
-  });
-
+const MenuGroup = props => {
   return (
-    <section className={css(styles.menu)}>
-      <p className={css(styles.title)}>{props.title}</p>
-      <Button handleClick={() => console.log("click")} title={"as"} />
-      <Button handleClick={() => console.log("click")} title={"as"} />
-      {itensList.map(element => {
-        return (
-          <Button
-            handleClick={() => console.log("click")}
-            title={element.item}
-          />
-        );
-      })}
+    <section className={css(styles.menuGroupSection)}>
+      <p className={css(styles.menuTitle)}>{props.title}</p>
+      <p className={css(styles.menuItem)} id={props.type}>
+        {props.menu.map((item, index) => {
+          if (item.type === props.type)
+            return (
+              <Button
+                key={index}
+                handleClick={() => console.log("click")}
+                title={item.item}
+                value={item.value}
+              />
+            )
+        })}
+      </p>
     </section>
   );
 };
-export default menuGroup;
+export default MenuGroup;

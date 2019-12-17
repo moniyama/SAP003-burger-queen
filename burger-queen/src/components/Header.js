@@ -6,10 +6,11 @@ const styles = StyleSheet.create({
     color: "#BF190A",
     display: "flex",
     justifyContent: "center",
-    padding: "1%"    
+    padding: "1%",
+    fontWeight:'bold'
   }
 });
 
-const Header = () => <h1 className={css(styles.title)}>BURGUER QUEEN</h1>;
-
-export default Header;
+export default function Header() {
+  return <h1 className={css(styles.title)}>BURGUER QUEEN</h1>;
+}
