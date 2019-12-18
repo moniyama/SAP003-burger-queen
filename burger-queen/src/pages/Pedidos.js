@@ -24,36 +24,21 @@ const Menu = () => {
 
   const addItem = (e) => {
     const itemAdded = e.currentTarget.innerHTML
-    if (resumo.length === 0) {
-      console.log('vazio')
-      newResumo = [{item: itemAdded, quantia: 1 }]
-    } else {
-      console.log('resumo não vazio')
-      let hasItem = resumo.some( item => item['item'] === itemAdded )
-      resumo.forEach((item) => {
-          if(hasItem  && (item.item === itemAdded)) {
-            console.log('já contem o item')
+    const hasItem = resumo.some( item => item['item'] === itemAdded )
+    if (hasItem) {
+      newResumo = resumo.map((item) => {
+          if(item.item === itemAdded) {
             item.quantia += 1
-            newResumo = [...resumo]
+            return item
         } else {
-          console.log('não contem ainda')
-          newResumo = [...resumo, {item: itemAdded, quantia: 1 }]
-          }
-
+          return item
+        }
       })
-
-      // const newResumo = resumo.map(item => {
-      //   return item.item === e.currentTarget.innerHTML
-      //   ? console.log({...resumo, value: 2})
-      //   : {...resumo, item: e.currentTarget.innerHTML}
-      // })
+    } else {
+      newResumo = [...resumo, {item: itemAdded, quantia: 1 }]
       }
       setResumo(newResumo)
   }
-  
-
-  console.log(resumo)
-
 
   useEffect(() => {
     firebase
