@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 
 const button = props => (
   <button className={css(styles.button)} onClick={props.handleClick}>
-    {props.title} R${props.value}
+    {props.title}
   </button>
 );
 

@@ -28,9 +28,8 @@ const MenuGroup = props => {
               <Button
                 key={index}
                 handleClick={props.click} 
-                title={item.item}
-                value={item.value}
-              />
+                title={item.item + ' R$' + item.value}
+              /> 
             )
             return null
         })}
