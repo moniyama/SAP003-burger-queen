@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 });
 
 const MenuGroup = props => {
+  // se fazer o state aqui, cada group vai ter um state resumo
   return (
     <section className={css(styles.menuGroupSection)}>
       <p className={css(styles.menuTitle)}>{props.title}</p>
@@ -26,11 +27,12 @@ const MenuGroup = props => {
             return (
               <Button
                 key={index}
-                handleClick={() => console.log("click")}
+                handleClick={props.click} 
                 title={item.item}
                 value={item.value}
               />
             )
+            return null
         })}
       </p>
     </section>

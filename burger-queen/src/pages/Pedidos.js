@@ -18,6 +18,42 @@ const styles = StyleSheet.create({
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
+  const [resumo, setResumo] = useState([]);
+  
+  let newResumo = [];
+
+  const addItem = (e) => {
+    const itemAdded = e.currentTarget.innerHTML
+    if (resumo.length === 0) {
+      console.log('vazio')
+      newResumo = [{item: itemAdded, quantia: 1 }]
+    } else {
+      console.log('resumo não vazio')
+      let hasItem = resumo.some( item => item['item'] === itemAdded )
+      resumo.forEach((item) => {
+          if(hasItem  && (item.item === itemAdded)) {
+            console.log('já contem o item')
+            item.quantia += 1
+            newResumo = [...resumo]
+        } else {
+          console.log('não contem ainda')
+          newResumo = [...resumo, {item: itemAdded, quantia: 1 }]
+          }
+
+      })
+
+      // const newResumo = resumo.map(item => {
+      //   return item.item === e.currentTarget.innerHTML
+      //   ? console.log({...resumo, value: 2})
+      //   : {...resumo, item: e.currentTarget.innerHTML}
+      // })
+      }
+      setResumo(newResumo)
+  }
+  
+
+  console.log(resumo)
+
 
   useEffect(() => {
     firebase
@@ -35,10 +71,10 @@ const Menu = () => {
   return (
     <main className={css(styles.main)}>
       <section className={css(styles.menu)}>
-        <MenuGroup title="Café da Manhã" type="breakfast" menu={menu} />
-        <MenuGroup title="Hamburgueres" type="hamburguer" menu={menu} />
-        <MenuGroup title="Acompanhamentos" type="side-dishes" menu={menu} />
-        <MenuGroup title="Bebidas" type="beverages" menu={menu} />
+        <MenuGroup title="Café da Manhã" type="breakfast" menu={menu} click={(e)=> addItem(e)} />
+        <MenuGroup title="Hamburgueres" type="hamburguer" menu={menu} click={(e)=> addItem(e)} />
+        <MenuGroup title="Acompanhamentos" type="side-dishes" menu={menu} click={(e)=> addItem(e)} />
+        <MenuGroup title="Bebidas" type="beverages" menu={menu} click={(e)=> addItem(e)} />
       </section>
       <section className={css(styles.resumo)} id="order"> RESUMO </section>
     </main>
