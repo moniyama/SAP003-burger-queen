@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import { StyleSheet, css } from "aphrodite";
 
 // como formatar cada componente individualmente 
-//firebase.config.js no github. como excluir?
+// firebase.config.js no github. como excluir?
 
 const styles = StyleSheet.create({
   menuGroupSection: {
@@ -34,7 +34,7 @@ const MenuGroup = props => {
                 handleClick={props.click} 
                 title={item.item + ' R$' + item.value}
                 type={"css(styles.menuItemBtn)"}
-              /> 
+              />
             )
             return null
         })}

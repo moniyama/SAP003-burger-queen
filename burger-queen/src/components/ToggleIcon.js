@@ -4,16 +4,19 @@ import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 
 const ToggleIcon = (props) => {
 const [toggleState, settoggleState] = useState(false)
-// const [hamburguer, setHamburguer] = useState([])
+const [hamburguerMenu, setHamburguerMenu] = useState([])
 
 const turnToggleIconOn = (e) => {
   settoggleState(true)
   // setHamburguer([e.currentTarget])
   console.log('pegar o item que ficou on, e marcar o hamburguer')
-  const itemAdded = e.currentTarget
-  console.log(itemAdded)
+  const itemAdded = e.currentTarget.attributes.title.value
+  setHamburguerMenu([itemAdded])
 }
 
+useEffect(()=> {
+  console.log(hamburguerMenu)
+})
   return (
     <>
       <span>{props.title} </span>
