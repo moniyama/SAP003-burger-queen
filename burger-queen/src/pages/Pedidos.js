@@ -6,6 +6,7 @@ import { StyleSheet, css } from "aphrodite";
 import { Modal } from 'react-bootstrap'
 import ToggleOffOutlinedIcon from '@material-ui/icons/ToggleOffOutlined';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
+import ToggleIcon from "../components/ToggleIcon";
 
 // import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
 
@@ -44,21 +45,32 @@ const Menu = () => {
   const [showModal, setshowModal] = useState(false);
 
   const handleClose = () => setshowModal(false);
-  const handleShow = () => setshowModal(true);
 
   let newResumo = [];
 
   const addHamb = (e) => {
-    handleShow()
+    handleClose()
+    const itemAdded = 'hamburguer'
+    const hasItem = resumo.some( item => item['item'] === itemAdded )
+    checkHasItemOrdered(hasItem, itemAdded)
     console.log('verificar se tem o item no resumo')
     console.log('add item no resumo')
   }
+
+useEffect(()=> {
+  console.log('modal', showModal)
+},[showModal])
+
+useEffect(()=>{
+  console.log('resumo', resumo)
+},[resumo])
 
   const addItem = (e) => {
     const itemAdded = e.currentTarget.innerHTML
     const hasItem = resumo.some( item => item['item'] === itemAdded )
     checkHasItemOrdered(hasItem, itemAdded)
   }
+
   const checkHasItemOrdered = (hasItem, itemAdded) => {
     if (hasItem) {
       newResumo = resumo.map((item) => {
@@ -75,9 +87,6 @@ const Menu = () => {
       setResumo(newResumo)
   }
 
-  useEffect(()=>{
-    console.log(resumo)
-  },[resumo])
 
   useEffect(() => {
     firebase
@@ -92,7 +101,7 @@ const Menu = () => {
       });
   }, []);
 
-  function ShowHamburguerOptionModal(props) {
+  function HamburguerOptionModalHtml(props) {
     return (
       <Modal className={css(styles.modal)}
         {...props}
@@ -112,14 +121,14 @@ const Menu = () => {
             <section className={css(styles.modalAditional)}>
               <h4>ADICIONAL POR R$ 1,00</h4>
               <section className={css(styles.modalAditionalItens)}>
-                <p>ADICIONAL QUEIJO <ToggleOffOutlinedIcon onClick={()=> console.log('click')}/> </p>
-                <p>ADICIONAL OVO <ToggleOffOutlinedIcon onClick={()=> console.log('click')}/></p>
+                <ToggleIcon title={'ADICIONAL QUEIJO'}/>
+                <ToggleIcon title={'ADICIONAL OVO'}/>
               </section>
             </section>
         </Modal.Body>
         <Modal.Footer>
-          <Button title="Cancelar" onClick={handleClose} />
-          <Button title="OK" onClick={handleClose} />
+          <Button title="Cancelar" handleClick={ () => setshowModal(false) } />
+          <Button title="OK" handleClick={() => addHamb()} />
         </Modal.Footer>
       </Modal>
     );
@@ -129,7 +138,7 @@ const Menu = () => {
     <main className={css(styles.main)}>
       <section className={css(styles.menu)}>
         <MenuGroup title="Café da Manhã" type="breakfast" menu={menu} click={(e)=> addItem(e)} />
-        <MenuGroup title="Hamburgueres" type="hamburguer" menu={menu} click={(e)=> addHamb(e)} />
+        <MenuGroup title="Hamburgueres" type="hamburguer" menu={menu} click={ () => setshowModal(true) } />
         <MenuGroup title="Acompanhamentos" type="side-dishes" menu={menu} click={(e)=> addItem(e)} />
         <MenuGroup title="Bebidas" type="beverages" menu={menu} click={(e)=> addItem(e)} />
       </section>
@@ -141,7 +150,7 @@ const Menu = () => {
           })} */}
         </section>
       </section>
-      <ShowHamburguerOptionModal
+      <HamburguerOptionModalHtml
         show={showModal}
         onHide={handleClose}
         animation={false}

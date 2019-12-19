@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import { StyleSheet, css } from "aphrodite";
 
 // como formatar cada componente individualmente 
+//firebase.config.js no github. como excluir?
 
 const styles = StyleSheet.create({
   menuGroupSection: {
