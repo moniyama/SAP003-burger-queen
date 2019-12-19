@@ -3,7 +3,7 @@ import firebase from "../firebase/firebase-config";
 import MenuGroup from '../components/MenuGroup'
 import Button from '../components/Button'
 import { StyleSheet, css } from "aphrodite";
-import { Modal, ButtonGroup} from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import ToggleOffOutlinedIcon from '@material-ui/icons/ToggleOffOutlined';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 
@@ -11,7 +11,8 @@ import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 
 const styles = StyleSheet.create({
   main: {
-  display: 'flex',
+    padding:'3%',
+    display: 'flex',
 },
   menu:{
     width:'60%'
@@ -19,7 +20,22 @@ const styles = StyleSheet.create({
   resumo: {
     width: '40%',
     textAlign:'center',
-  } 
+  },
+  modal:{
+    textAlign:'center'
+  },
+  modalButtonsOptions: {
+    display:'flex',
+    justifyContent:'space-evenly',
+  },
+  modalAditional: {
+    marginTop:'15px',
+  },
+  modalAditionalItens: {
+    backgroundColor:'beige',
+    fontSize:'large'
+  },
+
 });
 
 const Menu = () => {
@@ -34,7 +50,6 @@ const Menu = () => {
 
   const addHamb = (e) => {
     handleShow()
-    console.log('show modal')
     console.log('verificar se tem o item no resumo')
     console.log('add item no resumo')
   }
@@ -79,7 +94,7 @@ const Menu = () => {
 
   function ShowHamburguerOptionModal(props) {
     return (
-      <Modal
+      <Modal className={css(styles.modal)}
         {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
@@ -89,24 +104,22 @@ const Menu = () => {
           <Modal.Title>OPÇÕES DE HAMBURGUER</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <ButtonGroup aria-label="First group">
+            < section className={css(styles.modalButtonsOptions)} aria-label="First group">
               <Button title ={'Bovino'} />
               <Button title ={'Frango'} />
               <Button title ={'Vegetariano'} />
-            </ButtonGroup>
-            <section>
-              <p>ADICIONAL POR R$ 1,00</p>
-              <p>ADICIONAL QUEIJO <ToggleOffOutlinedIcon onClick={()=> console.log('click')}/></p> 
-              <p>ADICIONAL OVO <ToggleOffOutlinedIcon onClick={console.log('click')}/></p>
+            </section>
+            <section className={css(styles.modalAditional)}>
+              <h4>ADICIONAL POR R$ 1,00</h4>
+              <section className={css(styles.modalAditionalItens)}>
+                <p>ADICIONAL QUEIJO <ToggleOffOutlinedIcon onClick={()=> console.log('click')}/> </p>
+                <p>ADICIONAL OVO <ToggleOffOutlinedIcon onClick={()=> console.log('click')}/></p>
+              </section>
             </section>
         </Modal.Body>
         <Modal.Footer>
-          <Button title="Cancelar" onClick={handleClose}>
-            Close
-          </Button>
-          <Button title="OK" onClick={handleClose}>
-            Save Changes
-          </Button>
+          <Button title="Cancelar" onClick={handleClose} />
+          <Button title="OK" onClick={handleClose} />
         </Modal.Footer>
       </Modal>
     );

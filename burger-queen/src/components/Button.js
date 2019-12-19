@@ -3,8 +3,13 @@ import { StyleSheet, css } from "aphrodite";
 
 const styles = StyleSheet.create({
   button: {
-    width: "100px",
-    height: "70px"
+    borderRadius:'5px',
+    height: '70px',
+    width: '180px',
+    fontSize:'20px',
+    marginBottom:'3%',
+    padding:'1%',
+    margin:'2%'
   }
 });
 

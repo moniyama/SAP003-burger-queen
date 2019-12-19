@@ -13,8 +13,8 @@ import Cozinha from '../pages/Cozinha'
 
 const styles = StyleSheet.create({
   navbar: {
-    fontSize: "large",
-    borderRadius: "5px",
+    fontSize: "24px",
+    borderRadius: "8px",
     backgroundColor: "#F2B885",
     fontWeight:'bold',
   },
