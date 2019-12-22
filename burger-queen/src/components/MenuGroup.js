@@ -2,42 +2,42 @@ import React from "react";
 import Button from "../components/Button";
 import { StyleSheet, css } from "aphrodite";
 
-// como formatar cada componente individualmente 
-// firebase.config.js no github. como excluir?
-
 const styles = StyleSheet.create({
   menuGroupSection: {
-    textAlign:'center',
+    textAlign: "center"
   },
   menuTitle: {
-    color:'red',
-    fontSize:'25px',
+    color: "red",
+    fontSize: "25px"
   },
-  menuItem:{
-    display:'flex',
-    // justifyContent:'space-evenly',
-    flexWrap:'wrap',
+  menuItem: {
+    display: "flex",
+    flexWrap: "wrap"
   },
+  menuItemBtn: {
+    fontSize:'2vh',
+    height: "100px",
+    width: "180px"
+  }
 });
 
 const MenuGroup = props => {
-  // se fazer o state aqui, cada group vai ter um state resumo
   return (
     <section className={css(styles.menuGroupSection)}>
-<p className={css(styles.menuTitle)}>{props.title} </p>
+      <p className={css(styles.menuTitle)}>{props.title} </p>
       <p className={css(styles.menuItem)} id={props.type}>
         {props.menu.map((item, index) => {
           if (item.type === props.type)
             return (
               <Button
                 key={index}
-                handleClick={props.click} 
+                handleClick={props.click}
                 title={item.item}
-                value={'R$' + item.value}
-                type={"css(styles.menuItemBtn)"}
+                value={"R$" + item.value}
+                class={styles.menuItemBtn}
               />
-            )
-            return null
+            );
+          return null;
         })}
       </p>
     </section>

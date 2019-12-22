@@ -22,19 +22,35 @@ import ToggleOnIcon from "@material-ui/icons/ToggleOn";
 const styles = StyleSheet.create({
   main: {
     padding: "3%",
-    display: "flex"
+    display: "flex",
+    height:'100vh'
   },
   menu: {
-    width: "60%"
+    width: "60%",
+    height:'100%',
+    overflow:'scroll'
   },
   resumo: {
     width: "40%",
-    textAlign: "center"
+    textAlign: "center",
+    display:'flex',
+    justifyContent:'space-between',
+    flexDirection:'column',
+    height:'100%'
   },
   modal: {
     textAlign: "center"
   },
-  modalButtonsOptions: {
+
+  modalBtnFlavors:{
+    height: "70px",
+    width: "180px"
+  },
+  modalBtnEnd:{
+    width:'45.5%',
+    height:'100px'
+  },
+  modalButtonsOptionsSection: {
     display: "flex",
     justifyContent: "space-evenly"
   },
@@ -185,24 +201,26 @@ const Menu = () => {
         </Modal.Header>
         <Modal.Body>
           <section
-            className={css(styles.modalButtonsOptions)}
+            className={css(styles.modalButtonsOptionsSection)}
             aria-label="First group"
           >
             <Button
-              class={styles.btb}
               title={"Bovino"}
               handleClick={getHamburguerFlavor}
               disabled={false}
+              class={styles.modalBtnFlavors}
             />
             <Button
               title={"Frango"}
               handleClick={getHamburguerFlavor}
               disabled={false}
+              class={styles.modalBtnFlavors}
             />
             <Button
               title={"Vegetariano"}
               handleClick={getHamburguerFlavor}
               disabled={false}
+              class={styles.modalBtnFlavors}
             />
           </section>
           <section className={css(styles.modalAditional)}>
@@ -221,11 +239,13 @@ const Menu = () => {
             title="Cancelar"
             handleClick={() => handleClose}
             disabled={false}
+            class={styles.modalBtnEnd}
           />
           <Button
             title="OK"
             handleClick={() => addHamb()}
             disabled={btnModalDisabledStatus}
+            class={styles.modalBtnEnd}
           />
         </Modal.Footer>
       </Modal>
