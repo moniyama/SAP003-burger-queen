@@ -7,8 +7,13 @@ import { Modal } from "react-bootstrap";
 import ToggleOffOutlinedIcon from "@material-ui/icons/ToggleOffOutlined";
 import ToggleOnIcon from "@material-ui/icons/ToggleOn";
 // import ToggleIcon from "../components/ToggleIcon";
-
 // import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
+
+// tem diferença em usar o forEach ou o map no state, qdo se quer alterar um dado do state?
+// forEach => altera direto,
+// map => tem que dar o setstate
+
+// consigo usar switch qdo tenho duas condições (com &&)? função addHamb
 
 const styles = StyleSheet.create({
   main: {
@@ -48,45 +53,33 @@ const Menu = () => {
   const [additionalMenu, setAdditionalMenu] = useState([
     { type: "", hamburguer: "", queijo: false, ovo: false }
   ]);
+
   const [toggleStateEgg, settoggleStatEgg] = useState(false);
   const [toggleStateCheese, settoggleStatCheese] = useState(false);
-
-  const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true)
+  const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
 
   const handleClose = () => setshowModal(false);
 
-  const newResumo = [];
+  let newResumo = [];
 
   const addHamb = () => {
     handleClose();
-    settoggleStatEgg(false);
-    settoggleStatCheese(false);
-    
-    const itemAddedArray = additionalMenu.map((obj)=> {
-      if (obj.queijo === true || obj.ovo === true) {
-        if(obj.queijo === true && obj.ovo === false) {
-          return `${obj.type} ${obj.hamburguer} com queijo adicional`
-        } else if (obj.queijo === true && obj.ovo === true) {
-          return `${obj.type} ${obj.hamburguer} com queijo e ovo adicional`
-        } else {
-          return `${obj.type} ${obj.hamburguer} com ovo adicional`
-        }
 
-      } else {
+    const itemAddedArray = additionalMenu.map(obj => {
+      if (obj.queijo === false && obj.ovo === false) {
         return `${obj.type} ${obj.hamburguer}`
-      }
-
-    })
-
-    // const hasItem = resumo.some(item => item["item"] === itemAdded);
-    console.log('stringfy',JSON.stringify(itemAddedArray));
-    console.log('itemadded',(itemAddedArray));
-
-  }
-
-  // useEffect(() => {
-  //   console.log("modal", showModal);
-  // }, [showModal]);
+      } else if (obj.queijo === true && obj.ovo === false) {
+          return `${obj.type} ${obj.hamburguer} com queijo adicional`;
+        } else if (obj.queijo === true && obj.ovo === true) {
+          return `${obj.type} ${obj.hamburguer} com queijo e ovo adicional`;
+        } else {
+          return `${obj.type} ${obj.hamburguer} com ovo adicional`;
+        }
+    });
+    const itemAdded = itemAddedArray[0]
+    checkHasItemOrdered(itemAdded);
+    console.log("itemadded", itemAdded);
+  };
 
   useEffect(() => {
     console.log("resumo", resumo);
@@ -98,13 +91,11 @@ const Menu = () => {
 
   const addItem = e => {
     const itemAdded = e.currentTarget.innerHTML;
-    const hasItem = resumo.some(item => item["item"] === itemAdded);
-    console.log(typeof itemAdded);
-
-    checkHasItemOrdered(hasItem, itemAdded);
+    checkHasItemOrdered(itemAdded);
   };
 
-  const checkHasItemOrdered = (hasItem, itemAdded) => {
+  const checkHasItemOrdered = (itemAdded) => {
+    const hasItem = resumo.some(item => item["item"] === itemAdded);
     if (hasItem) {
       newResumo = resumo.map(item => {
         if (item.item === itemAdded) {
@@ -134,11 +125,17 @@ const Menu = () => {
   }, []);
 
   const getHamburguerType = e => {
+    settoggleStatEgg(false);
+    settoggleStatCheese(false);
+    setBtnModalDisabledStatus(true);
     setshowModal(true);
+
     additionalMenu.forEach(obj => {
       obj.type = e.currentTarget.innerHTML;
+      obj.hamburguer = "";
+      obj.queijo = false;
+      obj.ovo = false;
     });
-    console.log(additionalMenu);
   };
 
   const getHamburguerFlavor = e => {
@@ -155,7 +152,7 @@ const Menu = () => {
       return null;
     });
     setAdditionalMenu(newStatusadditionalMenu);
-    setBtnModalDisabledStatus(false)
+    setBtnModalDisabledStatus(false);
   };
 
   const HamburguerOptionModalHtml = props => {
@@ -179,9 +176,18 @@ const Menu = () => {
               class={styles.btb}
               title={"Bovino"}
               handleClick={getHamburguerFlavor}
+              disabled={false}
             />
-            <Button title={"Frango"} handleClick={getHamburguerFlavor} />
-            <Button title={"Vegetariano"} handleClick={getHamburguerFlavor} />
+            <Button
+              title={"Frango"}
+              handleClick={getHamburguerFlavor}
+              disabled={false}
+            />
+            <Button
+              title={"Vegetariano"}
+              handleClick={getHamburguerFlavor}
+              disabled={false}
+            />
           </section>
           <section className={css(styles.modalAditional)}>
             <h4>ADICIONAL POR R$ 1,00</h4>
@@ -195,8 +201,16 @@ const Menu = () => {
           </section>
         </Modal.Body>
         <Modal.Footer>
-          <Button title="Cancelar" handleClick={() => setshowModal(false)} />
-          <Button title="OK" disabled={btnModalDisabledStatus} handleClick={() => addHamb()} />
+          <Button
+            title="Cancelar"
+            handleClick={() => handleClose}
+            disabled={false}
+          />
+          <Button
+            title="OK"
+            handleClick={() => addHamb()}
+            disabled={btnModalDisabledStatus}
+          />
         </Modal.Footer>
       </Modal>
     );
