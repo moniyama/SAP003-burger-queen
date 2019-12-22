@@ -18,8 +18,6 @@ import ToggleOnIcon from "@material-ui/icons/ToggleOn";
 
 //toggleIcon => melhorar a função - repetitiva
 //toggleIcon => transformar em componente -> compartilha states
-//Resumo => transformar em componente -> compartilha states
-
 
 const styles = StyleSheet.create({
   main: {

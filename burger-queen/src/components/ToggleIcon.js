@@ -2,30 +2,49 @@ import React, {useState, useEffect} from "react";
 import ToggleOffOutlinedIcon from '@material-ui/icons/ToggleOffOutlined';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
 
-const ToggleIcon = (props) => {
-const [toggleState, settoggleState] = useState(false)
-const [hamburguerMenu, setHamburguerMenu] = useState([])
+const ToggleIcon = props => {
+  const turnToggleIconOn = e => {
+    e.currentTarget.attributes.title.value === "ADICIONAL QUEIJO"
+      ? settoggleStatCheese(true)
+      : settoggleStatEgg(true);
 
-const turnToggleIconOn = (e) => {
-  settoggleState(true)
-  // setHamburguer([e.currentTarget])
-  console.log('pegar o item que ficou on, e marcar o hamburguer')
-  const itemAdded = e.currentTarget.attributes.title.value
-  setHamburguerMenu([itemAdded])
-}
+    const newStatusadditionalMenu = additionalMenu.map(item => {
+      return e.currentTarget.attributes.title.value === "ADICIONAL OVO"
+        ? { ...item, ovo: true }
+        : { ...item, queijo: true };
+    });
+    setAdditionalMenu(newStatusadditionalMenu);
+  };
 
-useEffect(()=> {
-  console.log(hamburguerMenu)
-})
+  const turnToggleIconOff = e => {
+    e.currentTarget.attributes.title.value === "ADICIONAL QUEIJO"
+      ? settoggleStatCheese(false)
+      : settoggleStatEgg(false);
+
+    const newStatusadditionalMenu = additionalMenu.map(item => {
+      return e.currentTarget.attributes.title.value === "ADICIONAL OVO"
+        ? { ...item, ovo: false }
+        : { ...item, queijo: false };
+    });
+    setAdditionalMenu(newStatusadditionalMenu);
+  };
+
   return (
     <>
-      <span>{props.title} </span>
-      { toggleState === false 
-        ? <ToggleOffOutlinedIcon title={props.title} onClick={turnToggleIconOn}/>
-        : <ToggleOnIcon title={props.title} onClick={()=> settoggleState(false)}/>
-      } 
+      <p>
+        {props.title}
+        {props.state ? (
+          <ToggleOnIcon title={props.title} onClick={turnToggleIconOff} />
+        ) : (
+          <ToggleOffOutlinedIcon
+            title={props.title}
+            onClick={turnToggleIconOn}
+          />
+        )}
+      </p>
     </>
-  )
-}
+  );
+};
+
 
 export default ToggleIcon
