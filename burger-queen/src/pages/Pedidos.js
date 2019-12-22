@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import firebase from "../firebase/firebase-config";
 import MenuGroup from "../components/MenuGroup";
 import Button from "../components/Button";
+// import Resumo from "../components/Resumo";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import ToggleOffOutlinedIcon from "@material-ui/icons/ToggleOffOutlined";
@@ -14,6 +15,11 @@ import ToggleOnIcon from "@material-ui/icons/ToggleOn";
 // map => tem que dar o setstate
 
 // consigo usar switch qdo tenho duas condições (com &&)? função addHamb
+
+//toggleIcon => melhorar a função - repetitiva
+//toggleIcon => transformar em componente -> compartilha states
+//Resumo => transformar em componente -> compartilha states
+
 
 const styles = StyleSheet.create({
   main: {
@@ -51,7 +57,7 @@ const Menu = () => {
   const [resumo, setResumo] = useState([]);
   const [showModal, setshowModal] = useState(false);
   const [additionalMenu, setAdditionalMenu] = useState([
-    { type: "", hamburguer: "", queijo: false, ovo: false }
+    { type: "", hamburguer: "", queijo: false, ovo: false, value:"" }
   ]);
 
   const [toggleStateEgg, settoggleStatEgg] = useState(false);
@@ -61,6 +67,51 @@ const Menu = () => {
   const handleClose = () => setshowModal(false);
 
   let newResumo = [];
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("MENU")
+      .get()
+      .then(querySnapshot => {
+        const products = querySnapshot.docs.map(doc => {
+          return doc.data();
+        });
+        setMenu(products);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(resumo)
+  }, [resumo])
+
+  useEffect(() => {
+    console.log(additionalMenu)
+  }, [additionalMenu])
+
+  const addItem = e => {
+    const itemAdded = e.currentTarget.title;
+    const value = Number(e.currentTarget.value.slice(2))
+    checkHasItemOrdered(itemAdded, value);
+  };
+
+  const checkHasItemOrdered = (itemAdded, price) => {
+    const hasItem = resumo.some(item => item["item"] === itemAdded);
+    if (hasItem) {
+      newResumo = resumo.map(item => {
+        if (item.item === itemAdded) {
+          item.quantia += 1;
+          item.value = price*item.quantia
+          return item;
+        } else {
+          return item;
+        }
+      });
+    } else {
+      newResumo = [...resumo, { item: itemAdded, quantia: 1, value: price}];
+    }
+    setResumo(newResumo);
+  };
 
   const addHamb = () => {
     handleClose();
@@ -76,71 +127,38 @@ const Menu = () => {
           return `${obj.type} ${obj.hamburguer} com ovo adicional`;
         }
     });
+    
     const itemAdded = itemAddedArray[0]
-    checkHasItemOrdered(itemAdded);
-    console.log("itemadded", itemAdded);
+    let value = ''
+    const valueInitial = additionalMenu[0].value
+
+    if(itemAdded.includes('queijo' && 'ovo')) {
+      value = valueInitial + 2
+    } else if(itemAdded.includes('queijo' || 'ovo')) {
+      value = valueInitial + 1
+    } else value = valueInitial
+
+    checkHasItemOrdered(itemAdded, value);
   };
-
-  useEffect(() => {
-    console.log("resumo", resumo);
-  }, [resumo]);
-
-  useEffect(() => {
-    console.log("additional menu", additionalMenu);
-  }, [additionalMenu]);
-
-  const addItem = e => {
-    const itemAdded = e.currentTarget.innerHTML;
-    checkHasItemOrdered(itemAdded);
-  };
-
-  const checkHasItemOrdered = (itemAdded) => {
-    const hasItem = resumo.some(item => item["item"] === itemAdded);
-    if (hasItem) {
-      newResumo = resumo.map(item => {
-        if (item.item === itemAdded) {
-          item.quantia += 1;
-          return item;
-        } else {
-          return item;
-        }
-      });
-    } else {
-      newResumo = [...resumo, { item: itemAdded, quantia: 1 }];
-    }
-    setResumo(newResumo);
-  };
-
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection("MENU")
-      .get()
-      .then(querySnapshot => {
-        const products = querySnapshot.docs.map(doc => {
-          return doc.data();
-        });
-        setMenu(products);
-      });
-  }, []);
 
   const getHamburguerType = e => {
     settoggleStatEgg(false);
     settoggleStatCheese(false);
     setBtnModalDisabledStatus(true);
     setshowModal(true);
-
+    const value = Number(e.currentTarget.value.slice(2))
     additionalMenu.forEach(obj => {
-      obj.type = e.currentTarget.innerHTML;
+      obj.type = e.currentTarget.title;
       obj.hamburguer = "";
       obj.queijo = false;
       obj.ovo = false;
+      obj.value = value
     });
   };
 
   const getHamburguerFlavor = e => {
     const newStatusadditionalMenu = additionalMenu.map(item => {
-      switch (e.currentTarget.innerHTML) {
+      switch (e.currentTarget.title) {
         case "Bovino":
           return { ...item, hamburguer: "Bovino" };
         case "Frango":
@@ -216,6 +234,29 @@ const Menu = () => {
     );
   };
 
+  const Resumo = () => {
+
+    return (
+      <>
+        <h4>Resumo</h4>
+        <ul>
+          { resumo.map((itemResumo, index) => {
+            const item = itemResumo.item
+            const quantia = itemResumo.quantia
+            const price = itemResumo.value
+
+        return <li key={index}> {item}
+          <p>{quantia} R${price}</p></li>
+          })
+        }
+        </ul>
+        <section>
+          {}
+        </section>
+      </>
+    )
+  };
+
   const ToggleIcon = props => {
     const turnToggleIconOn = e => {
       e.currentTarget.attributes.title.value === "ADICIONAL QUEIJO"
@@ -288,13 +329,8 @@ const Menu = () => {
           click={e => addItem(e)}
         />
       </section>
-      <section className={css(styles.resumo)} id="order">
-        <h4>Resumo</h4>
-        <section>
-          {/* { resumo.map(itemOrder => {
-            return <section>{itemOrder}</section>
-          })} */}
-        </section>
+      <section className={css(styles.resumo)} id="resumo">
+        <Resumo />
       </section>
       <HamburguerOptionModalHtml
         show={showModal}

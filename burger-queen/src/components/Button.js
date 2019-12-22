@@ -14,12 +14,14 @@ const styles = StyleSheet.create({
 });
 
 const button = props => (
-  <button
+  <button 
+    value={props.value}
+    title={props.title}
     className={css(styles.button, props.class)}
     onClick={props.handleClick}
     disabled={props.disabled}
   >
-    {props.title}
+    {props.title} {props.value}
   </button>
 );
 

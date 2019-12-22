@@ -24,7 +24,7 @@ const MenuGroup = props => {
   // se fazer o state aqui, cada group vai ter um state resumo
   return (
     <section className={css(styles.menuGroupSection)}>
-      <p className={css(styles.menuTitle)}>{props.title}</p>
+<p className={css(styles.menuTitle)}>{props.title} </p>
       <p className={css(styles.menuItem)} id={props.type}>
         {props.menu.map((item, index) => {
           if (item.type === props.type)
@@ -32,7 +32,8 @@ const MenuGroup = props => {
               <Button
                 key={index}
                 handleClick={props.click} 
-                title={item.item + ' R$' + item.value}
+                title={item.item}
+                value={'R$' + item.value}
                 type={"css(styles.menuItemBtn)"}
               />
             )
