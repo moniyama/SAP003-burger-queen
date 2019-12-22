@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import firebase from "../firebase/firebase-config";
 import MenuGroup from "../components/MenuGroup";
 import Button from "../components/Button";
-// import Resumo from "../components/Resumo";
+import Resumo from "../components/Resumo";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import ToggleOffOutlinedIcon from "@material-ui/icons/ToggleOffOutlined";
@@ -127,7 +127,7 @@ const Menu = () => {
           return `${obj.type} ${obj.hamburguer} com ovo adicional`;
         }
     });
-    
+
     const itemAdded = itemAddedArray[0]
     let value = ''
     const valueInitial = additionalMenu[0].value
@@ -234,28 +234,7 @@ const Menu = () => {
     );
   };
 
-  const Resumo = () => {
-
-    return (
-      <>
-        <h4>Resumo</h4>
-        <ul>
-          { resumo.map((itemResumo, index) => {
-            const item = itemResumo.item
-            const quantia = itemResumo.quantia
-            const price = itemResumo.value
-
-        return <li key={index}> {item}
-          <p>{quantia} R${price}</p></li>
-          })
-        }
-        </ul>
-        <section>
-          {}
-        </section>
-      </>
-    )
-  };
+  
 
   const ToggleIcon = props => {
     const turnToggleIconOn = e => {
@@ -330,7 +309,7 @@ const Menu = () => {
         />
       </section>
       <section className={css(styles.resumo)} id="resumo">
-        <Resumo />
+        <Resumo resumo={resumo}/>
       </section>
       <HamburguerOptionModalHtml
         show={showModal}
