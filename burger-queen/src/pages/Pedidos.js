@@ -134,11 +134,11 @@ const Menu = () => {
       if (obj.queijo === false && obj.ovo === false) {
         return `${obj.type} ${obj.hamburguer}`
       } else if (obj.queijo === true && obj.ovo === false) {
-          return `${obj.type} ${obj.hamburguer} com queijo adicional`;
+          return `${obj.type} ${obj.hamburguer} queijo adicional`;
         } else if (obj.queijo === true && obj.ovo === true) {
-          return `${obj.type} ${obj.hamburguer} com queijo e ovo adicional`;
+          return `${obj.type} ${obj.hamburguer} queijo e ovo adicional`;
         } else {
-          return `${obj.type} ${obj.hamburguer} com ovo adicional`;
+          return `${obj.type} ${obj.hamburguer} ovo adicional`;
         }
     });
 

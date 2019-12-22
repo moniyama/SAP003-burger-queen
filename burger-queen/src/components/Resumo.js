@@ -12,41 +12,41 @@ const styles = StyleSheet.create({
   },
 
   resumoItens: {
-    overflow:'scroll',
-    flexGrow:'1',
+    overflow: "scroll",
+    flexGrow: "1",
     padding: "20px",
-    fontSize:'2vh',
-    textAlign:'left',
+    fontSize: "2vh",
+    textAlign: "left"
   },
-  price:{
-    alignSelf:'center',
+  price: {
+    alignSelf: "center"
   },
-
+  qtdBox: {
+    backgroundColor: "white",
+    padding: "3% 10%",
+    boxShadow: "inset 0 0px 7px",
+    marginLeft: "6%"
+  },
   listaItens: {
     display: "flex",
     justifyContent: "space-between"
   },
 
   itens: {
-    display: "block",
+    display: "block"
   },
   subtotal: {
-    marginTop:'7%'
+    marginTop: "7%"
   }
 });
 
 const Resumo = props => {
+  const [endBtnsshow, setEndBtnsshow] = useState(true);
+  const [resumo, setResumo] = useState(props.resumo)
 
-  const [endBtnsshow, setEndBtnsshow] = useState(true)
-
-  console.log(props.resumo)
-  useEffect(()=>{
-    console.log(props.resumo.length === 0)
-    props.resumo.length === 0
-    ? setEndBtnsshow(true)
-    : setEndBtnsshow(false)
-
-  },[props.resumo])
+  useEffect(() => {
+    props.resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
+  }, [props.resumo]);
 
   let subtotal = 0;
   for (const value in props.resumo) {
@@ -55,6 +55,27 @@ const Resumo = props => {
       subtotal += element.value;
     }
   }
+
+  const shortcutQtd = (item, plusOrMinus) => {
+    console.log('item', plusOrMinus)
+    console.log('props.resumo', props.resumo)
+    if(plusOrMinus === '+1') {
+      const newQtd = props.resumo.map(element => {
+      return item === element.item
+      ? element.quantia += 1
+      : element.quantia 
+      })
+      setResumo(newQtd)
+  } else {
+    const newQtd = props.resumo.map(element => {
+      return item === element.item
+      ? element.quantia -= 1
+      : element.quantia 
+      })
+      setResumo(newQtd)
+    }
+  }
+
   return (
     <>
       <h4>Resumo</h4>
@@ -69,10 +90,19 @@ const Resumo = props => {
                 <section className={css(styles.listaItens)}>
                   <section className={css(styles.itens)}>
                     <p>{item}</p>
-                    <Button title={"-1 "} />
-                    <Button title={"+1"} />
-                    <span>{quantia}</span>
-                  </section >
+                    <Button
+                      title={"-1"}
+                      handleClick={(e)=> shortcutQtd(item, "-1")}
+                      key={item+'-1'}
+                      // class={styles.qtdBtn}
+                    />
+                    <Button title={"+1"}
+                      handleClick={(e)=> shortcutQtd(item, "+1")}
+                      key={item+'+1'}
+                      // class={styles.qtdBtn}
+                      />
+                    <span className={css(styles.qtdBox)}>{quantia}</span>
+                  </section>
                   <span className={css(styles.price)}>R$ {price}</span>
                 </section>
               </li>
