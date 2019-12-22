@@ -17,6 +17,7 @@ const button = props => (
   <button
     className={css(styles.button, props.class)}
     onClick={props.handleClick}
+    disabled={props.disabled}
   >
     {props.title}
   </button>

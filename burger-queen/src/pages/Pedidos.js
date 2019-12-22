@@ -46,22 +46,43 @@ const Menu = () => {
   const [resumo, setResumo] = useState([]);
   const [showModal, setshowModal] = useState(false);
   const [additionalMenu, setAdditionalMenu] = useState([
-    { queijo: false, ovo: false }
+    { type: "", hamburguer: "", queijo: false, ovo: false }
   ]);
+  const [toggleStateEgg, settoggleStatEgg] = useState(false);
+  const [toggleStateCheese, settoggleStatCheese] = useState(false);
+
+  const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true)
 
   const handleClose = () => setshowModal(false);
 
-  let newResumo = [];
+  const newResumo = [];
 
-  const addHamb = e => {
+  const addHamb = () => {
     handleClose();
-    // const itemAdded = additionalMenu
-    // console.log(itemAdded)
-    // const hasItem = resumo.some( item => item['item'] === itemAdded )
-    // checkHasItemOrdered(hasItem, itemAdded)
-    // console.log('verificar se tem o item no resumo')
-    // console.log('add item no resumo')
-  };
+    settoggleStatEgg(false);
+    settoggleStatCheese(false);
+    
+    const itemAddedArray = additionalMenu.map((obj)=> {
+      if (obj.queijo === true || obj.ovo === true) {
+        if(obj.queijo === true && obj.ovo === false) {
+          return `${obj.type} ${obj.hamburguer} com queijo adicional`
+        } else if (obj.queijo === true && obj.ovo === true) {
+          return `${obj.type} ${obj.hamburguer} com queijo e ovo adicional`
+        } else {
+          return `${obj.type} ${obj.hamburguer} com ovo adicional`
+        }
+
+      } else {
+        return `${obj.type} ${obj.hamburguer}`
+      }
+
+    })
+
+    // const hasItem = resumo.some(item => item["item"] === itemAdded);
+    console.log('stringfy',JSON.stringify(itemAddedArray));
+    console.log('itemadded',(itemAddedArray));
+
+  }
 
   // useEffect(() => {
   //   console.log("modal", showModal);
@@ -72,12 +93,14 @@ const Menu = () => {
   }, [resumo]);
 
   useEffect(() => {
-    console.log('additional menu', additionalMenu);
+    console.log("additional menu", additionalMenu);
   }, [additionalMenu]);
 
   const addItem = e => {
     const itemAdded = e.currentTarget.innerHTML;
     const hasItem = resumo.some(item => item["item"] === itemAdded);
+    console.log(typeof itemAdded);
+
     checkHasItemOrdered(hasItem, itemAdded);
   };
 
@@ -110,7 +133,32 @@ const Menu = () => {
       });
   }, []);
 
-  function HamburguerOptionModalHtml(props) {
+  const getHamburguerType = e => {
+    setshowModal(true);
+    additionalMenu.forEach(obj => {
+      obj.type = e.currentTarget.innerHTML;
+    });
+    console.log(additionalMenu);
+  };
+
+  const getHamburguerFlavor = e => {
+    const newStatusadditionalMenu = additionalMenu.map(item => {
+      switch (e.currentTarget.innerHTML) {
+        case "Bovino":
+          return { ...item, hamburguer: "Bovino" };
+        case "Frango":
+          return { ...item, hamburguer: "Frango" };
+        case "Vegetariano":
+          return { ...item, hamburguer: "Vegetariano" };
+        default:
+      }
+      return null;
+    });
+    setAdditionalMenu(newStatusadditionalMenu);
+    setBtnModalDisabledStatus(false)
+  };
+
+  const HamburguerOptionModalHtml = props => {
     return (
       <Modal
         className={css(styles.modal)}
@@ -127,36 +175,38 @@ const Menu = () => {
             className={css(styles.modalButtonsOptions)}
             aria-label="First group"
           >
-            <Button class={styles.btb} title={"Bovino"} />
-            <Button title={"Frango"} />
-            <Button title={"Vegetariano"} />
+            <Button
+              class={styles.btb}
+              title={"Bovino"}
+              handleClick={getHamburguerFlavor}
+            />
+            <Button title={"Frango"} handleClick={getHamburguerFlavor} />
+            <Button title={"Vegetariano"} handleClick={getHamburguerFlavor} />
           </section>
           <section className={css(styles.modalAditional)}>
             <h4>ADICIONAL POR R$ 1,00</h4>
             <section className={css(styles.modalAditionalItens)}>
-              <ToggleIcon state={toggleStateCheese} title={"ADICIONAL QUEIJO"} />
+              <ToggleIcon
+                state={toggleStateCheese}
+                title={"ADICIONAL QUEIJO"}
+              />
               <ToggleIcon state={toggleStateEgg} title={"ADICIONAL OVO"} />
             </section>
           </section>
         </Modal.Body>
         <Modal.Footer>
           <Button title="Cancelar" handleClick={() => setshowModal(false)} />
-          <Button title="OK" handleClick={() => addHamb()} />
+          <Button title="OK" disabled={btnModalDisabledStatus} handleClick={() => addHamb()} />
         </Modal.Footer>
       </Modal>
     );
-  }
+  };
 
-  const [toggleStateEgg, settoggleStatEgg] = useState(false);
-  const [toggleStateCheese, settoggleStatCheese] = useState(false);
-  
   const ToggleIcon = props => {
-
-    const turnToggleIconOn = (e) => {
-
-      e.currentTarget.attributes.title.value === 'ADICIONAL QUEIJO' 
-      ? settoggleStatCheese(true)
-      : settoggleStatEgg(true)
+    const turnToggleIconOn = e => {
+      e.currentTarget.attributes.title.value === "ADICIONAL QUEIJO"
+        ? settoggleStatCheese(true)
+        : settoggleStatEgg(true);
 
       const newStatusadditionalMenu = additionalMenu.map(item => {
         return e.currentTarget.attributes.title.value === "ADICIONAL OVO"
@@ -164,31 +214,34 @@ const Menu = () => {
           : { ...item, queijo: true };
       });
       setAdditionalMenu(newStatusadditionalMenu);
-  }
-  
-    const turnToggleIconOff = e => {
-      e.currentTarget.attributes.title.value === 'ADICIONAL QUEIJO' 
-      ? settoggleStatCheese(false)
-      : settoggleStatEgg(false)
+    };
 
-        const newStatusadditionalMenu = additionalMenu.map((item) => {
-          return e.currentTarget.attributes.title.value === 'ADICIONAL OVO'
-            ? {...item, ovo: false}
-            : {...item, queijo: false}
-      })
-      setAdditionalMenu(newStatusadditionalMenu)
+    const turnToggleIconOff = e => {
+      e.currentTarget.attributes.title.value === "ADICIONAL QUEIJO"
+        ? settoggleStatCheese(false)
+        : settoggleStatEgg(false);
+
+      const newStatusadditionalMenu = additionalMenu.map(item => {
+        return e.currentTarget.attributes.title.value === "ADICIONAL OVO"
+          ? { ...item, ovo: false }
+          : { ...item, queijo: false };
+      });
+      setAdditionalMenu(newStatusadditionalMenu);
     };
 
     return (
       <>
-        <p>{props.title} 
-        {props.state
-        ? <ToggleOnIcon
-            title={props.title}
-            onClick={turnToggleIconOff}
-          />
-        : <ToggleOffOutlinedIcon title={props.title} onClick={turnToggleIconOn} />
-        }</p>
+        <p>
+          {props.title}
+          {props.state ? (
+            <ToggleOnIcon title={props.title} onClick={turnToggleIconOff} />
+          ) : (
+            <ToggleOffOutlinedIcon
+              title={props.title}
+              onClick={turnToggleIconOn}
+            />
+          )}
+        </p>
       </>
     );
   };
@@ -206,7 +259,7 @@ const Menu = () => {
           title="Hamburgueres"
           type="hamburguer"
           menu={menu}
-          click={() => setshowModal(true)}
+          click={getHamburguerType}
         />
         <MenuGroup
           title="Acompanhamentos"
