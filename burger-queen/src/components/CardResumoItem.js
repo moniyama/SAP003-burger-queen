@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: "3% 10%",
     boxShadow: "inset 0 0px 7px",
-    marginLeft: "6%"
+    marginLeft: "6%",
   },
   listaItens: {
     display: "flex",
@@ -32,13 +32,13 @@ const CardResumomItem = props => (
       <p className={css(styles.p)}>{props.item}</p>
       <Button
         title={"-1"}
-        handleClick={() => console.log(props.item, "-1")}
+        handleClick={() => props.handleClick(props.item, props.unitprice, "-1")}
         key={props.item + "-1"}
         class={styles.qtdBtn}
       />
       <Button
         title={"+1"}
-        handleClick={() => console.log(props.item, "+1")}
+        handleClick={() => props.handleClick(props.item, props.unitprice, "+1")}
         key={props.item + "+1"}
         class={styles.qtdBtn}
       />

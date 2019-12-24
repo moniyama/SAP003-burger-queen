@@ -8,21 +8,24 @@ const styles = StyleSheet.create({
     height: "90px",
     width: "100%"
   },
+  red: {
+    backgroundColor: "#BF190A"
+  },
   ul: {
     listStyleType: "none"
   },
   title: {
     display: "flex",
-    justifyContent:'space-between',
-    width:"100%",
-    fontWeight:'bold',
+    justifyContent: "space-between",
+    width: "100%",
+    fontWeight: "bold"
   },
   resumoItens: {
     overflow: "scroll",
     flexGrow: "1",
     padding: "20px",
     fontSize: "2vh",
-    textAlign: "left",
+    textAlign: "left"
   },
   subtotal: {
     marginTop: "7%"
@@ -34,34 +37,88 @@ const Resumo = props => {
 
   useEffect(() => {
     props.resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
+    for (const value in props.resumo) {
+      if (props.resumo.hasOwnProperty(value)) {
+        const element = props.resumo[value];
+        subtotal += element.value;
+      }
+    }
   }, [props.resumo]);
 
   let subtotal = 0;
-  for (const value in props.resumo) {
-    if (props.resumo.hasOwnProperty(value)) {
-      const element = props.resumo[value];
-      subtotal += element.value;
-    }
-  }
 
-  const shortcutQtd = (item, plusOrMinus) => {
-    console.log("item", item);
-    console.log("props.resumo", props.resumo);
-    if (plusOrMinus === "+1") {
-      console.log("aumenta a quantia e o price");
-      // const newQtd = props.resumo.map(element => {
-      //   return item === element.item ? (element.quantia += 1) : element.quantia;
-      // });
-      // props.setresumo(newQtd);
-    } else {
-      console.log("reduz a quantia e o price");
-      // const newQtd = props.resumo.map(element => {
-      //   return item === element.item && element.quantia > 1
-      //     ? (element.quantia -= 1)
-      //     : element.quantia;
-      // });
-      // props.setresumo(newQtd);
-    }
+  const shortcutQtd = (item, unitprice, plusOrMinus) => {
+    const updatedItem = props.resumo
+      .filter(obj => obj.item === item)
+      .map(element => {
+        return plusOrMinus === "+1"
+          ? {
+              item: item,
+              quantia: element.quantia + 1,
+              value: element.value + unitprice,
+              unitPrice: unitprice
+            }
+          : {
+              item: item,
+              quantia: element.quantia - 1,
+              value: element.value - unitprice,
+              unitPrice: unitprice
+            };
+      });
+    
+    const newResumo = props.resumo.map((obj) => {
+      return obj.item === item 
+      ? updatedItem[0]
+      : obj
+    })
+    console.log("updateItem", updatedItem);
+    props.setresumo(newResumo);
+
+    // const otherItens = props.resumo
+    // .filter(obj => obj.item !== item)
+    // .map(element => {
+    //   return element;
+    // });
+
+    // props.setresumo(otherItens.concat(updateItem));
+    // console.log("oldItens:", otherItens, "newItem:", updateItem);
+
+    // if (plusOrMinus === "+1") {
+    //   console.log("aumenta a quantia e o price");
+    //   const newResumo = props.resumo.map(element => {
+    //     return item === element.item
+    //       ? {
+    //           item: item,
+    //           quantia: element.quantia + 1,
+    //           value: element.value + unitprice,
+    //           unitPrice: unitprice
+    //         }
+    //       : element;
+    //   });
+    //   props.setresumo(newResumo);
+    // } else {
+    // props.resumo
+    //   .filter(obj => obj.item === item)
+    //   .forEach(element => {
+    //       element.quantia -= 1;
+    //       element.value -= unitprice;
+    //   });
+    // console.log(props.resumo);
+    // }
+
+    // props.resumo.map(element => {
+    //   if (item === element.item && element.quantia > 1)
+    //     return {
+    //       item: item,
+    //       quantia: element.quantia - 1,
+    //       value: element.value - unitprice,
+    //       unitPrice: unitprice
+    //     }
+    //   else if (item === element.item) {
+    //     console.log('deletar o item')
+    //     return element //necessario apenas por entqto para nao dar erro
+    //   } else return element
+    // });
   };
 
   return (
@@ -77,9 +134,16 @@ const Resumo = props => {
             const item = itemResumo.item;
             const quantia = itemResumo.quantia;
             const price = itemResumo.value;
+            const unitPrice = itemResumo.unitPrice;
             return (
               <li key={index}>
-                <CardResumomItem item={item} quantia={quantia} price={price} />
+                <CardResumomItem
+                  item={item}
+                  quantia={quantia}
+                  price={price}
+                  unitprice={unitPrice}
+                  handleClick={shortcutQtd}
+                />
               </li>
             );
           })}
@@ -90,13 +154,13 @@ const Resumo = props => {
         <Button
           class={styles.endBtns}
           title={"Finalizar Pedido"}
-          handleClick={() => console.log("click")}
+          handleClick={() => console.log("abrir modal 2")}
           disabled={endBtnsshow}
         />
         <Button
           class={styles.endBtns}
           title={"Cancelar Pedido"}
-          handleClick={() => console.log("click")}
+          handleClick={() => props.setresumo([])}
           disabled={endBtnsshow}
         />
       </section>

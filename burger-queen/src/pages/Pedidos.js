@@ -16,8 +16,8 @@ import HamburguerOptionModalHtml from "../components/HamburguerModal";
 
 // bug botão do modal: o estado não fica disabled se cancela. apenas se dar ok ou cancelar
 
-//Erros que aparecem: função como props 
-
+// Erros que aparecem: função como props 
+// aphrodite resumo => botões que tem css iguais e 1 diferença
 const styles = StyleSheet.create({
   main: {
     padding: "3%",
@@ -93,7 +93,7 @@ const Menu = () => {
         }
       });
     } else {
-      newResumo = [...resumo, { item: itemAdded, quantia: 1, value: price }];
+      newResumo = [...resumo, { item: itemAdded, quantia: 1, value: price, unitPrice: price }];
     }
     updateResumo(newResumo);
   };
