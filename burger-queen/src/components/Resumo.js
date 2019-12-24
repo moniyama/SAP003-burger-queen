@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     flexGrow: "1",
     padding: "20px",
     fontSize: "2vh",
-    textAlign: "left"
+    textAlign: "left",
   },
   price: {
     alignSelf: "center"
@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
   },
 
   itens: {
-    display: "block"
+    display: "block",
+    width:"100%",
   },
   subtotal: {
-    marginTop: "7%"
+    marginTop: "7%",
   }
 });
 
@@ -44,6 +45,7 @@ const Resumo = props => {
   const [endBtnsshow, setEndBtnsshow] = useState(true);
   const [resumo, setResumo] = useState(props.resumo)
 
+  
   useEffect(() => {
     props.resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
   }, [props.resumo]);
@@ -55,7 +57,7 @@ const Resumo = props => {
       subtotal += element.value;
     }
   }
-
+  
   const shortcutQtd = (item, plusOrMinus) => {
     console.log('item', plusOrMinus)
     console.log('props.resumo', props.resumo)
@@ -66,9 +68,10 @@ const Resumo = props => {
       : element.quantia 
       })
       setResumo(newQtd)
+
   } else {
     const newQtd = props.resumo.map(element => {
-      return item === element.item
+      return item === element.item && element.quantia > 1
       ? element.quantia -= 1
       : element.quantia 
       })
@@ -92,14 +95,14 @@ const Resumo = props => {
                     <p>{item}</p>
                     <Button
                       title={"-1"}
-                      handleClick={(e)=> shortcutQtd(item, "-1")}
+                      handleClick={()=> props.setstate('balbalbala')}
                       key={item+'-1'}
-                      // class={styles.qtdBtn}
+                      class={styles.qtdBtn}
                     />
                     <Button title={"+1"}
-                      handleClick={(e)=> shortcutQtd(item, "+1")}
+                      handleClick={()=> shortcutQtd(item, '+1')}
                       key={item+'+1'}
-                      // class={styles.qtdBtn}
+                      class={styles.qtdBtn}
                       />
                     <span className={css(styles.qtdBox)}>{quantia}</span>
                   </section>
