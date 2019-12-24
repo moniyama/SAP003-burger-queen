@@ -37,88 +37,41 @@ const Resumo = props => {
 
   useEffect(() => {
     props.resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
-    for (const value in props.resumo) {
-      if (props.resumo.hasOwnProperty(value)) {
-        const element = props.resumo[value];
-        subtotal += element.value;
-      }
-    }
   }, [props.resumo]);
 
   let subtotal = 0;
+  for (const value in props.resumo) {
+    if (props.resumo.hasOwnProperty(value)) {
+      const element = props.resumo[value];
+      subtotal += element.value;
+    }
+  }
 
   const shortcutQtd = (item, unitprice, plusOrMinus) => {
     const updatedItem = props.resumo
       .filter(obj => obj.item === item)
       .map(element => {
-        return plusOrMinus === "+1"
-          ? {
-              item: item,
-              quantia: element.quantia + 1,
-              value: element.value + unitprice,
-              unitPrice: unitprice
-            }
-          : {
-              item: item,
-              quantia: element.quantia - 1,
-              value: element.value - unitprice,
-              unitPrice: unitprice
-            };
+        if (plusOrMinus === "+1")
+          return {
+            item: item,
+            quantia: element.quantia + 1,
+            value: element.value + unitprice,
+            unitPrice: unitprice
+          };
+        else if (element.quantia > 1)
+          return {
+            item: item,
+            quantia: element.quantia - 1,
+            value: element.value - unitprice,
+            unitPrice: unitprice
+          };
+        else return null;
       });
-    
-    const newResumo = props.resumo.map((obj) => {
-      return obj.item === item 
-      ? updatedItem[0]
-      : obj
-    })
-    console.log("updateItem", updatedItem);
-    props.setresumo(newResumo);
 
-    // const otherItens = props.resumo
-    // .filter(obj => obj.item !== item)
-    // .map(element => {
-    //   return element;
-    // });
-
-    // props.setresumo(otherItens.concat(updateItem));
-    // console.log("oldItens:", otherItens, "newItem:", updateItem);
-
-    // if (plusOrMinus === "+1") {
-    //   console.log("aumenta a quantia e o price");
-    //   const newResumo = props.resumo.map(element => {
-    //     return item === element.item
-    //       ? {
-    //           item: item,
-    //           quantia: element.quantia + 1,
-    //           value: element.value + unitprice,
-    //           unitPrice: unitprice
-    //         }
-    //       : element;
-    //   });
-    //   props.setresumo(newResumo);
-    // } else {
-    // props.resumo
-    //   .filter(obj => obj.item === item)
-    //   .forEach(element => {
-    //       element.quantia -= 1;
-    //       element.value -= unitprice;
-    //   });
-    // console.log(props.resumo);
-    // }
-
-    // props.resumo.map(element => {
-    //   if (item === element.item && element.quantia > 1)
-    //     return {
-    //       item: item,
-    //       quantia: element.quantia - 1,
-    //       value: element.value - unitprice,
-    //       unitPrice: unitprice
-    //     }
-    //   else if (item === element.item) {
-    //     console.log('deletar o item')
-    //     return element //necessario apenas por entqto para nao dar erro
-    //   } else return element
-    // });
+    const newResumo = props.resumo.map((obj, index) => {
+      return obj.item === item ? updatedItem[0] : obj;
+    });
+    props.setresumo(newResumo.filter((elem)=> elem !==null));
   };
 
   return (
