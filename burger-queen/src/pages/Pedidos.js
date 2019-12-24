@@ -18,7 +18,7 @@ import Button from "../components/Button";
 // bug botão do modal: o estado não fica disabled se cancela. apenas se dar ok ou cancelar
 
 // Erros que aparecem: função como props
-// aphrodite pedidos => botões que tem css iguais e 1 diferença
+// aphrodite subtotal/modalbtnends => botões que tem css iguais e 1 diferença
 
 // como colocar o subtotal em função, dentro do useeffect [resumo]
 

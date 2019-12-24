@@ -1,6 +1,9 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import Button from "../components/Button";
+import AddIcon from "@material-ui/icons/Add";
+import ExposureNeg1Icon from "@material-ui/icons/ExposureNeg1";
+import ExposurePlus1Icon from "@material-ui/icons/ExposurePlus1";
 
 const styles = StyleSheet.create({
   price: {
@@ -10,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: "3% 10%",
     boxShadow: "inset 0 0px 7px",
-    marginLeft: "6%",
+    marginLeft: "6%"
   },
   listaItens: {
     display: "flex",
@@ -23,6 +26,8 @@ const styles = StyleSheet.create({
   },
   p: {
     margin: "0"
+  },
+  qtdBtn: {
   }
 });
 
@@ -31,13 +36,13 @@ const CardResumomItem = props => (
     <section className={css(styles.itens)}>
       <p className={css(styles.p)}>{props.item}</p>
       <Button
-        title={"-1"}
+        title={<ExposureNeg1Icon />}
         handleClick={() => props.handleClick(props.item, props.unitprice, "-1")}
         key={props.item + "-1"}
         class={styles.qtdBtn}
       />
       <Button
-        title={"+1"}
+        title={<ExposurePlus1Icon />}
         handleClick={() => props.handleClick(props.item, props.unitprice, "+1")}
         key={props.item + "+1"}
         class={styles.qtdBtn}

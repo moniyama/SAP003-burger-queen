@@ -4,11 +4,14 @@ import { StyleSheet, css } from "aphrodite";
 const styles = StyleSheet.create({
   button: {
     borderRadius: "5px",
-
+    outline: "none",
     fontSize: "20px",
     marginBottom: "3%",
     padding: "1%",
-    margin: "2%"
+    margin: "2%",
+    ":active": {
+      backgroundColor: "#F2B885"
+    }
   }
 });
 
