@@ -14,8 +14,7 @@ import HamburguerOptionModalHtml from "../components/HamburguerModal";
 
 // consigo usar switch qdo tenho duas condições (com &&)? função addHamb
 
-//toggleIcon => melhorar a função - repetitiva
-//toggleIcon/modal => transformar em componente -> compartilha states
+// bug botão do modal: o estado não fica disabled se cancela. apenas se dar ok ou cancelar
 
 const styles = StyleSheet.create({
   main: {
@@ -48,8 +47,9 @@ const Menu = () => {
   const [hamburguer, setHamburguer] = useState({});
 
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
-  const setBtnOff = () => setBtnModalDisabledStatus(true);
-  const setBtnOn = () => setBtnModalDisabledStatus(false);
+
+  const setBtnDisabledStatus = newStatus =>
+    setBtnModalDisabledStatus(newStatus);
 
   const updateResumo = newResumo => setResumo(newResumo);
   const handleClose = () => setshowModal(false);
@@ -106,7 +106,7 @@ const Menu = () => {
     });
 
     setshowModal(true);
-    setBtnOff()
+    setBtnDisabledStatus(true);
   };
 
   return (
@@ -146,6 +146,11 @@ const Menu = () => {
           onHide={handleClose}
           animation={false}
           hamburguer={hamburguer}
+          setresumo={updateResumo}
+          resumo={resumo}
+          checkitem={checkHasItemOrdered}
+          setbtndisablestate={setBtnDisabledStatus}
+          btnstate={btnModalDisabledStatus}
         />
       </>
     </main>
