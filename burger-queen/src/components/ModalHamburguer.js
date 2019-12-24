@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Button from "../components/Button";
+import Button from "./Button";
 import { Modal } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
-import ToggleIcon from "../components/ToggleIcon";
+import ToggleIcon from "./ToggleIcon";
 
 const styles = StyleSheet.create({
   modal: {

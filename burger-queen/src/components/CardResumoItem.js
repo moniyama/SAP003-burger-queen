@@ -10,10 +10,9 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   qtdBox: {
-    backgroundColor: "white",
-    padding: "3% 10%",
-    boxShadow: "inset 0 0px 7px",
-    marginLeft: "6%"
+    backgroundColor: "#F2B885",
+    padding: "3% 6%"
+    // boxShadow: "inset 0 0px 7px",
   },
   listaItens: {
     display: "flex",
@@ -28,6 +27,12 @@ const styles = StyleSheet.create({
     margin: "0"
   },
   qtdBtn: {
+    width: "50px",
+    border: "0",
+    borderRadius: "0",
+    height: "40px",
+    margin: "0 4% 0 0",
+    padding: "0"
   }
 });
 

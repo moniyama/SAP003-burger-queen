@@ -3,8 +3,9 @@ import firebase from "../firebase/firebase-config";
 import MenuGroup from "../components/MenuGroup";
 import Resumo from "../components/Resumo";
 import { StyleSheet, css } from "aphrodite";
-import HamburguerOptionModalHtml from "../components/HamburguerModal";
+import HamburguerOptionModalHtml from "../components/ModalHamburguer";
 import Button from "../components/Button";
+import ModalMesa from "../components/ModalMesa";
 
 // import ToggleIcon from "../components/ToggleIcon";
 // import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
@@ -53,10 +54,10 @@ const styles = StyleSheet.create({
 const Menu = () => {
   const [menu, setMenu] = useState([]);
   const [resumo, setResumo] = useState([]);
+  const [showModalMesa, setShowModalMesa] = useState(false)
   const [showModal, setshowModal] = useState(false);
   const [hamburguer, setHamburguer] = useState({});
   const [endBtnsshow, setEndBtnsshow] = useState(true);
-
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
 
   const setBtnDisabledStatus = newStatus =>
@@ -64,6 +65,7 @@ const Menu = () => {
 
   const updateResumo = newResumo => setResumo(newResumo);
   const handleClose = () => setshowModal(false);
+  const handleCloseModalMesa = () => setShowModalMesa(false)
   let newResumo = [];
 
   useEffect(() => {
@@ -85,12 +87,12 @@ const Menu = () => {
   }, [resumo]);
 
   let subtotal = 0;
-    for (const value in resumo) {
-      if (resumo.hasOwnProperty(value)) {
-        const element = resumo[value];
-        (subtotal += element.value);
-      }
+  for (const value in resumo) {
+    if (resumo.hasOwnProperty(value)) {
+      const element = resumo[value];
+      subtotal += element.value;
     }
+  }
 
   const addItem = e => {
     const itemAdded = e.currentTarget.title;
@@ -167,7 +169,7 @@ const Menu = () => {
           <Button
             class={styles.endBtns}
             title={"Finalizar Pedido"}
-            handleClick={() => console.log("abrir modal 2")}
+            handleClick={() => setShowModalMesa(true)}
             disabled={endBtnsshow}
           />
           <Button
@@ -190,6 +192,9 @@ const Menu = () => {
           setbtndisablestate={setBtnDisabledStatus}
           btnstate={btnModalDisabledStatus}
         />
+        <ModalMesa show={showModalMesa}
+          onHide={handleCloseModalMesa}
+          animation={false}/>
       </>
     </main>
   );

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   menuItemBtn: {
     fontSize: "2vh",
     height: "100px",
-    width: "175px"
+    width: "175px",
   }
 });
 
