@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import Button from "../components/Button";
 import CardResumomItem from "./CardResumoItem";
 
 const styles = StyleSheet.create({
-  endBtns: {
-    height: "90px",
-    width: "100%"
-  },
   red: {
     backgroundColor: "#BF190A"
   },
@@ -26,27 +21,10 @@ const styles = StyleSheet.create({
     padding: "20px",
     fontSize: "2vh",
     textAlign: "left"
-  },
-  subtotal: {
-    marginTop: "7%"
   }
 });
 
 const Resumo = props => {
-  const [endBtnsshow, setEndBtnsshow] = useState(true);
-
-  useEffect(() => {
-    props.resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
-  }, [props.resumo]);
-
-  let subtotal = 0;
-  for (const value in props.resumo) {
-    if (props.resumo.hasOwnProperty(value)) {
-      const element = props.resumo[value];
-      subtotal += element.value;
-    }
-  }
-
   const shortcutQtd = (item, unitprice, plusOrMinus) => {
     const updatedItem = props.resumo
       .filter(obj => obj.item === item)
@@ -71,7 +49,7 @@ const Resumo = props => {
     const newResumo = props.resumo.map((obj, index) => {
       return obj.item === item ? updatedItem[0] : obj;
     });
-    props.setresumo(newResumo.filter((elem)=> elem !==null));
+    props.setresumo(newResumo.filter(elem => elem !== null));
   };
 
   return (
@@ -93,7 +71,7 @@ const Resumo = props => {
                 <CardResumomItem
                   item={item}
                   quantia={quantia}
-                  price={price}
+                  price={price + ",00"}
                   unitprice={unitPrice}
                   handleClick={shortcutQtd}
                 />
@@ -101,21 +79,6 @@ const Resumo = props => {
             );
           })}
         </ul>
-      </section>
-      <section className={css(styles.subtotal)}>
-        <h4>Sub-Total: R$ {subtotal}</h4>
-        <Button
-          class={styles.endBtns}
-          title={"Finalizar Pedido"}
-          handleClick={() => console.log("abrir modal 2")}
-          disabled={endBtnsshow}
-        />
-        <Button
-          class={styles.endBtns}
-          title={"Cancelar Pedido"}
-          handleClick={() => props.setresumo([])}
-          disabled={endBtnsshow}
-        />
       </section>
     </>
   );

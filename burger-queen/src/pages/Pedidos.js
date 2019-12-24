@@ -4,6 +4,7 @@ import MenuGroup from "../components/MenuGroup";
 import Resumo from "../components/Resumo";
 import { StyleSheet, css } from "aphrodite";
 import HamburguerOptionModalHtml from "../components/HamburguerModal";
+import Button from "../components/Button";
 
 // import ToggleIcon from "../components/ToggleIcon";
 // import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
@@ -16,8 +17,11 @@ import HamburguerOptionModalHtml from "../components/HamburguerModal";
 
 // bug botão do modal: o estado não fica disabled se cancela. apenas se dar ok ou cancelar
 
-// Erros que aparecem: função como props 
-// aphrodite resumo => botões que tem css iguais e 1 diferença
+// Erros que aparecem: função como props
+// aphrodite pedidos => botões que tem css iguais e 1 diferença
+
+// como colocar o subtotal em função, dentro do useeffect [resumo]
+
 const styles = StyleSheet.create({
   main: {
     padding: "3%",
@@ -37,8 +41,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: "100%"
   },
-  btb: {
-    color: "red"
+  endBtns: {
+    height: "90px",
+    width: "100%"
+  },
+  subtotal: {
+    marginTop: "7%"
   }
 });
 
@@ -47,6 +55,7 @@ const Menu = () => {
   const [resumo, setResumo] = useState([]);
   const [showModal, setshowModal] = useState(false);
   const [hamburguer, setHamburguer] = useState({});
+  const [endBtnsshow, setEndBtnsshow] = useState(true);
 
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
 
@@ -72,7 +81,16 @@ const Menu = () => {
 
   useEffect(() => {
     console.log(resumo);
+    resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
   }, [resumo]);
+
+  let subtotal = 0;
+    for (const value in resumo) {
+      if (resumo.hasOwnProperty(value)) {
+        const element = resumo[value];
+        (subtotal += element.value);
+      }
+    }
 
   const addItem = e => {
     const itemAdded = e.currentTarget.title;
@@ -93,7 +111,10 @@ const Menu = () => {
         }
       });
     } else {
-      newResumo = [...resumo, { item: itemAdded, quantia: 1, value: price, unitPrice: price }];
+      newResumo = [
+        ...resumo,
+        { item: itemAdded, quantia: 1, value: price, unitPrice: price }
+      ];
     }
     updateResumo(newResumo);
   };
@@ -141,6 +162,21 @@ const Menu = () => {
       </section>
       <section className={css(styles.resumo)} id="resumo">
         <Resumo resumo={resumo} setresumo={updateResumo} />
+        <section className={css(styles.subtotal)}>
+          <h4>Sub-Total: R$ {subtotal + ",00"}</h4>
+          <Button
+            class={styles.endBtns}
+            title={"Finalizar Pedido"}
+            handleClick={() => console.log("abrir modal 2")}
+            disabled={endBtnsshow}
+          />
+          <Button
+            class={styles.endBtns}
+            title={"Cancelar Pedido"}
+            handleClick={() => updateResumo([])}
+            disabled={endBtnsshow}
+          />
+        </section>
       </section>
       <>
         <HamburguerOptionModalHtml
