@@ -16,6 +16,8 @@ import HamburguerOptionModalHtml from "../components/HamburguerModal";
 
 // bug botão do modal: o estado não fica disabled se cancela. apenas se dar ok ou cancelar
 
+//Erros que aparecem: função como props 
+
 const styles = StyleSheet.create({
   main: {
     padding: "3%",
@@ -138,7 +140,7 @@ const Menu = () => {
         />
       </section>
       <section className={css(styles.resumo)} id="resumo">
-        <Resumo resumo={resumo} />
+        <Resumo resumo={resumo} setresumo={updateResumo} />
       </section>
       <>
         <HamburguerOptionModalHtml

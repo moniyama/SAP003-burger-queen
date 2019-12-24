@@ -7,15 +7,16 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   menuTitle: {
-    color: "red",
-    fontSize: "25px"
+    color: "#BF190A",
+    fontSize: "25px",
+    fontWeight: "bold"
   },
   menuItem: {
     display: "flex",
     flexWrap: "wrap"
   },
   menuItemBtn: {
-    fontSize:'2vh',
+    fontSize: "2vh",
     height: "100px",
     width: "175px"
   }

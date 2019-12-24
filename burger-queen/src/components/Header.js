@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     padding: "1%",
-    fontWeight:'bold'
+    fontWeight: "bold"
   }
 });
 

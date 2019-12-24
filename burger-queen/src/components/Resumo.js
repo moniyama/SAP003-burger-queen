@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import Button from "../components/Button";
+import CardResumomItem from "./CardResumoItem";
 
 const styles = StyleSheet.create({
   endBtns: {
@@ -10,7 +11,12 @@ const styles = StyleSheet.create({
   ul: {
     listStyleType: "none"
   },
-
+  title: {
+    display: "flex",
+    justifyContent:'space-between',
+    width:"100%",
+    fontWeight:'bold',
+  },
   resumoItens: {
     overflow: "scroll",
     flexGrow: "1",
@@ -18,34 +24,14 @@ const styles = StyleSheet.create({
     fontSize: "2vh",
     textAlign: "left",
   },
-  price: {
-    alignSelf: "center"
-  },
-  qtdBox: {
-    backgroundColor: "white",
-    padding: "3% 10%",
-    boxShadow: "inset 0 0px 7px",
-    marginLeft: "6%"
-  },
-  listaItens: {
-    display: "flex",
-    justifyContent: "space-between"
-  },
-
-  itens: {
-    display: "block",
-    width:"100%",
-  },
   subtotal: {
-    marginTop: "7%",
+    marginTop: "7%"
   }
 });
 
 const Resumo = props => {
   const [endBtnsshow, setEndBtnsshow] = useState(true);
-  const [resumo, setResumo] = useState(props.resumo)
 
-  
   useEffect(() => {
     props.resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
   }, [props.resumo]);
@@ -57,57 +43,43 @@ const Resumo = props => {
       subtotal += element.value;
     }
   }
-  
-  const shortcutQtd = (item, plusOrMinus) => {
-    console.log('item', plusOrMinus)
-    console.log('props.resumo', props.resumo)
-    if(plusOrMinus === '+1') {
-      const newQtd = props.resumo.map(element => {
-      return item === element.item
-      ? element.quantia += 1
-      : element.quantia 
-      })
-      setResumo(newQtd)
 
-  } else {
-    const newQtd = props.resumo.map(element => {
-      return item === element.item && element.quantia > 1
-      ? element.quantia -= 1
-      : element.quantia 
-      })
-      setResumo(newQtd)
+  const shortcutQtd = (item, plusOrMinus) => {
+    console.log("item", item);
+    console.log("props.resumo", props.resumo);
+    if (plusOrMinus === "+1") {
+      console.log("aumenta a quantia e o price");
+      // const newQtd = props.resumo.map(element => {
+      //   return item === element.item ? (element.quantia += 1) : element.quantia;
+      // });
+      // props.setresumo(newQtd);
+    } else {
+      console.log("reduz a quantia e o price");
+      // const newQtd = props.resumo.map(element => {
+      //   return item === element.item && element.quantia > 1
+      //     ? (element.quantia -= 1)
+      //     : element.quantia;
+      // });
+      // props.setresumo(newQtd);
     }
-  }
+  };
 
   return (
     <>
       <h4>Resumo</h4>
       <section className={css(styles.resumoItens)}>
         <ul className={css(styles.ul)}>
+          <section className={css(styles.title)}>
+            <span>Item</span>
+            <span>R$</span>
+          </section>
           {props.resumo.map((itemResumo, index) => {
             const item = itemResumo.item;
             const quantia = itemResumo.quantia;
             const price = itemResumo.value;
             return (
               <li key={index}>
-                <section className={css(styles.listaItens)}>
-                  <section className={css(styles.itens)}>
-                    <p>{item}</p>
-                    <Button
-                      title={"-1"}
-                      handleClick={()=> props.setstate('balbalbala')}
-                      key={item+'-1'}
-                      class={styles.qtdBtn}
-                    />
-                    <Button title={"+1"}
-                      handleClick={()=> shortcutQtd(item, '+1')}
-                      key={item+'+1'}
-                      class={styles.qtdBtn}
-                      />
-                    <span className={css(styles.qtdBox)}>{quantia}</span>
-                  </section>
-                  <span className={css(styles.price)}>R$ {price}</span>
-                </section>
+                <CardResumomItem item={item} quantia={quantia} price={price} />
               </li>
             );
           })}

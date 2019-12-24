@@ -4,7 +4,7 @@ import { StyleSheet, css } from "aphrodite";
 const styles = StyleSheet.create({
   button: {
     borderRadius: "5px",
-    
+
     fontSize: "20px",
     marginBottom: "3%",
     padding: "1%",
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 });
 
 const button = props => (
-  <button 
+  <button
     value={props.value}
     title={props.title}
     className={css(styles.button, props.class)}
