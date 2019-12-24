@@ -22,6 +22,7 @@ import ModalMesa from "../components/ModalMesa";
 // aphrodite subtotal/modalbtnends => botões que tem css iguais e 1 diferença
 
 // como colocar o subtotal em função, dentro do useeffect [resumo]
+// input na modalMesa => melhor usa o onchange ou getelementbyid mesmo?
 
 const styles = StyleSheet.create({
   main: {
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
 const Menu = () => {
   const [menu, setMenu] = useState([]);
   const [resumo, setResumo] = useState([]);
-  const [showModalMesa, setShowModalMesa] = useState(false)
+  const [showModalMesa, setShowModalMesa] = useState(false);
   const [showModal, setshowModal] = useState(false);
   const [hamburguer, setHamburguer] = useState({});
   const [endBtnsshow, setEndBtnsshow] = useState(true);
@@ -65,7 +66,7 @@ const Menu = () => {
 
   const updateResumo = newResumo => setResumo(newResumo);
   const handleClose = () => setshowModal(false);
-  const handleCloseModalMesa = () => setShowModalMesa(false)
+  const handleCloseModalMesa = () => setShowModalMesa(false);
   let newResumo = [];
 
   useEffect(() => {
@@ -96,20 +97,20 @@ const Menu = () => {
 
   const addItem = e => {
     const itemAdded = e.currentTarget.title;
-    const value = Number(e.currentTarget.value.slice(2));
-    checkHasItemOrdered(itemAdded, value);
+    const price = Number(e.currentTarget.value.slice(2));
+    checkHasItemOrdered(itemAdded, price);
   };
 
   const checkHasItemOrdered = (itemAdded, price) => {
     const hasItem = resumo.some(item => item["item"] === itemAdded);
     if (hasItem) {
-      newResumo = resumo.map(item => {
-        if (item.item === itemAdded) {
-          item.quantia += 1;
-          item.value = price * item.quantia;
-          return item;
+      newResumo = resumo.map(obj => {
+        if (obj.item === itemAdded) {
+          obj.quantia += 1;
+          obj.value = price * obj.quantia;
+          return obj;
         } else {
-          return item;
+          return obj;
         }
       });
     } else {
@@ -192,9 +193,13 @@ const Menu = () => {
           setbtndisablestate={setBtnDisabledStatus}
           btnstate={btnModalDisabledStatus}
         />
-        <ModalMesa show={showModalMesa}
+        <ModalMesa
+          show={showModalMesa}
           onHide={handleCloseModalMesa}
-          animation={false}/>
+          animation={false}
+          setresumo={updateResumo}
+          resumo={resumo}
+        />
       </>
     </main>
   );
