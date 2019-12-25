@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   main: {
     padding: "3%",
     display: "flex",
-    height: "100vh"
+    height: "83vh"
   },
   menu: {
     width: "60%",
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     height: "100%"
   },
   endBtns: {
-    height: "90px",
+    height: "75px",
     width: "100%"
   },
   subtotal: {
@@ -60,6 +60,7 @@ const Menu = () => {
   const [hamburguer, setHamburguer] = useState({});
   const [endBtnsshow, setEndBtnsshow] = useState(true);
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
+  // const [subtotal, setSubtotal] = useState(0);
 
   const setBtnDisabledStatus = newStatus =>
     setBtnModalDisabledStatus(newStatus);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import { Modal, Alert } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import Button from "../components/Button";
 import firebase from "../firebase/firebase-config";
 

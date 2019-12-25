@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import Button from "../components/Button";
-import AddIcon from "@material-ui/icons/Add";
 import ExposureNeg1Icon from "@material-ui/icons/ExposureNeg1";
 import ExposurePlus1Icon from "@material-ui/icons/ExposurePlus1";
 
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
   itens: {
     display: "block",
     width: "100%",
-    marginTop: "15px"
+    marginTop: "10px"
   },
   p: {
     margin: "0"

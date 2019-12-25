@@ -13,14 +13,16 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    padding: "0px 20px",
+    fontSize:'2vh'
   },
   resumoItens: {
     overflow: "scroll",
     flexGrow: "1",
-    padding: "20px",
+    padding: "0px 20px",
     fontSize: "2vh",
-    textAlign: "left"
+    textAlign: "left",
   }
 });
 
@@ -55,12 +57,12 @@ const Resumo = props => {
   return (
     <>
       <h4>Resumo</h4>
+      <section className={css(styles.title)}>
+        <span>Item</span>
+        <span>R$</span>
+      </section>
       <section className={css(styles.resumoItens)}>
         <ul className={css(styles.ul)}>
-          <section className={css(styles.title)}>
-            <span>Item</span>
-            <span>R$</span>
-          </section>
           {props.resumo.map((itemResumo, index) => {
             const item = itemResumo.item;
             const quantia = itemResumo.quantia;

@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
   menuTitle: {
     color: "#BF190A",
     fontSize: "25px",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginBottom: "1%"
   },
   menuItem: {
     display: "flex",
@@ -17,8 +18,8 @@ const styles = StyleSheet.create({
   },
   menuItemBtn: {
     fontSize: "2vh",
-    height: "100px",
-    width: "175px",
+    height: "80px",
+    width: "175px"
   }
 });
 
