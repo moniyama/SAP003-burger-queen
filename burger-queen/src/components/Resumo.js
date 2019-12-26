@@ -48,7 +48,7 @@ const Resumo = props => {
         else return null;
       });
 
-    const newResumo = props.resumo.map((obj, index) => {
+    const newResumo = props.resumo.map((obj) => {
       return obj.item === item ? updatedItem[0] : obj;
     });
     props.setresumo(newResumo.filter(elem => elem !== null));

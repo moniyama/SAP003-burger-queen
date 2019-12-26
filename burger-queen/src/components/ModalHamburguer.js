@@ -40,9 +40,9 @@ const HamburguerOptionModalHtml = props => {
   const [toggleStateEgg, settoggleStatEgg] = useState(false);
   const [toggleStateCheese, settoggleStatCheese] = useState(false);
 
-  const [hambResumo, setHambResumo] = useState([]);
+  const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
 
-  const resumo = props.resumo;
+  const [hambResumo, setHambResumo] = useState([]);
 
   const setNewEggState = newState => {
     settoggleStatEgg(newState);
@@ -66,9 +66,9 @@ const HamburguerOptionModalHtml = props => {
     const additionalCheese = obj.queijo;
     const hamburguerType = obj.type;
     const hamburguerFlavor = obj.hamburguer;
-    const valueInitial = obj.value;
-
-    let valueFinal = "";
+    const initialPrice = obj.value;
+    
+    let finalPrice = "";
     let additional = "";
 
     if (additionalCheese === true && additionalEgg === false) {
@@ -81,36 +81,36 @@ const HamburguerOptionModalHtml = props => {
 
     const itemArray = [hamburguerType, hamburguerFlavor, additional];
     const itemAdded = itemArray.join(" ");
-
-    switch(additional) {
+    
+    switch (additional) {
       case "queijo e ovo adicional":
-        valueFinal = valueInitial + 2;
-        console.log("+2");
-        break
+        finalPrice = initialPrice + 2;
+        break;
       case "":
-        valueFinal = valueInitial;
-        break
+        finalPrice = initialPrice;
+        break;
       default:
-        valueFinal = valueInitial + 1;
+        finalPrice = initialPrice + 1;
     }
 
-    const newResumo = { item: itemAdded, quantia: 1, value: valueFinal };
+    const newItem = { item: itemAdded, quantia: 1, value: finalPrice };
 
-    props.setresumo([...resumo, newResumo]);
-    props.checkitem(itemAdded, valueFinal);
+    props.additemresumo(newItem);
+    props.checkitem(itemAdded, finalPrice);
     props.onHide();
   };
 
   const getHamburguerFlavor = e => {
-    props.initialhambstate.hamburguer = e.currentTarget.title;
-    props.setbtndisablestate(false);
-    const newHambResumo = hambResumo.map(elem => {
+    setBtnModalDisabledStatus(false);
+    const newHambFlavor = hambResumo.map(elem => {
       return { ...elem, hamburguer: e.currentTarget.title };
     });
-    setHambResumo(newHambResumo);
+    setHambResumo(newHambFlavor);
   };
 
   useEffect(() => {
+    console.log('useeffec');
+    
     setHambResumo([
       {
         type: props.initialhambstate.type,
@@ -120,13 +120,13 @@ const HamburguerOptionModalHtml = props => {
         value: props.initialhambstate.value
       }
     ]);
-
+    setBtnModalDisabledStatus(true)
     settoggleStatEgg(false);
     settoggleStatCheese(false);
   }, [props.initialhambstate.type, props.initialhambstate.value]);
 
   return (
-    <Modal
+    <Modal backdrop='static'
       className={css(styles.modal)}
       {...props}
       size="lg"
@@ -180,14 +180,14 @@ const HamburguerOptionModalHtml = props => {
       <Modal.Footer>
         <Button
           title="Cancelar"
-          handleClick={() => props.onHide()}
+          handleClick={() => { props.onHide(); setBtnModalDisabledStatus(true) } }
           disabled={false}
           class={styles.modalBtnEnd}
         />
         <Button
           title="OK"
           handleClick={addHamb}
-          disabled={props.btnstate}
+          disabled={btnModalDisabledStatus}
           class={styles.modalBtnEnd}
         />
       </Modal.Footer>

@@ -61,13 +61,13 @@ const Menu = () => {
   const [endBtnsshow, setEndBtnsshow] = useState(true);
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
 
-  const setBtnDisabledStatus = newStatus =>
-    setBtnModalDisabledStatus(newStatus);
+  // const setBtnDisabledStatus = newStatus =>
+  //   setBtnModalDisabledStatus(newStatus);
 
   const updateResumo = newResumo => setResumo(newResumo);
+  const addItemResumo = newItem => setResumo([...resumo, newItem]);
   const handleClose = () => setshowModal(false);
   const handleCloseModalMesa = () => setShowModalMesa(false);
-  let newResumo = [];
 
   useEffect(() => {
     firebase
@@ -85,7 +85,7 @@ const Menu = () => {
   useEffect(() => {
     console.log(resumo);
     resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
-    setInitialHamburguerState({})
+    setInitialHamburguerState({});
   }, [resumo]);
 
   let subtotal = 0;
@@ -106,20 +106,20 @@ const Menu = () => {
   //     setSubtotal(...subtotal + subtotal)
   // }, [resumo, subtotal]);
 
-
   const addItem = e => {
-    const itemAdded = e.currentTarget.title;
-    const price = Number(e.currentTarget.value.slice(2));
-    checkHasItemOrdered(itemAdded, price);
+    const newItem = e.currentTarget.title;
+    const unitPrice = Number(e.currentTarget.value.slice(2));
+    checkHasItemOrdered(newItem, unitPrice);
   };
 
-  const checkHasItemOrdered = (itemAdded, price) => {
+  const checkHasItemOrdered = (itemAdded, itemPrice) => {
+    let newResumo = [];
     const hasItem = resumo.some(item => item["item"] === itemAdded);
     if (hasItem) {
       newResumo = resumo.map(obj => {
         if (obj.item === itemAdded) {
           obj.quantia += 1;
-          obj.value = price * obj.quantia;
+          obj.value = itemPrice * obj.quantia;
           return obj;
         } else {
           return obj;
@@ -128,10 +128,10 @@ const Menu = () => {
     } else {
       newResumo = [
         ...resumo,
-        { item: itemAdded, quantia: 1, value: price, unitPrice: price }
+        { item: itemAdded, quantia: 1, value: itemPrice, unitPrice: itemPrice }
       ];
     }
-    setResumo(newResumo);
+    updateResumo(newResumo);
   };
 
   const getHambType = e => {
@@ -141,7 +141,7 @@ const Menu = () => {
     });
 
     setshowModal(true);
-    setBtnDisabledStatus(true);
+    // setBtnDisabledStatus(true);
   };
 
   return (
@@ -196,11 +196,10 @@ const Menu = () => {
           onHide={handleClose}
           animation={false}
           initialhambstate={initialHamburguerState}
-          setresumo={updateResumo}
-          resumo={resumo}
+          additemresumo={addItemResumo}
           checkitem={checkHasItemOrdered}
-          setbtndisablestate={setBtnDisabledStatus}
-          btnstate={btnModalDisabledStatus}
+          // setbtndisablestate={setBtnDisabledStatus}
+          // btnstate={btnModalDisabledStatus}
         />
         <ModalMesa
           show={showModalMesa}
