@@ -37,12 +37,26 @@ const styles = StyleSheet.create({
 });
 
 const HamburguerOptionModalHtml = props => {
+  const [hambResumo, setHambResumo] = useState([]);
+
   const [toggleStateEgg, settoggleStatEgg] = useState(false);
   const [toggleStateCheese, settoggleStatCheese] = useState(false);
-
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
 
-  const [hambResumo, setHambResumo] = useState([]);
+  useEffect(() => {
+    setHambResumo([
+      {
+        type: props.initialhambstate.type,
+        hamburguer: "",
+        queijo: false,
+        ovo: false,
+        value: props.initialhambstate.value
+      }
+    ]);
+    setBtnModalDisabledStatus(true);
+    settoggleStatEgg(false);
+    settoggleStatCheese(false);
+  }, [props.initialhambstate.type, props.initialhambstate.value]);
 
   const setNewEggState = newState => {
     settoggleStatEgg(newState);
@@ -67,7 +81,7 @@ const HamburguerOptionModalHtml = props => {
     const hamburguerType = obj.type;
     const hamburguerFlavor = obj.hamburguer;
     const initialPrice = obj.value;
-    
+
     let finalPrice = "";
     let additional = "";
 
@@ -81,7 +95,7 @@ const HamburguerOptionModalHtml = props => {
 
     const itemArray = [hamburguerType, hamburguerFlavor, additional];
     const itemAdded = itemArray.join(" ");
-    
+
     switch (additional) {
       case "queijo e ovo adicional":
         finalPrice = initialPrice + 2;
@@ -108,25 +122,9 @@ const HamburguerOptionModalHtml = props => {
     setHambResumo(newHambFlavor);
   };
 
-  useEffect(() => {
-    console.log('useeffec');
-    
-    setHambResumo([
-      {
-        type: props.initialhambstate.type,
-        hamburguer: "",
-        queijo: false,
-        ovo: false,
-        value: props.initialhambstate.value
-      }
-    ]);
-    setBtnModalDisabledStatus(true)
-    settoggleStatEgg(false);
-    settoggleStatCheese(false);
-  }, [props.initialhambstate.type, props.initialhambstate.value]);
-
   return (
-    <Modal backdrop='static'
+    <Modal
+      backdrop="static"
       className={css(styles.modal)}
       {...props}
       size="lg"
@@ -180,7 +178,10 @@ const HamburguerOptionModalHtml = props => {
       <Modal.Footer>
         <Button
           title="Cancelar"
-          handleClick={() => { props.onHide(); setBtnModalDisabledStatus(true) } }
+          handleClick={() => {
+            props.onHide();
+            setBtnModalDisabledStatus(true);
+          }}
           disabled={false}
           class={styles.modalBtnEnd}
         />

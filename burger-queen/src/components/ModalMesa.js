@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import Button from "../components/Button";
@@ -27,33 +27,31 @@ const styles = StyleSheet.create({
 });
 
 const ModalMesa = props => {
-  const [inputTable, setInputTable] = useState({});
   const [buttonAvailableState, setButtonAvailableState] = useState(true);
 
   const setButtonAvailable = () => {
     const tableName = document.getElementById("input-table-name").value;
     const tableNumber = document.getElementById("input-table-number").value;
     tableName !== "" && tableNumber > 0
-      ? setButtonAvailableState(false) &&
-        setInputTable({ name: tableName, table: tableNumber })
+      ? setButtonAvailableState(false)
       : setButtonAvailableState(true);
   };
 
   const endOrder = () => {
     const tableName = document.getElementById("input-table-name").value;
     const tableNumber = document.getElementById("input-table-number").value;
-    setInputTable({ name: tableName, table: tableNumber });
-    sendOrderToFirebase();
+    sendOrderToFirebase(tableName, tableNumber);
     props.onHide();
     props.setresumo([]);
   };
 
-  const sendOrderToFirebase = () =>
+  const sendOrderToFirebase = (name, number) =>
     firebase
       .firestore()
       .collection("ORDERS")
       .add({
-        // NÃO FUNCIONA INPUTS DA MESA =,(
+        name: name,
+        table: number,
         status_delivered: false,
         status_ready: false,
         timestamp: Date(),

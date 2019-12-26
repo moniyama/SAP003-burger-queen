@@ -141,7 +141,6 @@ const Menu = () => {
     });
 
     setshowModal(true);
-    // setBtnDisabledStatus(true);
   };
 
   return (
@@ -198,8 +197,6 @@ const Menu = () => {
           initialhambstate={initialHamburguerState}
           additemresumo={addItemResumo}
           checkitem={checkHasItemOrdered}
-          // setbtndisablestate={setBtnDisabledStatus}
-          // btnstate={btnModalDisabledStatus}
         />
         <ModalMesa
           show={showModalMesa}
