@@ -82,13 +82,17 @@ const HamburguerOptionModalHtml = props => {
     const itemArray = [hamburguerType, hamburguerFlavor, additional];
     const itemAdded = itemArray.join(" ");
 
-    if (itemAdded.includes("queijo e ovo")) {
-      valueFinal = valueInitial + 2;
-      console.log("+2");
-    } else if (itemAdded.includes("queijo" || "ovo")) {
-      valueFinal = valueInitial + 1;
-      console.log("+1");
-    } else valueFinal = valueInitial;
+    switch(additional) {
+      case "queijo e ovo adicional":
+        valueFinal = valueInitial + 2;
+        console.log("+2");
+        break
+      case "":
+        valueFinal = valueInitial;
+        break
+      default:
+        valueFinal = valueInitial + 1;
+    }
 
     const newResumo = { item: itemAdded, quantia: 1, value: valueFinal };
 

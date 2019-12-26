@@ -24,9 +24,6 @@ import ModalMesa from "../components/ModalMesa";
 // como colocar o subtotal em função, dentro do useeffect [resumo]
 // input na modalMesa => melhor usa o onchange ou getelementbyid mesmo?
 
-// bug no toggle icon => qdo clica no adiciona queijo antes do sabor, ele não computa o adicional
-// bug qdo toggle com ovo => cobrando 2+
-
 const styles = StyleSheet.create({
   main: {
     padding: "3%",
