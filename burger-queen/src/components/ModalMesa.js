@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import Button from "../components/Button";
@@ -39,70 +39,70 @@ const ModalMesa = props => {
 
   const endOrder = () => {
     const tableName = document.getElementById("input-table-name").value;
-    const tableNumber = document.getElementById("input-table-number").value;
+    const tableNumber = +document.getElementById("input-table-number").value;
     sendOrderToFirebase(tableName, tableNumber);
-    props.onHide();
     props.setresumo([]);
+    props.onHide();
   };
 
-  const sendOrderToFirebase = (name, number) =>
+  const sendOrderToFirebase = (name, number) => {
     firebase
       .firestore()
       .collection("ORDERS")
       .add({
-        name: name,
-        table: number,
-        status_delivered: false,
-        status_ready: false,
-        timestamp: Date(),
-        orders: props.resumo
+        user_name: name,
+        user_table: number,
+        user_total_value: props.subtotal,
+        order: props.resumo,
+        order_status_cooked: false,
+        order_status_delivered: false,
+        time_ordered: firebase.firestore.FieldValue.serverTimestamp()
       });
+  };
 
   return (
-    <>
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header>
-          <Modal.Title>CLIENTE</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className={css(styles.body)}>
-          <form>
-            <input
-              id="input-table-name"
-              type="text"
-              placeholder="NOME DO CLIENTE"
-              autoFocus={true}
-              className={css(styles.input)}
-              onChange={() => setButtonAvailable()}
-            ></input>
-            <input
-              id="input-table-number"
-              type="number"
-              placeholder="NUMERO DA MESA"
-              className={css(styles.input)}
-              onChange={() => setButtonAvailable()}
-            ></input>
-          </form>
-        </Modal.Body>
-        <Modal.Footer className={css(styles.footer)}>
-          <Button
-            class={styles.btns}
-            title={"Cancelar"}
-            handleClick={props.onHide}
-          />
-          <Button
-            class={styles.btns}
-            title={"FINALIZAR"}
-            handleClick={endOrder}
-            disabled={buttonAvailableState}
-          />
-        </Modal.Footer>
-      </Modal>
-    </>
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header>
+        <Modal.Title>CLIENTE</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className={css(styles.body)}>
+        <form>
+          <input
+            id="input-table-name"
+            type="text"
+            placeholder="NOME DO CLIENTE"
+            autoFocus={true}
+            className={css(styles.input)}
+            onChange={() => setButtonAvailable()}
+          ></input>
+          <input
+            id="input-table-number"
+            type="number"
+            placeholder="NUMERO DA MESA"
+            className={css(styles.input)}
+            onChange={() => setButtonAvailable()}
+          ></input>
+        </form>
+      </Modal.Body>
+      <Modal.Footer className={css(styles.footer)}>
+        <Button
+          class={styles.btns}
+          title={"Cancelar"}
+          handleClick={props.onHide}
+        />
+        <Button
+          class={styles.btns}
+          title={"FINALIZAR"}
+          handleClick={endOrder}
+          disabled={buttonAvailableState}
+        />
+      </Modal.Footer>
+    </Modal>
   );
 };
 

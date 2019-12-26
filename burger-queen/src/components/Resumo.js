@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     fontSize: "2vh"
   },
   resumoItens: {
-    overflow: "scroll",
+    overflow: "auto",
     flexGrow: "1",
     padding: "0px 20px",
     fontSize: "2vh",
@@ -48,7 +48,7 @@ const Resumo = props => {
         else return null;
       });
 
-    const newResumo = props.resumo.map((obj) => {
+    const newResumo = props.resumo.map(obj => {
       return obj.item === item ? updatedItem[0] : obj;
     });
     props.setresumo(newResumo.filter(elem => elem !== null));

@@ -82,7 +82,7 @@ const HamburguerOptionModalHtml = props => {
     const hamburguerFlavor = obj.hamburguer;
     const initialPrice = obj.value;
 
-    let finalPrice = "";
+    let finalItemPrice = "";
     let additional = "";
 
     if (additionalCheese === true && additionalEgg === false) {
@@ -98,19 +98,19 @@ const HamburguerOptionModalHtml = props => {
 
     switch (additional) {
       case "queijo e ovo adicional":
-        finalPrice = initialPrice + 2;
+        finalItemPrice = initialPrice + 2;
         break;
       case "":
-        finalPrice = initialPrice;
+        finalItemPrice = initialPrice;
         break;
       default:
-        finalPrice = initialPrice + 1;
+        finalItemPrice = initialPrice + 1;
     }
 
-    const newItem = { item: itemAdded, quantia: 1, value: finalPrice };
+    const newItem = { item: itemAdded, quantia: 1, value: finalItemPrice };
 
     props.additemresumo(newItem);
-    props.checkitem(itemAdded, finalPrice);
+    props.checkitem(itemAdded, finalItemPrice);
     props.onHide();
   };
 
@@ -132,7 +132,7 @@ const HamburguerOptionModalHtml = props => {
       centered
     >
       <Modal.Header>
-        <Modal.Title>OPÇÕES DE HAMBURGUER</Modal.Title>
+        <Modal.Title>{props.initialhambstate.type}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <section

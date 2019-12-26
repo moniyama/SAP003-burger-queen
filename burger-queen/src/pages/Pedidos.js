@@ -7,22 +7,27 @@ import HamburguerOptionModalHtml from "../components/ModalHamburguer";
 import Button from "../components/Button";
 import ModalMesa from "../components/ModalMesa";
 
-// import ToggleIcon from "../components/ToggleIcon";
-// import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
+// não funciona
+//import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
+// no componente toggleicon.js
 
 // tem diferença em usar o forEach ou o map no state, qdo se quer alterar um dado do state?
 // forEach => altera direto,
 // map => tem que dar o setstate
 
+// nos modals, tem um {...props} => pra que serve? eh do bootstrap?
+
 // consigo usar switch qdo tenho duas condições (com &&)? função addHamb
 
-// bug botão do modal: o estado não fica disabled se cancela. apenas se dar ok ou cancelar
+// Erros que aparecem: função como props => 
+// mas não aparece qdo usa handleClick => função handClose 
+// vale a pena transformar o item em state? poderia usar o 
+// useeffect para realizar a função de checkitens, e passaria apenas a função
+// de setitem.
 
-// Erros que aparecem: função como props
 // aphrodite subtotal/modalbtnends => botões que tem css iguais e 1 diferença
 
-// como colocar o subtotal em função, dentro do useeffect [resumo]
-// input na modalMesa => melhor usa o onchange ou getelementbyid mesmo?
+// input na modalMesa => melhor usa o onchange (setar o state no onchange) ou getelementbyid mesmo?
 
 const styles = StyleSheet.create({
   main: {
@@ -91,15 +96,14 @@ const Menu = () => {
 
   const addItem = e => {
     const newItem = e.currentTarget.title;
-    const unitPrice = Number(e.currentTarget.value.slice(2));
-    checkHasItemOrdered(newItem, unitPrice);
+    const itemPrice = Number(e.currentTarget.value.slice(2));
+    checkHasItemOrdered(newItem, itemPrice);
   };
 
   const checkHasItemOrdered = (itemAdded, itemPrice) => {
-    let newResumo = [];
     const hasItem = resumo.some(item => item["item"] === itemAdded);
     if (hasItem) {
-      newResumo = resumo.map(obj => {
+      let newResumo = resumo.map(obj => {
         if (obj.item === itemAdded) {
           obj.quantia += 1;
           obj.value = itemPrice * obj.quantia;
@@ -108,13 +112,15 @@ const Menu = () => {
           return obj;
         }
       });
+      updateResumo(newResumo);
     } else {
-      newResumo = [
-        ...resumo,
-        { item: itemAdded, quantia: 1, value: itemPrice, unitPrice: itemPrice }
-      ];
+      addItemResumo({
+        item: itemAdded,
+        quantia: 1,
+        value: itemPrice,
+        unitPrice: itemPrice
+      });
     }
-    updateResumo(newResumo);
   };
 
   const getHambType = e => {
@@ -172,23 +178,22 @@ const Menu = () => {
           />
         </section>
       </section>
-      <>
-        <HamburguerOptionModalHtml
-          show={showModal}
-          onHide={handleClose}
-          animation={false}
-          initialhambstate={initialHamburguerState}
-          additemresumo={addItemResumo}
-          checkitem={checkHasItemOrdered}
-        />
-        <ModalMesa
-          show={showModalMesa}
-          onHide={handleCloseModalMesa}
-          animation={false}
-          setresumo={updateResumo}
-          resumo={resumo}
-        />
-      </>
+      <HamburguerOptionModalHtml
+        show={showModal}
+        onHide={handleClose}
+        animation={false}
+        initialhambstate={initialHamburguerState}
+        additemresumo={addItemResumo}
+        checkitem={checkHasItemOrdered}
+      />
+      <ModalMesa
+        show={showModalMesa}
+        onHide={handleCloseModalMesa}
+        animation={false}
+        setresumo={updateResumo}
+        resumo={resumo}
+        subtotal={subtotal}
+      />
     </main>
   );
 };

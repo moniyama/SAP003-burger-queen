@@ -1,6 +1,7 @@
 import React from "react";
 import ToggleOffOutlinedIcon from "@material-ui/icons/ToggleOffOutlined";
 import ToggleOnIcon from "@material-ui/icons/ToggleOn";
+// import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
 
 const ToggleIcon = props => {
   const changeToggleIcon = e => {
