@@ -59,10 +59,7 @@ const Menu = () => {
   const [showModal, setshowModal] = useState(false);
   const [initialHamburguerState, setInitialHamburguerState] = useState({});
   const [endBtnsshow, setEndBtnsshow] = useState(true);
-  const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
-
-  // const setBtnDisabledStatus = newStatus =>
-  //   setBtnModalDisabledStatus(newStatus);
+  const [subtotal, setSubtotal] = useState(0);
 
   const updateResumo = newResumo => setResumo(newResumo);
   const addItemResumo = newItem => setResumo([...resumo, newItem]);
@@ -83,28 +80,14 @@ const Menu = () => {
   }, []);
 
   useEffect(() => {
-    console.log(resumo);
     resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
     setInitialHamburguerState({});
+    setSubtotal(
+      resumo.reduce((acumulador, valorAtual) => {
+        return acumulador + valorAtual.value;
+      }, 0)
+    );
   }, [resumo]);
-
-  let subtotal = 0;
-  for (const value in resumo) {
-    if (resumo.hasOwnProperty(value)) {
-      const element = resumo[value];
-      subtotal += element.value;
-    }
-  }
-
-  // const [subtotal, setSubtotal] = useState(0);
-
-  // useEffect(() => {
-  //   resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
-  //   resumo.forEach((obj) => {
-  //     setSubtotal(obj.value)
-  //   })
-  //     setSubtotal(...subtotal + subtotal)
-  // }, [resumo, subtotal]);
 
   const addItem = e => {
     const newItem = e.currentTarget.title;
