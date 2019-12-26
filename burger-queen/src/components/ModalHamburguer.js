@@ -10,18 +10,18 @@ const styles = StyleSheet.create({
   },
   modalBtnFlavors: {
     height: "70px",
-    width: "180px",
+    width: "180px"
   },
   modalBtnEnd: {
     width: "45.5%",
-    height: "100px",
+    height: "100px"
     // ok = ":active": {
     //backgroundColor: "#6E8C03"
     // }
 
     // cancelar= ":active": {
     //backgroundColor: "#BF190A"
-    // } 
+    // }
   },
   modalButtonsOptionsSection: {
     display: "flex",
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   modalAditionalItens: {
     backgroundColor: "beige",
     fontSize: "large"
-  },
+  }
 });
 
 const HamburguerOptionModalHtml = props => {
@@ -43,8 +43,6 @@ const HamburguerOptionModalHtml = props => {
   const [hambResumo, setHambResumo] = useState([]);
 
   const resumo = props.resumo;
-
-  useEffect(() => props.setbtndisablestate(false), [hambResumo]);
 
   const setNewEggState = newState => {
     settoggleStatEgg(newState);
@@ -62,14 +60,6 @@ const HamburguerOptionModalHtml = props => {
     setHambResumo(newHambResumo);
   };
 
-  const closingModal = () => {
-    setNewEggState(false);
-    setNewCheeseState(false);
-    props.setbtndisablestate(true);
-    setHambResumo([]);
-    props.onHide();
-  };
-
   const addHamb = () => {
     const obj = hambResumo[0];
     const additionalEgg = obj.ovo;
@@ -77,39 +67,59 @@ const HamburguerOptionModalHtml = props => {
     const hamburguerType = obj.type;
     const hamburguerFlavor = obj.hamburguer;
     const valueInitial = obj.value;
-    let valueFinal = "";
 
+    let valueFinal = "";
     let additional = "";
+
     if (additionalCheese === true && additionalEgg === false) {
       additional = "queijo adicional";
-    }
-    if (additionalCheese === false && additionalEgg === true) {
+    } else if (additionalCheese === false && additionalEgg === true) {
       additional = "ovo adicional";
-    }
-    if (additionalCheese === true && additionalEgg === true) {
+    } else if (additionalCheese === true && additionalEgg === true) {
       additional = "queijo e ovo adicional";
     }
 
     const itemArray = [hamburguerType, hamburguerFlavor, additional];
     const itemAdded = itemArray.join(" ");
 
-    if (itemAdded.includes("queijo" && "ovo")) {
+    if (itemAdded.includes("queijo e ovo")) {
       valueFinal = valueInitial + 2;
+      console.log("+2");
     } else if (itemAdded.includes("queijo" || "ovo")) {
       valueFinal = valueInitial + 1;
+      console.log("+1");
     } else valueFinal = valueInitial;
 
     const newResumo = { item: itemAdded, quantia: 1, value: valueFinal };
 
     props.setresumo([...resumo, newResumo]);
     props.checkitem(itemAdded, valueFinal);
-    closingModal();
+    props.onHide();
   };
 
   const getHamburguerFlavor = e => {
-    props.hamburguer.hamburguer = e.currentTarget.title;
-    setHambResumo([props.hamburguer]);
+    props.initialhambstate.hamburguer = e.currentTarget.title;
+    props.setbtndisablestate(false);
+    const newHambResumo = hambResumo.map(elem => {
+      return { ...elem, hamburguer: e.currentTarget.title };
+    });
+    setHambResumo(newHambResumo);
   };
+
+  useEffect(() => {
+    setHambResumo([
+      {
+        type: props.initialhambstate.type,
+        hamburguer: "",
+        queijo: false,
+        ovo: false,
+        value: props.initialhambstate.value
+      }
+    ]);
+
+    settoggleStatEgg(false);
+    settoggleStatCheese(false);
+  }, [props.initialhambstate.type, props.initialhambstate.value]);
 
   return (
     <Modal
@@ -166,7 +176,7 @@ const HamburguerOptionModalHtml = props => {
       <Modal.Footer>
         <Button
           title="Cancelar"
-          handleClick={closingModal}
+          handleClick={() => props.onHide()}
           disabled={false}
           class={styles.modalBtnEnd}
         />

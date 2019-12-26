@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import Button from "../components/Button";
@@ -30,8 +30,6 @@ const ModalMesa = props => {
   const [inputTable, setInputTable] = useState({});
   const [buttonAvailableState, setButtonAvailableState] = useState(true);
 
-  const [endingModalShowState, setEndingModalShowState] = useState(true);
-
   const setButtonAvailable = () => {
     const tableName = document.getElementById("input-table-name").value;
     const tableNumber = document.getElementById("input-table-number").value;
@@ -45,11 +43,11 @@ const ModalMesa = props => {
     const tableName = document.getElementById("input-table-name").value;
     const tableNumber = document.getElementById("input-table-number").value;
     setInputTable({ name: tableName, table: tableNumber });
+    sendOrderToFirebase();
     props.onHide();
     props.setresumo([]);
-    sendOrderToFirebase();
   };
-  
+
   const sendOrderToFirebase = () =>
     firebase
       .firestore()

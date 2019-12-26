@@ -15,14 +15,14 @@ const styles = StyleSheet.create({
     width: "100%",
     fontWeight: "bold",
     padding: "0px 20px",
-    fontSize:'2vh'
+    fontSize: "2vh"
   },
   resumoItens: {
     overflow: "scroll",
     flexGrow: "1",
     padding: "0px 20px",
     fontSize: "2vh",
-    textAlign: "left",
+    textAlign: "left"
   }
 });
 

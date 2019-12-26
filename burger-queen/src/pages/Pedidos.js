@@ -24,6 +24,9 @@ import ModalMesa from "../components/ModalMesa";
 // como colocar o subtotal em função, dentro do useeffect [resumo]
 // input na modalMesa => melhor usa o onchange ou getelementbyid mesmo?
 
+// bug no toggle icon => qdo clica no adiciona queijo antes do sabor, ele não computa o adicional
+// bug qdo toggle com ovo => cobrando 2+
+
 const styles = StyleSheet.create({
   main: {
     padding: "3%",
@@ -57,10 +60,9 @@ const Menu = () => {
   const [resumo, setResumo] = useState([]);
   const [showModalMesa, setShowModalMesa] = useState(false);
   const [showModal, setshowModal] = useState(false);
-  const [hamburguer, setHamburguer] = useState({});
+  const [initialHamburguerState, setInitialHamburguerState] = useState({});
   const [endBtnsshow, setEndBtnsshow] = useState(true);
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
-  // const [subtotal, setSubtotal] = useState(0);
 
   const setBtnDisabledStatus = newStatus =>
     setBtnModalDisabledStatus(newStatus);
@@ -86,6 +88,7 @@ const Menu = () => {
   useEffect(() => {
     console.log(resumo);
     resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
+    setInitialHamburguerState({})
   }, [resumo]);
 
   let subtotal = 0;
@@ -95,6 +98,17 @@ const Menu = () => {
       subtotal += element.value;
     }
   }
+
+  // const [subtotal, setSubtotal] = useState(0);
+
+  // useEffect(() => {
+  //   resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
+  //   resumo.forEach((obj) => {
+  //     setSubtotal(obj.value)
+  //   })
+  //     setSubtotal(...subtotal + subtotal)
+  // }, [resumo, subtotal]);
+
 
   const addItem = e => {
     const itemAdded = e.currentTarget.title;
@@ -120,15 +134,12 @@ const Menu = () => {
         { item: itemAdded, quantia: 1, value: price, unitPrice: price }
       ];
     }
-    updateResumo(newResumo);
+    setResumo(newResumo);
   };
 
   const getHambType = e => {
-    setHamburguer({
+    setInitialHamburguerState({
       type: e.currentTarget.title,
-      hamburguer: "",
-      queijo: false,
-      ovo: false,
       value: Number(e.currentTarget.value.slice(2))
     });
 
@@ -187,7 +198,7 @@ const Menu = () => {
           show={showModal}
           onHide={handleClose}
           animation={false}
-          hamburguer={hamburguer}
+          initialhambstate={initialHamburguerState}
           setresumo={updateResumo}
           resumo={resumo}
           checkitem={checkHasItemOrdered}
