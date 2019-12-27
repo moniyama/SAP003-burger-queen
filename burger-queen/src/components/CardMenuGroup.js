@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../components/Button";
+import Button from "./Button";
 import { StyleSheet, css } from "aphrodite";
 
 const styles = StyleSheet.create({

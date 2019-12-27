@@ -22,6 +22,7 @@ const button = props => (
     className={css(styles.button, props.class)}
     onClick={props.handleClick}
     disabled={props.disabled}
+    id={props.id}
   >
     {props.title} {props.value}
   </button>

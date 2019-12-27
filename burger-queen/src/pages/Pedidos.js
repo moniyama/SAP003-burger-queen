@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../firebase/firebase-config";
-import MenuGroup from "../components/MenuGroup";
+import MenuGroup from "../components/CardMenuGroup";
 import Resumo from "../components/Resumo";
 import { StyleSheet, css } from "aphrodite";
 import HamburguerOptionModalHtml from "../components/ModalHamburguer";
