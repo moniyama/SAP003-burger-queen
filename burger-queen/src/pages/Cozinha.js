@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import firebase from "../firebase/firebase-config";
 import Button from "../components/Button";
-// import CardOrderKitchen from "../components/CardOrderKitchen";
 
 const styles = StyleSheet.create({
   main: {
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between"
   },
-  item: {
+  card: {
     width: "48%",
     backgroundColor: "#F2B885",
     margin: "1%",
@@ -42,22 +41,40 @@ const styles = StyleSheet.create({
   btnFinishOrder: {
     width: "90%",
     bottom: "0px"
+  },
+  history: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%"
+  },
+  colorOne: { backgroundColor: "gray" },
+  colorTwo: { backgroundColor: "red" },
+  historyUser: {
+    width: "25%"
+  },
+  historyTime: {
+    width: "50%"
+  },
+  historyTimeDiff: {
+    width: "30%"
+  },
+  p: {
+    margin: "0"
   }
 });
 
 const Kitchen = () => {
   const [orders, setOrders] = useState([]);
-  const [historyOrders, setHystoryOrders] = useState([]);
 
   useEffect(() => {
+    console.log("useEffect");
     firebase
       .firestore()
       .collection("ORDERS")
-      .where("order_status_cooked", "==", false)
-      .orderBy("time_ordered", "asc")
-      .limit(4)
-      .get()
-      .then(querySnapshot => {
+      // .where("order_status_cooked", "==", false)
+      // .orderBy("time_ordered", "asc")
+      // .limit(4)
+      .onSnapshot(querySnapshot => {
         const newOrders = querySnapshot.docs.map(doc => {
           return { ...doc.data(), id: doc.id };
         });
@@ -66,12 +83,11 @@ const Kitchen = () => {
   }, []);
 
   useEffect(() => {
-    console.log(orders);
+    console.log("orders", orders);
   }, [orders]);
 
   const concludeOrder = e => {
     const id = e.currentTarget.id;
-    console.log(id);
     firebase
       .firestore()
       .collection("ORDERS")
@@ -93,34 +109,77 @@ const Kitchen = () => {
       </header>
       <section>
         <ul className={css(styles.ul)}>
-          {orders.map((obj, index) => {
-            return (
-              <li key={index} className={css(styles.item)}>
-                <section className={css(styles.header)}>
-                  <div>
-                    MESA {obj.user_table} {obj.user_name}{" "}
+          {orders
+            .filter(element => {
+              return element.order_status_cooked === false;
+            })
+            .map((obj, index) => {
+              return (
+                <li key={index} className={css(styles.card)}>
+                  <div className={css(styles.header)}>
+                    <div>
+                      MESA {obj.user_table} {obj.user_name}
+                    </div>
+                    <div className={css(styles.orderedTime)}>
+                      PEDIDO{" "}
+                      {'obj.time_ordered.toDate().toLocaleString("pt-BR")'}
+                    </div>
                   </div>
-                  <div className={css(styles.orderedTime)}>
-                    PEDIDO {obj.time_ordered.toDate().toLocaleString("pt-BR")}
+                  <div className={css(styles.itensAndBtn)}>
+                    <div>
+                      {obj.order.map((element, key) => {
+                        return <div key={key}>{element.item}</div>;
+                      })}
+                    </div>
+                    <Button
+                      title={"CONCLUIDO"}
+                      class={styles.btnFinishOrder}
+                      handleClick={concludeOrder}
+                      id={obj.id}
+                    />
                   </div>
-                </section>
-                <div>
-                  {obj.order.map((element, key) => {
-                    return <div key={key}>{element.item}</div>;
-                  })}
-                </div>
-                <Button
-                  title={"CONCLUIDO"}
-                  class={styles.btnFinishOrder}
-                  handleClick={concludeOrder}
-                  id={obj.id}
-                />
-              </li>
-            );
-          })}
+                </li>
+              );
+            })}
         </ul>
       </section>
-      <section>histórico</section>
+      <section>
+        <header className={css(styles.title)}>HISTORICO</header>
+        <ul className={css(styles.ul)}>
+          {orders
+            .filter(element => {
+              return element.order_status_cooked === true;
+            })
+            .map((obj, index) => {
+              return (
+                <li
+                  key={index}
+                  className={css(
+                    styles.history,
+                    index % 2 ? styles.colorOne : styles.colorTwo
+                  )}
+                  onClick={() => console.log("click")}
+                >
+                  <div
+                    className={css(
+                      index % 2 ? styles.colorOne : styles.colorTwo
+                    )}
+                  >
+                    MESA {obj.user_table} - {obj.user_name}
+                  </div>
+                  <div className={css(styles.historyTime)}>
+                    <p className={css(styles.p)}>PEDIDO: {"obj.time_"}</p>
+                    <p className={css(styles.p)}>PRONTO: {"obj.time_"}</p>
+                  </div>
+                  <div className={css(styles.historyTimeDiff)}>
+                    Tempo de preparo de:{" "}
+                    {obj.time_conclude_order - obj.time_ordered}
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
+      </section>
     </main>
   );
 };
