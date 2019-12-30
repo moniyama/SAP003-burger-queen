@@ -105,7 +105,6 @@ const Kitchen = () => {
                 <Historic
                   index={index}
                   obj={obj}
-                  handleClick={() => console.log("click")}
                 />
               );
             })}
