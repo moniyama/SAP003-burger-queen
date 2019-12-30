@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import Button from "../components/Button";
 import ExposureNeg1Icon from "@material-ui/icons/ExposureNeg1";
 import ExposurePlus1Icon from "@material-ui/icons/ExposurePlus1";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const styles = StyleSheet.create({
   price: {
@@ -10,7 +11,8 @@ const styles = StyleSheet.create({
   },
   qtdBox: {
     backgroundColor: "#F2B885",
-    padding: "3% 6%"
+    padding: "3% 6%",
+    marginRight: "4%"
     // boxShadow: "inset 0 0px 7px",
   },
   listaItens: {
@@ -26,11 +28,11 @@ const styles = StyleSheet.create({
     margin: "0"
   },
   qtdBtn: {
-    width: "50px",
+    width: "40px",
     border: "0",
     borderRadius: "0",
     height: "40px",
-    margin: "0 4% 0 0",
+    marginRight: "4%",
     padding: "0"
   }
 });
@@ -52,6 +54,12 @@ const CardResumomItem = props => (
         class={styles.qtdBtn}
       />
       <span className={css(styles.qtdBox)}>{props.quantia}</span>
+      <Button
+        title={<DeleteIcon />}
+        handleClick={() => props.handleClick(props.item, props.unitprice, null)}
+        key={props.item + "delete"}
+        class={styles.qtdBtn}
+      />
     </section>
     <span className={css(styles.price)}>{props.price}</span>
   </section>

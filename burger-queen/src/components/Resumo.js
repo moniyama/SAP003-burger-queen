@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     fontWeight: "bold",
-    padding: "0px 20px",
+    paddingLeft: "2%",
     fontSize: "2vh"
   },
   resumoItens: {
     overflow: "auto",
     flexGrow: "1",
-    padding: "0px 20px",
+    paddingLeft: "2%",
     fontSize: "2vh",
     textAlign: "left"
   }
@@ -38,7 +38,7 @@ const Resumo = props => {
             value: element.value + unitprice,
             unitPrice: unitprice
           };
-        else if (element.quantia > 1)
+        else if (element.quantia > 1 && plusOrMinus !== null)
           return {
             item: item,
             quantia: element.quantia - 1,
