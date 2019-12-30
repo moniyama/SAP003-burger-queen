@@ -46,18 +46,18 @@ const styles = StyleSheet.create({
 });
 
 const CardOrderKitchen = props => (
-  <li key={props.index + "order"} className={css(styles.orderCard)}>
+  <li className={css(styles.orderCard)}>
     <header className={css(styles.headerCard)}>
       <div className={css(styles.orderedUser)}>
         <p>MESA {props.obj.user_table}</p>
         <p>{props.obj.user_name}</p>
       </div>
       <div className={css(styles.orderedTime)}>
-        PEDIDO: 11:35
-        {/* {obj.time_ordered.toDate().toLocaleString("pt-BR")} */}
+        PEDIDO: {"11:45:12"}
+        {/* {props.obj.time_ordered.toDate().toLocaleTimeString("pt-BR")} */}
       </div>
     </header>
-    <section className={css(styles.bodyCard)}>
+    <div className={css(styles.bodyCard)}>
       {props.obj.order.map((element, key) => {
         return (
           <div className={css(styles.orderedItem)} key={key + element}>
@@ -65,9 +65,8 @@ const CardOrderKitchen = props => (
           </div>
         );
       })}
-    </section>
+    </div>
     <Button
-      key={"btn" + props.index}
       title={"PEDIDO PRONTO"}
       class={styles.btnFinishOrder}
       handleClick={props.handleClick}
