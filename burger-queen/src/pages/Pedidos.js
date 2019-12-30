@@ -7,9 +7,9 @@ import HamburguerOptionModalHtml from "../components/ModalHamburguer";
 import Button from "../components/Button";
 import ModalMesa from "../components/ModalMesa";
 
-// não funciona
-//import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
-// no componente toggleicon.js
+// não funciona:
+// import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
+// link do firebase deploy
 
 // tem diferença em usar o forEach ou o map no state, qdo se quer alterar um dado do state?
 // forEach => altera direto,

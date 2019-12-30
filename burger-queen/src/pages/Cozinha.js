@@ -1,56 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import firebase from "../firebase/firebase-config";
-import Button from "../components/Button";
+import CardOrderKitchen from "../components/CardOrderKitchen";
 
 const styles = StyleSheet.create({
   main: {
     textAlign: "center",
     display: "flex",
     flexDirection: "column",
-    padding: "3%",
+    padding: "0% 2%",
     height: "83vh"
   },
   title: {
     color: "#BF190A",
     fontSize: "25px",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    margin:'1%'
+  },
+  orderSection: {
+    height: "50%",
+    overflow: "auto",
   },
   ul: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
     width: "100%",
-    listStyleType: "none"
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between"
-  },
-  card: {
-    width: "48%",
-    backgroundColor: "#F2B885",
-    margin: "1%",
-    padding: "1%",
-    borderRadius: "5px"
-  },
-  orderedTime: {
-    textAlign: "right",
-    width: "50%"
-  },
-  btnFinishOrder: {
-    width: "90%",
-    bottom: "0px"
+    listStyleType: "none",
+    overflow: "auto"
+    // height: "100%"
   },
   history: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-between",
     width: "100%"
   },
   colorOne: { backgroundColor: "gray" },
   colorTwo: { backgroundColor: "red" },
   historyUser: {
-    width: "25%"
+    // width: "25%"
   },
   historyTime: {
     width: "50%"
@@ -67,13 +55,9 @@ const Kitchen = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect");
     firebase
       .firestore()
       .collection("ORDERS")
-      // .where("order_status_cooked", "==", false)
-      // .orderBy("time_ordered", "asc")
-      // .limit(4)
       .onSnapshot(querySnapshot => {
         const newOrders = querySnapshot.docs.map(doc => {
           return { ...doc.data(), id: doc.id };
@@ -104,51 +88,38 @@ const Kitchen = () => {
 
   return (
     <main className={css(styles.main)}>
-      <header className={css(styles.title)}>
-        <p>PEDIDOS REALIZADOS</p>
-      </header>
-      <section>
+        <header className={css(styles.title)}>PEDIDOS REALIZADOS</header>
+      <section className={css(styles.orderSection)}>
         <ul className={css(styles.ul)}>
           {orders
+            .sort((a, b) => {
+              return a.time_ordered > b.time_ordered ? 1 : -1;
+            })
             .filter(element => {
               return element.order_status_cooked === false;
             })
             .map((obj, index) => {
               return (
-                <li key={index} className={css(styles.card)}>
-                  <div className={css(styles.header)}>
-                    <div>
-                      MESA {obj.user_table} {obj.user_name}
-                    </div>
-                    <div className={css(styles.orderedTime)}>
-                      PEDIDO{" "}
-                      {'obj.time_ordered.toDate().toLocaleString("pt-BR")'}
-                    </div>
-                  </div>
-                  <div className={css(styles.itensAndBtn)}>
-                    <div>
-                      {obj.order.map((element, key) => {
-                        return <div key={key}>{element.item}</div>;
-                      })}
-                    </div>
-                    <Button
-                      title={"CONCLUIDO"}
-                      class={styles.btnFinishOrder}
-                      handleClick={concludeOrder}
-                      id={obj.id}
-                    />
-                  </div>
-                </li>
+                <CardOrderKitchen
+                  obj={obj}
+                  index={index}
+                  handleClick={concludeOrder}
+                />
               );
             })}
         </ul>
       </section>
-      <section>
-        <header className={css(styles.title)}>HISTORICO</header>
-        <ul className={css(styles.ul)}>
+      <header className={css(styles.title)}>
+        HISTORICO
+      </header>
+      <section className={css(styles.orderSection)}>
+        <ul>
           {orders
             .filter(element => {
               return element.order_status_cooked === true;
+            })
+            .sort((a, b) => {
+              return a.time_conclude_order > b.time_conclude_order ? -1 : 1;
             })
             .map((obj, index) => {
               return (
@@ -168,12 +139,20 @@ const Kitchen = () => {
                     MESA {obj.user_table} - {obj.user_name}
                   </div>
                   <div className={css(styles.historyTime)}>
-                    <p className={css(styles.p)}>PEDIDO: {"obj.time_"}</p>
-                    <p className={css(styles.p)}>PRONTO: {"obj.time_"}</p>
+                    <p className={css(styles.p)}>
+                      PEDIDO:{" "}
+                      {'obj.time_ordered.toDate().toLocaleTimeString("pt-BR")'}
+                    </p>
+                    <p className={css(styles.p)}>
+                      PRONTO:{" "}
+                      {
+                        'obj.time_conclude_order.toDate().toLocaleTimeString("pt-BR")'
+                      }
+                    </p>
                   </div>
                   <div className={css(styles.historyTimeDiff)}>
                     Tempo de preparo de:{" "}
-                    {obj.time_conclude_order - obj.time_ordered}
+                    {/* {obj.time_conclude_order.toDate() - obj.time_ordered.toDate()} */}
                   </div>
                 </li>
               );
