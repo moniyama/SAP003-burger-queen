@@ -3,9 +3,6 @@ import { StyleSheet, css } from "aphrodite";
 import CardResumomItem from "./CardResumoItem";
 
 const styles = StyleSheet.create({
-  red: {
-    backgroundColor: "#BF190A"
-  },
   ul: {
     listStyleType: "none"
   },
@@ -69,15 +66,14 @@ const Resumo = props => {
             const price = itemResumo.value;
             const unitPrice = itemResumo.unitPrice;
             return (
-              <li key={index}>
                 <CardResumomItem
                   item={item}
                   quantia={quantia}
                   price={price + ",00"}
                   unitprice={unitPrice}
                   handleClick={shortcutQtd}
+                  index={index}
                 />
-              </li>
             );
           })}
         </ul>
