@@ -9,14 +9,12 @@ const styles = StyleSheet.create({
     margin: "1%",
     padding: "1%",
     borderRadius: "5px",
-    // height: "fit-content"
     display: "flex",
     flexWrap: "wrap"
   },
   headerCard: {
     display: "flex",
     width: "100%",
-    // justifyContent: "space-between",
     paddingBottom: "2%",
     height: "fit-content"
   },
@@ -30,9 +28,6 @@ const styles = StyleSheet.create({
   },
 
   bodyCard: {
-    // display: "flex",
-    // justifyContent: "space-between",
-    // flexDirection: "column",
     width: "100%",
     height: "110px",
     backgroundColor: "white",
@@ -41,7 +36,7 @@ const styles = StyleSheet.create({
   },
   orderedItem: {
     width: "100%",
-    textAlign: "left",
+    textAlign: "left"
   },
   btnFinishOrder: {
     width: "90%",
@@ -49,6 +44,7 @@ const styles = StyleSheet.create({
     marginTop: "3%"
   }
 });
+
 const CardOrderKitchen = props => (
   <li key={props.index} className={css(styles.orderCard)}>
     <header className={css(styles.headerCard)}>

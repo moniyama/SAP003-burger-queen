@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import firebase from "../firebase/firebase-config";
 import CardOrderKitchen from "../components/CardOrderKitchen";
+import Historic from "../components/CardHistoricOrders";
 
 const styles = StyleSheet.create({
   main: {
@@ -15,11 +16,11 @@ const styles = StyleSheet.create({
     color: "#BF190A",
     fontSize: "25px",
     fontWeight: "bold",
-    margin:'1%'
+    margin: "1%"
   },
   orderSection: {
     height: "50%",
-    overflow: "auto",
+    overflow: "auto"
   },
   ul: {
     display: "flex",
@@ -28,26 +29,6 @@ const styles = StyleSheet.create({
     width: "100%",
     listStyleType: "none",
     overflow: "auto"
-    // height: "100%"
-  },
-  history: {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "100%"
-  },
-  colorOne: { backgroundColor: "gray" },
-  colorTwo: { backgroundColor: "red" },
-  historyUser: {
-    // width: "25%"
-  },
-  historyTime: {
-    width: "50%"
-  },
-  historyTimeDiff: {
-    width: "30%"
-  },
-  p: {
-    margin: "0"
   }
 });
 
@@ -88,7 +69,7 @@ const Kitchen = () => {
 
   return (
     <main className={css(styles.main)}>
-        <header className={css(styles.title)}>PEDIDOS REALIZADOS</header>
+      <header className={css(styles.title)}>PEDIDOS REALIZADOS</header>
       <section className={css(styles.orderSection)}>
         <ul className={css(styles.ul)}>
           {orders
@@ -109,9 +90,7 @@ const Kitchen = () => {
             })}
         </ul>
       </section>
-      <header className={css(styles.title)}>
-        HISTORICO
-      </header>
+      <header className={css(styles.title)}>HISTORICO</header>
       <section className={css(styles.orderSection)}>
         <ul>
           {orders
@@ -123,38 +102,11 @@ const Kitchen = () => {
             })
             .map((obj, index) => {
               return (
-                <li
-                  key={index}
-                  className={css(
-                    styles.history,
-                    index % 2 ? styles.colorOne : styles.colorTwo
-                  )}
-                  onClick={() => console.log("click")}
-                >
-                  <div
-                    className={css(
-                      index % 2 ? styles.colorOne : styles.colorTwo
-                    )}
-                  >
-                    MESA {obj.user_table} - {obj.user_name}
-                  </div>
-                  <div className={css(styles.historyTime)}>
-                    <p className={css(styles.p)}>
-                      PEDIDO:{" "}
-                      {'obj.time_ordered.toDate().toLocaleTimeString("pt-BR")'}
-                    </p>
-                    <p className={css(styles.p)}>
-                      PRONTO:{" "}
-                      {
-                        'obj.time_conclude_order.toDate().toLocaleTimeString("pt-BR")'
-                      }
-                    </p>
-                  </div>
-                  <div className={css(styles.historyTimeDiff)}>
-                    Tempo de preparo de:{" "}
-                    {/* {obj.time_conclude_order.toDate() - obj.time_ordered.toDate()} */}
-                  </div>
-                </li>
+                <Historic
+                  index={index}
+                  obj={obj}
+                  handleClick={() => console.log("click")}
+                />
               );
             })}
         </ul>
