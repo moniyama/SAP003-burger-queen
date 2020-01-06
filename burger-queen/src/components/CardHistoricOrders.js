@@ -31,10 +31,10 @@ const styles = StyleSheet.create({
 });
 
 const Historic = props => (
-  <Accordion>
+  <Accordion defaultActiveKey="none">
     <Accordion.Toggle eventKey={props.index} className={css(styles.accordion)}>
       <li
-        key={props.index.uniqueId}
+        key={props.index}
         className={css(
           styles.history,
           props.index % 2 ? styles.colorOne : styles.colorTwo
@@ -45,8 +45,9 @@ const Historic = props => (
         </div>
         <div className={css(styles.historyUserTime)}>
           <p>
-            PEDIDO: {"11:45:12"}
-            {/* {props.obj.time_ordered.toDate().toLocaleString("pt-BR")} */}
+            PEDIDO: 
+            {/* {"11:45:12"} */}
+            {props.obj.time_ordered.toDate().toLocaleString("pt-BR")}
           </p>
           <p>
             PRONTO:{"12:00:12"}

@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import firebase from "../firebase/firebase-config";
 import CardOrderKitchen from "../components/CardOrderKitchen";
 import Historic from "../components/CardHistoricOrders";
+import Accordion from "react-bootstrap/Accordion";
 
 const styles = StyleSheet.create({
   main: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   },
   orderSection: {
     height: "50%",
-    overflow: "auto"
+    overflow: "auto",
   },
   ul: {
     display: "flex",
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     width: "100%",
     listStyleType: "none",
     overflow: "auto"
-  }
+  },
 });
 
 const Kitchen = () => {
@@ -80,11 +81,13 @@ const Kitchen = () => {
               return element.order_status_cooked === false;
             })
             .map((obj, index) => {
+              console.log(index);
               return (
                 <CardOrderKitchen
                   obj={obj}
-                  index={index}
+                  key={"CardOrderKitchen" + index}
                   handleClick={concludeOrder}
+                  index={index.value}
                 />
               );
             })}
@@ -101,12 +104,7 @@ const Kitchen = () => {
               return a.time_conclude_order > b.time_conclude_order ? -1 : 1;
             })
             .map((obj, index) => {
-              return (
-                <Historic
-                  index={index}
-                  obj={obj}
-                />
-              );
+              return <Historic key={"Historic" + index} obj={obj} index={index} />;
             })}
         </ul>
       </section>

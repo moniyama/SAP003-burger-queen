@@ -66,14 +66,14 @@ const Resumo = props => {
             const price = itemResumo.value;
             const unitPrice = itemResumo.unitPrice;
             return (
-                <CardResumomItem
-                  item={item}
-                  quantia={quantia}
-                  price={price + ",00"}
-                  unitprice={unitPrice}
-                  handleClick={shortcutQtd}
-                  index={index}
-                />
+              <CardResumomItem
+                item={item}
+                quantia={quantia}
+                price={price + ",00"}
+                unitprice={unitPrice}
+                handleClick={shortcutQtd}
+                key={"CardResumomItem" + index}
+              />
             );
           })}
         </ul>

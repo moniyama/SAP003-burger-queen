@@ -55,12 +55,10 @@ const CardResumomItem = props => (
             handleClick={() =>
               props.handleClick(props.item, props.unitprice, "-1")
             }
-            key={props.item + "-1"}
             class={styles.qtdBtn}
           />
           <Button
             title={props.quantia}
-            key={"qtd-" + props.index}
             class={styles.qtdBox}
             disabled={true}
           />
@@ -69,7 +67,6 @@ const CardResumomItem = props => (
             handleClick={() =>
               props.handleClick(props.item, props.unitprice, "+1")
             }
-            key={props.item + "+1"}
             class={styles.qtdBtn}
           />
         </div>
@@ -79,7 +76,6 @@ const CardResumomItem = props => (
             handleClick={() =>
               props.handleClick(props.item, props.unitprice, null)
             }
-            key={props.item + "delete"}
             class={styles.qtdBtn}
           />
         </div>
