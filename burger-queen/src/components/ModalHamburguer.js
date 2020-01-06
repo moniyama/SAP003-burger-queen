@@ -181,6 +181,8 @@ const HamburguerOptionModalHtml = props => {
           handleClick={() => {
             props.onHide();
             setBtnModalDisabledStatus(true);
+            settoggleStatEgg(false);
+            settoggleStatCheese(false);
           }}
           disabled={false}
           class={styles.modalBtnEnd}

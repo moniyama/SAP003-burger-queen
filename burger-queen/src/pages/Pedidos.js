@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../firebase/firebase-config";
+import { StyleSheet, css } from "aphrodite";
 import MenuGroup from "../components/CardMenuGroup";
 import Resumo from "../components/Resumo";
-import { StyleSheet, css } from "aphrodite";
 import HamburguerOptionModalHtml from "../components/ModalHamburguer";
 import Button from "../components/Button";
 import ModalMesa from "../components/ModalMesa";
@@ -19,9 +19,9 @@ import ModalMesa from "../components/ModalMesa";
 
 // consigo usar switch qdo tenho duas condições (com &&)? função addHamb
 
-// Erros que aparecem: função como props => 
-// mas não aparece qdo usa handleClick => função handClose 
-// vale a pena transformar o item em state? poderia usar o 
+// Erros que aparecem: função como props =>
+// mas não aparece qdo usa handleClick => função handClose
+// vale a pena transformar o item em state? poderia usar o
 // useeffect para realizar a função de checkitens, e passaria apenas a função
 // de setitem.
 
@@ -49,8 +49,9 @@ const styles = StyleSheet.create({
     height: "100%"
   },
   endBtns: {
-    height: "75px",
-    width: "100%"
+    height: "60px",
+    width: "100%",
+    fontSize: "20px"
   },
   subtotal: {
     marginTop: "7%"
