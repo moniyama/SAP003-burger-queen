@@ -49,28 +49,32 @@ const CardOrderKitchen = props => (
   <li className={css(styles.orderCard)}>
     <header className={css(styles.headerCard)}>
       <div className={css(styles.orderedUser)}>
-        <p>MESA {props.obj.user_table}</p>
-        <p>{props.obj.user_name}</p>
+        <p>MESA {props.order.user_table}</p>
+        <p>{props.order.user_name}</p>
       </div>
       <div className={css(styles.orderedTime)}>
-        PEDIDO: {"11:45:12"}
-        {/* {props.obj.time_ordered.toDate().toLocaleTimeString("pt-BR")} */}
+        PEDIDO:
+        {/* {props.order.time_ordered.toDate().toLocaleTimeString("pt-BR", {
+          hour: "2-digit",
+          minute: "2-digit"
+        })} */}
+        {/* {"11:45:12"} */}
       </div>
     </header>
     <div className={css(styles.bodyCard)}>
-      {props.obj.order.map((element, key) => {
+      {props.order.order.map((itemOrdered, key) => {
         return (
-          <div className={css(styles.orderedItem)} key={key + element}>
-            {element.item}
+          <div className={css(styles.orderedItem)} key={key + itemOrdered}>
+            {itemOrdered.quantia}x {itemOrdered.item}
           </div>
         );
       })}
     </div>
     <Button
-      title={"PEDIDO PRONTO"}
+      title={props.btntitle}
       class={styles.btnFinishOrder}
       handleClick={props.handleClick}
-      id={props.obj.id}
+      id={props.order.id}
     />
   </li>
 );

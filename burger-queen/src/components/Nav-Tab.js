@@ -4,6 +4,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import Menu from "../pages/Pedidos";
 import Cozinha from '../pages/Cozinha'
+import DeliveryPage from '../pages/Entrega'
 
 // azul #99AABF
 // verde #6E8C03
@@ -34,7 +35,7 @@ export default function navTab() {
     <Cozinha />
   </Tab>
   <Tab className={css(styles.tabBox)} eventKey="pronto" title="PARA ENTREGA">
-    asdfasfdasdfasdf
+    <DeliveryPage />
   </Tab>
 </Tabs>
   );
