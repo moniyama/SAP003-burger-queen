@@ -46,21 +46,22 @@ const Historic = props => (
         </div>
         <div className={css(styles.historyUserTime)}>
           <p>
-            PEDIDO:
-            {props.order.time_ordered.toDate().toLocaleString("pt-BR", {
+            PEDIDO:{" "}
+            {new Date(props.order.time_ordered).toLocaleString("pt-BR", {
               hour: "2-digit",
               minute: "2-digit"
             })}
           </p>
           <p>
-            PRONTO:
-            {"12:00:12"}
-            {/* {props.order.time_conclude_order.toDate().toLocaleString("pt-BR")} */}
+            PRONTO:{" "}
+            {new Date(props.order.time_conclude_order).toLocaleString("pt-BR", {
+              hour: "2-digit",
+              minute: "2-digit"
+            })}
           </p>
         </div>
         <div className={css(styles.historyTimeDiff)}>
           Tempo de preparo de:
-          {"15 minutos"}
           {/* {(props.order.time_conclude_order.toDate().getTime()- props.order.time_ordered.toDate().getTime()).toLocaleString("pt-BR")} */}
         </div>
       </li>

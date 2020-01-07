@@ -52,10 +52,6 @@ const DeliveryPage = () => {
       });
   }, []);
 
-  useEffect(() => {
-    console.log("deliveryOrders", deliveryOrders);
-  }, [deliveryOrders]);
-
   const concludeOrder = e => {
     const id = e.currentTarget.id;
     firebase
@@ -64,7 +60,7 @@ const DeliveryPage = () => {
       .doc(id)
       .update({
         order_status_delivered: true,
-        time_delivered_order: firebase.firestore.FieldValue.serverTimestamp()
+        time_delivered_order: new Date().getTime()
       });
     const update = deliveryOrders.map(order => {
       return order.id === id

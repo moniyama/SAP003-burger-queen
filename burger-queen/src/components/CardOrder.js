@@ -53,12 +53,11 @@ const CardOrderKitchen = props => (
         <p>{props.order.user_name}</p>
       </div>
       <div className={css(styles.orderedTime)}>
-        PEDIDO:
-        {/* {props.order.time_ordered.toDate().toLocaleTimeString("pt-BR", {
+        PEDIDO: {" "}
+        {new Date(props.order.time_ordered).toLocaleTimeString("pt-BR", {
           hour: "2-digit",
           minute: "2-digit"
-        })} */}
-        {/* {"11:45:12"} */}
+        })}
       </div>
     </header>
     <div className={css(styles.bodyCard)}>

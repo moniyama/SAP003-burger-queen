@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import firebase from "../firebase/firebase-config";
-import CardOrderKitchen from "../components/CardOrderKitchen";
-import Historic from "../components/CardHistoricOrders";
-import Accordion from "react-bootstrap/Accordion";
+import CardOrderKitchen from "../components/CardOrder";
+import Historic from "../components/CardHistoric";
+
+// filtrar historico de orders apenas do dia
 
 const styles = StyleSheet.create({
   main: {
     textAlign: "center",
     display: "flex",
     flexDirection: "column",
-    padding: "0% 2%",
+    padding: "0% 2% 2%",
     height: "83vh"
   },
   title: {
@@ -20,8 +21,12 @@ const styles = StyleSheet.create({
     margin: "1%"
   },
   orderSection: {
-    height: "50%",
-    overflow: "auto",
+    height: "62%",
+    overflow: "auto"
+  },
+  orderSectionHistory: {
+    height: "38%",
+    overflow: "auto"
   },
   ul: {
     display: "flex",
@@ -30,7 +35,7 @@ const styles = StyleSheet.create({
     width: "100%",
     listStyleType: "none",
     overflow: "auto"
-  },
+  }
 });
 
 const Kitchen = () => {
@@ -60,51 +65,73 @@ const Kitchen = () => {
       .doc(id)
       .update({
         order_status_cooked: true,
-        time_conclude_order: firebase.firestore.FieldValue.serverTimestamp()
+        time_conclude_order: new Date().getTime()
       });
-    const update = orders.map(obj => {
-      return obj.id === id ? { ...obj, order_status_cooked: true } : obj;
+    const update = orders.map(order => {
+      return order.id === id ? { ...order, order_status_cooked: true } : order;
     });
     setOrders(update);
   };
 
+  const today = new Date().toLocaleString(undefined, {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+  console.log(today);
+
   return (
     <main className={css(styles.main)}>
-      <header className={css(styles.title)}>PEDIDOS REALIZADOS</header>
+      <header className={css(styles.title)}>PEDIDOS</header>
       <section className={css(styles.orderSection)}>
         <ul className={css(styles.ul)}>
           {orders
             .sort((a, b) => {
-              return a.time_ordered > b.time_ordered ? 1 : -1;
+              return a.time_ordered < b.time_ordered ? 1 : -1;
             })
             .filter(element => {
               return element.order_status_cooked === false;
             })
-            .map((obj, index) => {
-              console.log(index);
+            .map((order, index) => {
               return (
                 <CardOrderKitchen
-                  obj={obj}
+                  order={order}
                   key={"CardOrderKitchen" + index}
                   handleClick={concludeOrder}
-                  index={index.value}
+                  btntitle={"PEDIDO PRONTO"}
                 />
               );
             })}
         </ul>
       </section>
-      <header className={css(styles.title)}>HISTORICO</header>
-      <section className={css(styles.orderSection)}>
+      <header className={css(styles.title)}>PEDIDOS PREPARADOS</header>
+      <section className={css(styles.orderSectionHistory)}>
         <ul>
           {orders
             .filter(element => {
-              return element.order_status_cooked === true;
+              // const orderDate = element.time_ordered
+              //   .toDate()
+              //   .toLocaleString(undefined, {
+              //     day: "2-digit",
+              //     month: "2-digit",
+              //     year: "numeric"
+              //   });
+              return (
+                element.order_status_cooked === true
+                // && today === orderDate
+              );
             })
             .sort((a, b) => {
               return a.time_conclude_order > b.time_conclude_order ? -1 : 1;
             })
-            .map((obj, index) => {
-              return <Historic key={"Historic" + index} obj={obj} index={index} />;
+            .map((order, index) => {
+              return (
+                <Historic
+                  key={"Historic" + index}
+                  order={order}
+                  index={index}
+                />
+              );
             })}
         </ul>
       </section>
