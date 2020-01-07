@@ -87,7 +87,7 @@ const Kitchen = () => {
         <ul className={css(styles.ul)}>
           {orders
             .sort((a, b) => {
-              return a.time_ordered < b.time_ordered ? 1 : -1;
+              return a.time_ordered > b.time_ordered ? 1 : -1;
             })
             .filter(element => {
               return element.order_status_cooked === false;

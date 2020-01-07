@@ -104,13 +104,13 @@ const Menu = () => {
   const checkHasItemOrdered = (itemAdded, itemPrice) => {
     const hasItem = resumo.some(item => item["item"] === itemAdded);
     if (hasItem) {
-      let newResumo = resumo.map(obj => {
-        if (obj.item === itemAdded) {
-          obj.quantia += 1;
-          obj.value = itemPrice * obj.quantia;
-          return obj;
+      let newResumo = resumo.map(item => {
+        if (item.item === itemAdded) {
+          item.quantia += 1;
+          item.value = itemPrice * item.quantia;
+          return item;
         } else {
-          return obj;
+          return item;
         }
       });
       updateResumo(newResumo);

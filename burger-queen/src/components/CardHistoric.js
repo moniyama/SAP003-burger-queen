@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import Accordion from "react-bootstrap/Accordion";
+
+// atualizar o historico de tempo de entrega
 
 const styles = StyleSheet.create({
   accordion: {
@@ -31,49 +33,71 @@ const styles = StyleSheet.create({
   }
 });
 
-const Historic = props => (
-  <Accordion defaultActiveKey="none">
-    <Accordion.Toggle eventKey={props.index} className={css(styles.accordion)}>
-      <li
-        key={props.index}
-        className={css(
-          styles.history,
-          props.index % 2 ? styles.colorOne : styles.colorTwo
-        )}
+const Historic = props => {
+  const [timeDiff, setTimeDiff] = useState(0);
+
+  useEffect(() => {
+    const concludeTime = new Date(props.order.time_conclude_order).getTime();
+    const orderedTime = new Date(props.order.time_ordered).getTime();
+    const microSecondsDiff = Math.abs(concludeTime - orderedTime);
+    const minDiff = Math.floor(microSecondsDiff / (1000 * 60));
+    setTimeDiff(minDiff);
+  }, [props.order.time_conclude_order, props.order.time_ordered]);
+
+  return (
+    <Accordion defaultActiveKey="none">
+      <Accordion.Toggle
+        eventKey={props.index}
+        className={css(styles.accordion)}
       >
-        <div className={css(styles.historyUserTime)}>
-          MESA {props.order.user_table} - {props.order.user_name}
-        </div>
-        <div className={css(styles.historyUserTime)}>
-          <p>
-            PEDIDO:{" "}
-            {new Date(props.order.time_ordered).toLocaleString("pt-BR", {
-              hour: "2-digit",
-              minute: "2-digit"
-            })}
-          </p>
-          <p>
-            PRONTO:{" "}
-            {new Date(props.order.time_conclude_order).toLocaleString("pt-BR", {
-              hour: "2-digit",
-              minute: "2-digit"
-            })}
-          </p>
-        </div>
-        <div className={css(styles.historyTimeDiff)}>
-          Tempo de preparo de:
-          {/* {(props.order.time_conclude_order.toDate().getTime()- props.order.time_ordered.toDate().getTime()).toLocaleString("pt-BR")} */}
-        </div>
-      </li>
-    </Accordion.Toggle>
-    <Accordion.Collapse eventKey={props.index}>
-      <section className={css(styles.show)}>
-        {props.order.order.map((itemOrdered, index) => {
-          return <li key={"historyDetails" + index}> {itemOrdered.item}</li>;
-        })}
-      </section>
-    </Accordion.Collapse>
-  </Accordion>
-);
+        <li
+          key={props.index}
+          className={css(
+            styles.history,
+            props.index % 2 ? styles.colorOne : styles.colorTwo
+          )}
+        >
+          <div className={css(styles.historyUserTime)}>
+            MESA {props.order.user_table} - {props.order.user_name}
+          </div>
+          <div className={css(styles.historyUserTime)}>
+            <p>
+              PEDIDO:{" "}
+              {new Date(props.order.time_ordered).toLocaleString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit"
+              })}
+            </p>
+            <p>
+              PRONTO:{" "}
+              {new Date(props.order.time_conclude_order).toLocaleString(
+                "pt-BR",
+                {
+                  hour: "2-digit",
+                  minute: "2-digit"
+                }
+              )}
+            </p>
+          </div>
+          <div className={css(styles.historyTimeDiff)}>
+            Tempo de preparo de: {timeDiff}{" "}
+            {timeDiff > 1 ? "minutos" : "minuto"}
+          </div>
+        </li>
+      </Accordion.Toggle>
+      <Accordion.Collapse eventKey={props.index}>
+        <section className={css(styles.show)}>
+          {props.order.order.map((itemOrdered, index) => {
+            return (
+              <li key={"historyDetails" + index}>
+                {itemOrdered.quantia}x {itemOrdered.item}
+              </li>
+            );
+          })}
+        </section>
+      </Accordion.Collapse>
+    </Accordion>
+  );
+};
 
 export default Historic;

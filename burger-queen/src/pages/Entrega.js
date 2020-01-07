@@ -88,7 +88,7 @@ const DeliveryPage = () => {
               return (
                 <CardOrderKitchen
                   order={order}
-                  key={"CardOrderKitchen" + index}
+                  key={"CardOrderDelivery" + index}
                   handleClick={concludeOrder}
                   btntitle={"PEDIDO ENTREGUE"}
                 />
@@ -116,7 +116,7 @@ const DeliveryPage = () => {
             .map((order, index) => {
               return (
                 <Historic
-                  key={"Historic" + index}
+                  key={"HistoricDelivery" + index}
                   order={order}
                   index={index}
                 />

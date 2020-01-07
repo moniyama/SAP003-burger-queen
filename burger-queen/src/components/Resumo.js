@@ -23,6 +23,8 @@ const styles = StyleSheet.create({
   }
 });
 
+// array.find e array.splice
+
 const Resumo = props => {
   const shortcutQtd = (item, unitprice, plusOrMinus) => {
     const updatedItem = props.resumo
