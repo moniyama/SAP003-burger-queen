@@ -69,6 +69,11 @@ const DeliveryPage = () => {
     });
     setDeliveryOrders(update);
   };
+  const today = new Date().toLocaleString(undefined, {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
   return (
     <main className={css(styles.main)}>
       <header className={css(styles.title)}>PEDIDOS PRONTOS</header>
@@ -101,14 +106,17 @@ const DeliveryPage = () => {
         <ul>
           {deliveryOrders
             .filter(element => {
-              // const orderDate = element.time_ordered
-              //   .toDate()
-              //   .toLocaleString(undefined, {
-              //     day: "2-digit",
-              //     month: "2-digit",
-              //     year: "numeric"
-              //   });
-              return element.order_status_delivered === true;
+              const orderDate = new Date(element.time_ordered).toLocaleString(
+                undefined,
+                {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric"
+                }
+              );
+              return (
+                element.order_status_delivered === true && today === orderDate
+              );
             })
             .sort((a, b) => {
               return a.time_conclude_order > b.time_conclude_order ? -1 : 1;
@@ -119,6 +127,7 @@ const DeliveryPage = () => {
                   key={"HistoricDelivery" + index}
                   order={order}
                   index={index}
+                  page={"delivery"}
                 />
               );
             })}

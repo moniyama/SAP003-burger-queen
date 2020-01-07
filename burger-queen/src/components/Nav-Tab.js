@@ -31,10 +31,10 @@ export default function navTab() {
   <Tab className={css(styles.tabBox)} eventKey="pedidos" title="REALIZAR PEDIDO">
     <Menu />
   </Tab>
-  <Tab className={css(styles.tabBox)} eventKey="cozinha" title="EM PREPARAÇÃO">
+  <Tab className={css(styles.tabBox)} eventKey="cozinha" title="PREPARAÇÃO">
     <Cozinha />
   </Tab>
-  <Tab className={css(styles.tabBox)} eventKey="pronto" title="PARA ENTREGA">
+  <Tab className={css(styles.tabBox)} eventKey="pronto" title="REALIZAR ENTREGA">
     <DeliveryPage />
   </Tab>
 </Tabs>

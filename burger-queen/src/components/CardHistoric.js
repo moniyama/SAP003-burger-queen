@@ -37,12 +37,20 @@ const Historic = props => {
   const [timeDiff, setTimeDiff] = useState(0);
 
   useEffect(() => {
-    const concludeTime = new Date(props.order.time_conclude_order).getTime();
+    let concludeTime;
+    props.page === "kitchen"
+      ? (concludeTime = new Date(props.order.time_conclude_order).getTime())
+      : (concludeTime = new Date(props.order.time_delivered_order));
     const orderedTime = new Date(props.order.time_ordered).getTime();
     const microSecondsDiff = Math.abs(concludeTime - orderedTime);
     const minDiff = Math.floor(microSecondsDiff / (1000 * 60));
     setTimeDiff(minDiff);
-  }, [props.order.time_conclude_order, props.order.time_ordered]);
+  }, [
+    props.order.time_conclude_order,
+    props.order.time_delivered_order,
+    props.order.time_ordered,
+    props.page
+  ]);
 
   return (
     <Accordion defaultActiveKey="none">
@@ -80,8 +88,10 @@ const Historic = props => {
             </p>
           </div>
           <div className={css(styles.historyTimeDiff)}>
-            Tempo de preparo de: {timeDiff}{" "}
-            {timeDiff > 1 ? "minutos" : "minuto"}
+            {props.page === "kitchen"
+              ? "Tempo de preparação:"
+              : "Tempo de atendimento"} {" "}
+            {timeDiff} {timeDiff > 1 ? "minutos" : "minuto"}
           </div>
         </li>
       </Accordion.Toggle>

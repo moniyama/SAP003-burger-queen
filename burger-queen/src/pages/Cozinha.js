@@ -78,7 +78,6 @@ const Kitchen = () => {
     month: "2-digit",
     year: "numeric"
   });
-  console.log(today);
 
   return (
     <main className={css(styles.main)}>
@@ -104,21 +103,20 @@ const Kitchen = () => {
             })}
         </ul>
       </section>
-      <header className={css(styles.title)}>PEDIDOS PREPARADOS</header>
+      <header className={css(styles.title)}>PREPARADOS HOJE</header>
       <section className={css(styles.orderSectionHistory)}>
         <ul>
           {orders
             .filter(element => {
-              // const orderDate = element.time_ordered
-              //   .toDate()
-              //   .toLocaleString(undefined, {
-              //     day: "2-digit",
-              //     month: "2-digit",
-              //     year: "numeric"
-              //   });
+              const orderDate = new Date(element.time_ordered)
+                .toLocaleString(undefined, {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric"
+                });
               return (
                 element.order_status_cooked === true
-                // && today === orderDate
+                && today === orderDate
               );
             })
             .sort((a, b) => {
@@ -130,6 +128,7 @@ const Kitchen = () => {
                   key={"Historic" + index}
                   order={order}
                   index={index}
+                  page={"kitchen"}
                 />
               );
             })}
