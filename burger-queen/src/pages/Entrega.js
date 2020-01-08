@@ -106,7 +106,7 @@ const DeliveryPage = () => {
         <ul>
           {deliveryOrders
             .filter(element => {
-              const orderDate = new Date(element.time_ordered).toLocaleString(
+              const orderDate = new Date(element.time_delivered_order).toLocaleString(
                 undefined,
                 {
                   day: "2-digit",

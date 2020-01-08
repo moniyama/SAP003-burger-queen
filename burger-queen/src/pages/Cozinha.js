@@ -108,7 +108,7 @@ const Kitchen = () => {
         <ul>
           {orders
             .filter(element => {
-              const orderDate = new Date(element.time_ordered)
+              const orderDate = new Date(element.time_conclude_order)
                 .toLocaleString(undefined, {
                   day: "2-digit",
                   month: "2-digit",
