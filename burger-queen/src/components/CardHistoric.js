@@ -40,7 +40,7 @@ const Historic = props => {
     let concludeTime;
     props.page === "kitchen"
       ? (concludeTime = new Date(props.order.time_conclude_order).getTime())
-      : (concludeTime = new Date(props.order.time_delivered_order));
+      : (concludeTime = new Date(props.order.time_delivered_order).getTime());
     const orderedTime = new Date(props.order.time_ordered).getTime();
     const microSecondsDiff = Math.abs(concludeTime - orderedTime);
     const minDiff = Math.floor(microSecondsDiff / (1000 * 60));
