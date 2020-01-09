@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
     margin: "2%",
     ":active": {
       backgroundColor: "#F2B885"
-    },
+    }
   }
 });
 
-const button = props => (
+const Button = props => (
   <button
     value={props.value}
     title={props.title}
@@ -28,4 +28,4 @@ const button = props => (
   </button>
 );
 
-export default button;
+export default Button;
