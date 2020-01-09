@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import firebase from "../firebase/firebase-config";
-import CardOrderKitchen from "../components/CardOrder";
+import CardOrder from "../components/CardOrder";
 import Historic from "../components/CardHistoric";
 
 // filtrar historico de orders apenas do dia
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     padding: "0% 2% 2%",
-    height: "83vh"
+    height: "78vh"
   },
   title: {
     color: "#BF190A",
@@ -58,6 +58,7 @@ const Kitchen = () => {
   }, [orders]);
 
   const concludeOrder = e => {
+    console.log(e.currentTarget)
     const id = e.currentTarget.id;
     firebase
       .firestore()
@@ -93,7 +94,7 @@ const Kitchen = () => {
             })
             .map((order, index) => {
               return (
-                <CardOrderKitchen
+                <CardOrder
                   order={order}
                   key={"CardOrderKitchen" + index}
                   handleClick={concludeOrder}
@@ -119,19 +120,16 @@ const Kitchen = () => {
                 && today === orderDate
               );
             })
-            .sort((a, b) => {
-              return a.time_conclude_order > b.time_conclude_order ? -1 : 1;
-            })
-            .map((order, index) => {
-              return (
+            .sort((a, b) => a.time_conclude_order > b.time_conclude_order ? -1 : 1)
+            .map((order, index) => (
                 <Historic
                   key={"Historic" + index}
                   order={order}
                   index={index}
                   page={"kitchen"}
                 />
-              );
-            })}
+              )
+            )}
         </ul>
       </section>
     </main>

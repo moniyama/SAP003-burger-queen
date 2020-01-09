@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../firebase/firebase-config";
 import { StyleSheet, css } from "aphrodite";
-import CardOrderKitchen from "../components/CardOrder";
+import CardOrder from "../components/CardOrder";
 import Historic from "../components/CardHistoric";
 
 const styles = StyleSheet.create({
@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     padding: "0% 2% 2%",
-    height: "83vh"
-  },
+    height: "78vh"
+},
   title: {
     color: "#BF190A",
     fontSize: "25px",
@@ -91,7 +91,7 @@ const DeliveryPage = () => {
             })
             .map((order, index) => {
               return (
-                <CardOrderKitchen
+                <CardOrder
                   order={order}
                   key={"CardOrderDelivery" + index}
                   handleClick={concludeOrder}

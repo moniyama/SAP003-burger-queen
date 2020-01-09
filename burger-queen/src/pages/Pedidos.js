@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   main: {
     padding: "3%",
     display: "flex",
-    height: "83vh"
+    height: "78vh"
   },
   menu: {
     width: "60%",
@@ -64,7 +64,7 @@ const Menu = () => {
   const [showModalMesa, setShowModalMesa] = useState(false);
   const [showModal, setshowModal] = useState(false);
   const [initialHamburguerState, setInitialHamburguerState] = useState({});
-  const [endBtnsshow, setEndBtnsshow] = useState(true);
+  const [disabledBtns, setDisabledBtns] = useState(true);
   const [subtotal, setSubtotal] = useState(0);
 
   const updateResumo = newResumo => setResumo(newResumo);
@@ -87,16 +87,22 @@ const Menu = () => {
   }, []);
 
   useEffect(() => {
-    resumo.length === 0 ? setEndBtnsshow(true) : setEndBtnsshow(false);
+    const updateSubtotal = () => {
+      setSubtotal(
+        resumo.reduce((acumulador, valorAtual) => {
+          return acumulador + valorAtual.value;
+        }, 0)
+      );
+    };
+
+    resumo.length === 0 ? setDisabledBtns(true) : setDisabledBtns(false);
     setInitialHamburguerState({});
-    setSubtotal(
-      resumo.reduce((acumulador, valorAtual) => {
-        return acumulador + valorAtual.value;
-      }, 0)
-    );
+    updateSubtotal();
+
   }, [resumo]);
 
   const addItem = e => {
+    console.log(e.currentTarget);
     const newItem = e.currentTarget.title;
     const itemPrice = Number(e.currentTarget.value.slice(2));
     checkHasItemOrdered(newItem, itemPrice);
@@ -170,13 +176,13 @@ const Menu = () => {
             class={styles.endBtns}
             title={"Finalizar Pedido"}
             handleClick={() => setShowModalMesa(true)}
-            disabled={endBtnsshow}
+            disabled={disabledBtns}
           />
           <Button
             class={styles.endBtns}
             title={"Cancelar Pedido"}
             handleClick={() => updateResumo([])}
-            disabled={endBtnsshow}
+            disabled={disabledBtns}
           />
         </section>
       </section>

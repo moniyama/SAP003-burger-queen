@@ -2,15 +2,22 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite";
 
 const styles = StyleSheet.create({
-  title: {
-    color: "#BF190A",
-    display: "flex",
-    justifyContent: "center",
-    padding: "1%",
-    fontWeight: "bold"
+  logo:{
+    width:'70%'
+  },
+  header: {
+    backgroundColor:'white',
+    textAlign:'center',
+    width:'100vw',
   }
 });
 
 export default function Header() {
-  return <h1 className={css(styles.title)}>BURGUER QUEEN</h1>;
+  return (
+    <header className={css(styles.header)}>
+      <figure>
+        <img className={css(styles.logo)} src={require("../img/Capturar.PNG")} alt={"logo"}></img>
+      </figure>
+    </header>
+  );
 }
