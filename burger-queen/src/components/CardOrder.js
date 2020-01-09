@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const CardOrderKitchen = props => (
+const CardOrder = props => (
   <li className={css(styles.orderCard)}>
     <header className={css(styles.headerCard)}>
       <div className={css(styles.orderedUser)}>
@@ -61,13 +61,11 @@ const CardOrderKitchen = props => (
       </div>
     </header>
     <div className={css(styles.bodyCard)}>
-      {props.order.order.map((itemOrdered, key) => {
-        return (
-          <div className={css(styles.orderedItem)} key={key + itemOrdered}>
-            {itemOrdered.quantia}x {itemOrdered.item}
-          </div>
-        );
-      })}
+      {props.order.order.map((itemOrdered, key) => (
+        <div className={css(styles.orderedItem)} key={key + itemOrdered}>
+          {itemOrdered.quantia}x {itemOrdered.item}
+        </div>
+      ))}
     </div>
     <Button
       title={props.btntitle}
@@ -78,4 +76,4 @@ const CardOrderKitchen = props => (
   </li>
 );
 
-export default CardOrderKitchen;
+export default CardOrder;

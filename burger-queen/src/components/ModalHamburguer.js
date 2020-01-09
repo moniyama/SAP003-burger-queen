@@ -4,6 +4,8 @@ import { Modal } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
 import ToggleIcon from "./ToggleIcon";
 
+// change color dos btns sabores de hamburgueres qdo clicados
+
 const styles = StyleSheet.create({
   modal: {
     textAlign: "center"
@@ -60,17 +62,16 @@ const HamburguerOptionModalHtml = props => {
 
   const setNewEggState = newState => {
     settoggleStatEgg(newState);
-    const newHambResumo = hambResumo.map(elem => {
-      return { ...elem, ovo: newState };
-    });
+    const newHambResumo = hambResumo.map(elem => ({ ...elem, ovo: newState }));
     setHambResumo(newHambResumo);
   };
 
   const setNewCheeseState = newState => {
     settoggleStatCheese(newState);
-    const newHambResumo = hambResumo.map(elem => {
-      return { ...elem, queijo: newState };
-    });
+    const newHambResumo = hambResumo.map(elem => ({
+      ...elem,
+      queijo: newState
+    }));
     setHambResumo(newHambResumo);
   };
 
@@ -116,9 +117,10 @@ const HamburguerOptionModalHtml = props => {
 
   const getHamburguerFlavor = e => {
     setBtnModalDisabledStatus(false);
-    const newHambFlavor = hambResumo.map(elem => {
-      return { ...elem, hamburguer: e.currentTarget.title };
-    });
+    const newHambFlavor = hambResumo.map(elem => ({
+      ...elem,
+      hamburguer: e.currentTarget.title
+    }));
     setHambResumo(newHambFlavor);
   };
 

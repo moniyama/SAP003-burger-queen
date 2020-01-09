@@ -28,19 +28,17 @@ const MenuGroup = props => {
     <section className={css(styles.menuGroupSection)}>
       <p className={css(styles.menuTitle)}>{props.title} </p>
       <p className={css(styles.menuItem)} id={props.type}>
-        {props.menu.map((item, index) => {
-          if (item.type === props.type)
-            return (
-              <Button
-                key={index}
-                handleClick={props.click}
-                title={item.item}
-                value={"R$" + item.value}
-                class={styles.menuItemBtn}
-              />
-            );
-          return null;
-        })}
+        {props.menu
+          .filter(obj => obj.type === props.type)
+          .map((item, index) => (
+            <Button
+              key={index}
+              handleClick={props.click}
+              title={item.item}
+              value={"R$" + item.value}
+              class={styles.menuItemBtn}
+            />
+          ))}
       </p>
     </section>
   );

@@ -46,19 +46,20 @@ const Kitchen = () => {
       .firestore()
       .collection("ORDERS")
       .onSnapshot(querySnapshot => {
-        const newOrders = querySnapshot.docs.map(doc => {
-          return { ...doc.data(), id: doc.id };
-        });
+        const newOrders = querySnapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id
+        }));
         setOrders(newOrders);
       });
   }, []);
 
-  useEffect(() => {
-    console.log("orders", orders);
-  }, [orders]);
+  // useEffect(() => {
+  //   console.log("orders", orders);
+  // }, [orders]);
 
   const concludeOrder = e => {
-    console.log(e.currentTarget)
+    console.log(e.currentTarget);
     const id = e.currentTarget.id;
     firebase
       .firestore()
@@ -68,9 +69,9 @@ const Kitchen = () => {
         order_status_cooked: true,
         time_conclude_order: new Date().getTime()
       });
-    const update = orders.map(order => {
-      return order.id === id ? { ...order, order_status_cooked: true } : order;
-    });
+    const update = orders.map(order =>
+      order.id === id ? { ...order, order_status_cooked: true } : order
+    );
     setOrders(update);
   };
 
@@ -86,22 +87,17 @@ const Kitchen = () => {
       <section className={css(styles.orderSection)}>
         <ul className={css(styles.ul)}>
           {orders
-            .sort((a, b) => {
-              return a.time_ordered > b.time_ordered ? 1 : -1;
-            })
-            .filter(element => {
-              return element.order_status_cooked === false;
-            })
-            .map((order, index) => {
-              return (
+            .sort((a, b) => (a.time_ordered > b.time_ordered ? 1 : -1))
+            .filter(element => element.order_status_cooked === false)
+            .map((order, index) => (
                 <CardOrder
                   order={order}
                   key={"CardOrderKitchen" + index}
                   handleClick={concludeOrder}
                   btntitle={"PEDIDO PRONTO"}
                 />
-              );
-            })}
+              )
+            )}
         </ul>
       </section>
       <header className={css(styles.title)}>PREPARADOS HOJE</header>
@@ -109,27 +105,28 @@ const Kitchen = () => {
         <ul>
           {orders
             .filter(element => {
-              const orderDate = new Date(element.time_conclude_order)
-                .toLocaleString(undefined, {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric"
-                });
+              const orderDate = new Date(
+                element.time_conclude_order
+              ).toLocaleString(undefined, {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+              });
               return (
-                element.order_status_cooked === true
-                && today === orderDate
+                element.order_status_cooked === true && today === orderDate
               );
             })
-            .sort((a, b) => a.time_conclude_order > b.time_conclude_order ? -1 : 1)
+            .sort((a, b) =>
+              a.time_conclude_order > b.time_conclude_order ? -1 : 1
+            )
             .map((order, index) => (
-                <Historic
-                  key={"Historic" + index}
-                  order={order}
-                  index={index}
-                  page={"kitchen"}
-                />
-              )
-            )}
+              <Historic
+                key={"Historic" + index}
+                order={order}
+                index={index}
+                page={"kitchen"}
+              />
+            ))}
         </ul>
       </section>
     </main>

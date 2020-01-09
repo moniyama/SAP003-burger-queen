@@ -79,9 +79,7 @@ const Menu = () => {
       .orderBy("type", "asc")
       .get()
       .then(querySnapshot => {
-        const products = querySnapshot.docs.map(doc => {
-          return doc.data();
-        });
+        const products = querySnapshot.docs.map(doc => doc.data());
         setMenu(products);
       });
   }, []);
@@ -89,20 +87,19 @@ const Menu = () => {
   useEffect(() => {
     const updateSubtotal = () => {
       setSubtotal(
-        resumo.reduce((acumulador, valorAtual) => {
-          return acumulador + valorAtual.value;
-        }, 0)
+        resumo.reduce(
+          (acumulador, valorAtual) => acumulador + valorAtual.value,
+          0
+        )
       );
     };
 
     resumo.length === 0 ? setDisabledBtns(true) : setDisabledBtns(false);
     setInitialHamburguerState({});
     updateSubtotal();
-
   }, [resumo]);
 
   const addItem = e => {
-    console.log(e.currentTarget);
     const newItem = e.currentTarget.title;
     const itemPrice = Number(e.currentTarget.value.slice(2));
     checkHasItemOrdered(newItem, itemPrice);
@@ -116,9 +113,7 @@ const Menu = () => {
           item.quantia += 1;
           item.value = itemPrice * item.quantia;
           return item;
-        } else {
-          return item;
-        }
+        } else return item;
       });
       updateResumo(newResumo);
     } else {

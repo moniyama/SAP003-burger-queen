@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     padding: "0% 2% 2%",
     height: "78vh"
-},
+  },
   title: {
     color: "#BF190A",
     fontSize: "25px",
@@ -45,9 +45,10 @@ const DeliveryPage = () => {
       .collection("ORDERS")
       .where("order_status_cooked", "==", true)
       .onSnapshot(querySnapshot => {
-        const newOrder = querySnapshot.docs.map(doc => {
-          return { ...doc.data(), id: doc.id };
-        });
+        const newOrder = querySnapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id
+        }));
         setDeliveryOrders(newOrder);
       });
   }, []);
@@ -62,11 +63,9 @@ const DeliveryPage = () => {
         order_status_delivered: true,
         time_delivered_order: new Date().getTime()
       });
-    const update = deliveryOrders.map(order => {
-      return order.id === id
-        ? { ...order, order_status_delivered: true }
-        : order;
-    });
+    const update = deliveryOrders.map(order =>
+      order.id === id ? { ...order, order_status_delivered: true } : order
+    );
     setDeliveryOrders(update);
   };
   const today = new Date().toLocaleString(undefined, {
@@ -80,25 +79,22 @@ const DeliveryPage = () => {
       <section className={css(styles.orderSection)}>
         <ul className={css(styles.ul)}>
           {deliveryOrders
-            .sort((a, b) => {
-              return a.time_conclude_order > b.time_conclude_order ? 1 : -1;
-            })
-            .filter(element => {
-              return (
+            .sort((a, b) =>
+              a.time_conclude_order > b.time_conclude_order ? 1 : -1
+            )
+            .filter(
+              element =>
                 element.order_status_cooked === true &&
                 element.order_status_delivered === false
-              );
-            })
-            .map((order, index) => {
-              return (
-                <CardOrder
-                  order={order}
-                  key={"CardOrderDelivery" + index}
-                  handleClick={concludeOrder}
-                  btntitle={"PEDIDO ENTREGUE"}
-                />
-              );
-            })}
+            )
+            .map((order, index) => (
+              <CardOrder
+                order={order}
+                key={"CardOrderDelivery" + index}
+                handleClick={concludeOrder}
+                btntitle={"PEDIDO ENTREGUE"}
+              />
+            ))}
         </ul>
       </section>
       <header className={css(styles.title)}>PEDIDOS ENTREGUES</header>
@@ -106,31 +102,28 @@ const DeliveryPage = () => {
         <ul>
           {deliveryOrders
             .filter(element => {
-              const orderDate = new Date(element.time_delivered_order).toLocaleString(
-                undefined,
-                {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric"
-                }
-              );
+              const orderDate = new Date(
+                element.time_delivered_order
+              ).toLocaleString(undefined, {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+              });
               return (
                 element.order_status_delivered === true && today === orderDate
               );
             })
-            .sort((a, b) => {
-              return a.time_conclude_order > b.time_conclude_order ? -1 : 1;
-            })
-            .map((order, index) => {
-              return (
-                <Historic
-                  key={"HistoricDelivery" + index}
-                  order={order}
-                  index={index}
-                  page={"delivery"}
-                />
-              );
-            })}
+            .sort((a, b) =>
+              a.time_conclude_order > b.time_conclude_order ? -1 : 1
+            )
+            .map((order, index) => (
+              <Historic
+                key={"HistoricDelivery" + index}
+                order={order}
+                index={index}
+                page={"delivery"}
+              />
+            ))}
         </ul>
       </section>
     </main>

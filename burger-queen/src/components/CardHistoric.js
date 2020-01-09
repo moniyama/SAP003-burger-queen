@@ -90,20 +90,18 @@ const Historic = props => {
           <div className={css(styles.historyTimeDiff)}>
             {props.page === "kitchen"
               ? "Tempo de preparação:"
-              : "Tempo de atendimento"} {" "}
+              : "Tempo de atendimento"}{" "}
             {timeDiff} {timeDiff > 1 ? "minutos" : "minuto"}
           </div>
         </li>
       </Accordion.Toggle>
       <Accordion.Collapse eventKey={props.index}>
         <section className={css(styles.show)}>
-          {props.order.order.map((itemOrdered, index) => {
-            return (
-              <li key={"historyDetails" + index}>
-                {itemOrdered.quantia}x {itemOrdered.item}
-              </li>
-            );
-          })}
+          {props.order.order.map((itemOrdered, index) => (
+            <li key={"historyDetails" + index}>
+              {itemOrdered.quantia}x {itemOrdered.item}
+            </li>
+          ))}
         </section>
       </Accordion.Collapse>
     </Accordion>
