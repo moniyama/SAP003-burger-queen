@@ -45,6 +45,8 @@ const Kitchen = () => {
     firebase
       .firestore()
       .collection("ORDERS")
+      .orderBy("time_ordered", "desc")
+      .limit(20)
       .onSnapshot(querySnapshot => {
         const newOrders = querySnapshot.docs.map(doc => ({
           ...doc.data(),
@@ -75,11 +77,6 @@ const Kitchen = () => {
     setOrders(update);
   };
 
-  const today = new Date().toLocaleString(undefined, {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric"
-  });
 
   return (
     <main className={css(styles.main)}>
@@ -90,32 +87,20 @@ const Kitchen = () => {
             .sort((a, b) => (a.time_ordered > b.time_ordered ? 1 : -1))
             .filter(element => element.order_status_cooked === false)
             .map((order, index) => (
-                <CardOrder
-                  order={order}
-                  key={"CardOrderKitchen" + index}
-                  handleClick={concludeOrder}
-                  btntitle={"PEDIDO PRONTO"}
-                />
-              )
-            )}
+              <CardOrder
+                order={order}
+                key={"CardOrderKitchen" + index}
+                handleClick={concludeOrder}
+                btntitle={"PEDIDO PRONTO"}
+              />
+            ))}
         </ul>
       </section>
       <header className={css(styles.title)}>PREPARADOS HOJE</header>
       <section className={css(styles.orderSectionHistory)}>
         <ul>
           {orders
-            .filter(element => {
-              const orderDate = new Date(
-                element.time_conclude_order
-              ).toLocaleString(undefined, {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-              });
-              return (
-                element.order_status_cooked === true && today === orderDate
-              );
-            })
+            .filter(element => element.order_status_cooked === true)
             .sort((a, b) =>
               a.time_conclude_order > b.time_conclude_order ? -1 : 1
             )

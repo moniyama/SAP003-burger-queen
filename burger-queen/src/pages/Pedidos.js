@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   menu: {
     width: "60%",
     height: "100%",
-    overflow: "scroll"
+    overflow: "auto"
   },
   resumo: {
     width: "40%",
@@ -77,6 +77,7 @@ const Menu = () => {
       .firestore()
       .collection("MENU")
       .orderBy("type", "asc")
+      
       .get()
       .then(querySnapshot => {
         const products = querySnapshot.docs.map(doc => doc.data());
