@@ -3,6 +3,7 @@ import firebase from "../firebase/firebase-config";
 import { StyleSheet, css } from "aphrodite";
 import Input from "../components/Input";
 import Button from "../components/Button";
+
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const styles = StyleSheet.create({
@@ -39,6 +40,11 @@ const styles = StyleSheet.create({
   pRegister: {
     margin: "3%",
     fontSize: "20px"
+  },
+  error: {
+    fontSize: "20px",
+    color: "red",
+    fontWeight: "bold"
   }
 });
 
@@ -70,8 +76,15 @@ const LoginPage = () => {
       .then(() => console.log("ir para pagina correta"))
       .catch(error => {
         var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log("error", errorCode, errorMessage);
+        var errorMessage = document.getElementById("error");
+        if (errorCode === "auth/invalid-email")
+          errorMessage.textContent = "Email inválido";
+        if (errorCode === "auth/user-disabled")
+          errorMessage.textContent = "Usuário desabilitado";
+        if (errorCode === "auth/user-not-found")
+          errorMessage.textContent = "Usuário não encontrado";
+        if (errorCode === "auth/wrong-password")
+          errorMessage.textContent = "Senha incorreta";
       });
   };
 
@@ -108,11 +121,13 @@ const LoginPage = () => {
               handleClick={e => login(e)}
             />
           </form>
+          <p className={css(styles.error)} id={"error"}></p>
           <p className={css(styles.pRegister)}>
             Ainda não se registrou? Cadastre-se AQUI
           </p>
         </div>
       </section>
+
     </main>
   );
 };
