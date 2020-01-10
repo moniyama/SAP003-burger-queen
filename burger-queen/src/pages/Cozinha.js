@@ -60,7 +60,7 @@ const Kitchen = () => {
   //   console.log("orders", orders);
   // }, [orders]);
 
-  const concludeOrder = e => {
+  const saveOrderCooked = e => {
     console.log(e.currentTarget);
     const id = e.currentTarget.id;
     firebase
@@ -69,14 +69,13 @@ const Kitchen = () => {
       .doc(id)
       .update({
         order_status_cooked: true,
-        time_conclude_order: new Date().getTime()
+        time_conclude_order: new Date().toLocaleString("pt-BR")
       });
     const update = orders.map(order =>
       order.id === id ? { ...order, order_status_cooked: true } : order
     );
     setOrders(update);
   };
-
 
   return (
     <main className={css(styles.main)}>
@@ -90,7 +89,7 @@ const Kitchen = () => {
               <CardOrder
                 order={order}
                 key={"CardOrderKitchen" + index}
-                handleClick={concludeOrder}
+                handleClick={saveOrderCooked}
                 btntitle={"PEDIDO PRONTO"}
               />
             ))}

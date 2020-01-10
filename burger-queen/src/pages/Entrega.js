@@ -53,7 +53,7 @@ const DeliveryPage = () => {
       });
   }, []);
 
-  const concludeOrder = e => {
+  const saveOrderCooked = e => {
     const id = e.currentTarget.id;
     firebase
       .firestore()
@@ -61,7 +61,7 @@ const DeliveryPage = () => {
       .doc(id)
       .update({
         order_status_delivered: true,
-        time_delivered_order: new Date().getTime()
+        time_delivered_order: new Date().toLocaleString("pt-BR")
       });
     const update = deliveryOrders.map(order =>
       order.id === id ? { ...order, order_status_delivered: true } : order
@@ -87,7 +87,7 @@ const DeliveryPage = () => {
               <CardOrder
                 order={order}
                 key={"CardOrderDelivery" + index}
-                handleClick={concludeOrder}
+                handleClick={saveOrderCooked}
                 btntitle={"PEDIDO ENTREGUE"}
               />
             ))}

@@ -77,7 +77,6 @@ const Menu = () => {
       .firestore()
       .collection("MENU")
       .orderBy("type", "asc")
-      
       .get()
       .then(querySnapshot => {
         const products = querySnapshot.docs.map(doc => doc.data());

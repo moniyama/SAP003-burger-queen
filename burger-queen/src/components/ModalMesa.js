@@ -56,7 +56,7 @@ const ModalMesa = props => {
         order: props.resumo,
         order_status_cooked: false,
         order_status_delivered: false,
-        time_ordered: new Date().getTime()
+        time_ordered: new Date().toLocaleString("pt-BR")
       });
   };
 
