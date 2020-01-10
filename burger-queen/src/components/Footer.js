@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     width: "100%",
-    margin: "0px",
+    padding: "1%",
     bottom: "0"
   }
 });
