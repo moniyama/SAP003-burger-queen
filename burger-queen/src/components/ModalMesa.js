@@ -10,20 +10,15 @@ const styles = StyleSheet.create({
     display: "block",
     textAlign: "center"
   },
-  input: {
-    justifyContent: "space-around",
-    width: "80%",
-    height: "70px",
-    textAlign: "left",
-    paddingLeft: "20px",
-    marginTop: "2%"
-  },
   footer: {
     justifyContent: "center"
   },
   btns: {
     width: "45%",
     height: "70px"
+  },
+  input: {
+    display: "block"
   }
 });
 
@@ -77,15 +72,15 @@ const ModalMesa = props => {
             id="input-table-name"
             type="text"
             placeholder="NOME DO CLIENTE"
+            class={styles.input}
             autoFocus={true}
-            className={css(styles.input)}
             onChange={() => setButtonAvailable()}
           />
           <Input
             id="input-table-number"
             type="number"
             placeholder="NUMERO DA MESA"
-            className={css(styles.input)}
+            class={styles.input}
             onChange={() => setButtonAvailable()}
           />
         </form>

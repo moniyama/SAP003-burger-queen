@@ -3,7 +3,6 @@ import { StyleSheet, css } from "aphrodite";
 
 const styles = StyleSheet.create({
   input: {
-    display: "block",
     height: "30px",
     padding: "5%",
     margin: "2% 3%",
@@ -19,6 +18,7 @@ const Input = props => (
     id={props.id}
     autoFocus={props.autofocus}
     onChange={props.onChange}
+    name={props.name}
   />
 );
 
