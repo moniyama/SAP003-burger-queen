@@ -9,7 +9,6 @@ import ModalMesa from "../components/ModalMesa";
 
 // não funciona:
 // import { ToggleOffOutlinedIcon, ToggleOnIcon } from '@material-ui/icons'
-// link do firebase deploy
 
 // tem diferença em usar o forEach ou o map no state, qdo se quer alterar um dado do state?
 // forEach => altera direto,

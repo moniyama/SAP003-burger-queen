@@ -11,8 +11,7 @@ const styles = StyleSheet.create({
     padding: "1%",
     borderRadius: "5px",
     display: "flex",
-    flexWrap: "wrap",
-    
+    flexWrap: "wrap"
   },
   headerCard: {
     display: "flex",
@@ -28,7 +27,6 @@ const styles = StyleSheet.create({
     textAlign: "right",
     width: "35%"
   },
-
   bodyCard: {
     width: "100%",
     height: "110px",
@@ -55,7 +53,7 @@ const CardOrder = props => (
         <p>{props.order.user_name}</p>
       </div>
       <div className={css(styles.orderedTime)}>
-      <HourFormate title={"PEDIDO"} time={props.order.time_ordered} />
+        <HourFormate title={"PEDIDO"} time={props.order.time_ordered} />
       </div>
     </header>
     <div className={css(styles.bodyCard)}>

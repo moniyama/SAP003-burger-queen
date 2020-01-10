@@ -39,17 +39,15 @@ const styles = StyleSheet.create({
 const Historic = props => {
   const [timeDiff, setTimeDiff] = useState(0);
 
-  const timeCooked = props.order.time_conclude_order;
-  const timeDelivered = props.order.time_ordered;
+  const timeCooked = new Date(props.order.time_conclude_order).getTime();
+  const timeDelivered = new Date(props.order.time_ordered).getTime();
   const initialTime = new Date(props.order.time_conclude_order).getTime();
   const page = props.page;
-  const index = props.index
+  const index = props.index;
 
   useEffect(() => {
     let endTime;
-    page === "kitchen"
-      ? (endTime = new Date(timeCooked).getTime())
-      : (endTime = new Date(timeDelivered).getTime());
+    page === "kitchen" ? (endTime = timeCooked) : (endTime = timeDelivered);
     const microSecondsDiff = Math.abs(endTime - initialTime);
     const minDiff = Math.floor(microSecondsDiff / (1000 * 60));
     setTimeDiff(minDiff);
@@ -57,10 +55,7 @@ const Historic = props => {
 
   return (
     <Accordion defaultActiveKey="none">
-      <Accordion.Toggle
-        eventKey={index}
-        className={css(styles.accordion)}
-      >
+      <Accordion.Toggle eventKey={index} className={css(styles.accordion)}>
         <li
           key={index}
           className={css(

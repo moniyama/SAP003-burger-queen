@@ -45,20 +45,23 @@ const HamburguerOptionModalHtml = props => {
   const [toggleStateCheese, settoggleStatCheese] = useState(false);
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
 
+  const hambType = props.initialhambstate.type;
+  const hambValue = props.initialhambstate.value;
+
   useEffect(() => {
     setHambResumo([
       {
-        type: props.initialhambstate.type,
+        type: hambType,
         hamburguer: "",
         queijo: false,
         ovo: false,
-        value: props.initialhambstate.value
+        value: hambValue
       }
     ]);
     setBtnModalDisabledStatus(true);
     settoggleStatEgg(false);
     settoggleStatCheese(false);
-  }, [props.initialhambstate.type, props.initialhambstate.value]);
+  }, [hambType, hambValue]);
 
   const setNewEggState = newState => {
     settoggleStatEgg(newState);
@@ -134,7 +137,7 @@ const HamburguerOptionModalHtml = props => {
       centered
     >
       <Modal.Header>
-        <Modal.Title>{props.initialhambstate.type}</Modal.Title>
+        <Modal.Title>{hambType}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <section
