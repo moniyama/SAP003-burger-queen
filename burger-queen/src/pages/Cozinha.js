@@ -4,8 +4,6 @@ import firebase from "../firebase/firebase-config";
 import CardOrder from "../components/CardOrder";
 import Historic from "../components/CardHistoric";
 
-// filtrar historico de orders apenas do dia
-
 const styles = StyleSheet.create({
   main: {
     textAlign: "center",
@@ -21,11 +19,13 @@ const styles = StyleSheet.create({
     margin: "1%"
   },
   orderSection: {
-    height: "62%",
-    overflow: "auto"
+    height: "65%"
   },
   orderSectionHistory: {
-    height: "38%",
+    height: "35%"
+  },
+  orders: {
+    height: "92%",
     overflow: "auto"
   },
   ul: {
@@ -33,8 +33,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     width: "100%",
-    listStyleType: "none",
-    overflow: "auto"
+    listStyleType: "none"
+  },
+  ulHistory: {
+    overflow: "auto",
+    height: "85%"
   }
 });
 
@@ -74,25 +77,29 @@ const Kitchen = () => {
 
   return (
     <main className={css(styles.main)}>
-      <header className={css(styles.title)}>PEDIDOS A PREPARAR</header>
       <section className={css(styles.orderSection)}>
-        <ul className={css(styles.ul)}>
-          {orders
-            .sort((a, b) => (a.time_ordered > b.time_ordered ? 1 : -1))
-            .filter(element => element.order_status_cooked === false)
-            .map((order, index) => (
-              <CardOrder
-                order={order}
-                key={"CardOrderKitchen" + index}
-                handleClick={saveOrderCooked}
-                btntitle={"PEDIDO PRONTO"}
-              />
-            ))}
-        </ul>
+        <header className={css(styles.title)}>PEDIDOS A PREPARAR</header>
+        <div className={css(styles.orders)}>
+          <ul className={css(styles.ul)}>
+            {orders
+              .sort((a, b) => (a.time_ordered > b.time_ordered ? 1 : -1))
+              .filter(element => element.order_status_cooked === false)
+              .map((order, index) => (
+                <CardOrder
+                  order={order}
+                  key={"CardOrderKitchen" + index}
+                  handleClick={saveOrderCooked}
+                  btntitle={"PEDIDO PRONTO"}
+                />
+              ))}
+          </ul>
+        </div>
       </section>
-      <header className={css(styles.title)}>ULTIMOS PEDIDOS PREPARADOS</header>
       <section className={css(styles.orderSectionHistory)}>
-        <ul>
+        <header className={css(styles.title)}>
+          ULTIMOS PEDIDOS PREPARADOS
+        </header>
+        <ul className={css(styles.ulHistory)}>
           {orders
             .filter(element => element.order_status_cooked === true)
             .sort((a, b) =>

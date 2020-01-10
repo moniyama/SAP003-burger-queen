@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import firebase from "../firebase/firebase-config";
 import { StyleSheet, css } from "aphrodite";
 import MenuGroup from "../components/CardMenuGroup";
-import Resumo from "../components/Resumo";
+import ResumoItens from "../components/ResumoItens";
 import HamburguerOptionModalHtml from "../components/ModalHamburguer";
 import Button from "../components/Button";
 import ModalMesa from "../components/ModalMesa";
@@ -164,8 +164,8 @@ const Menu = () => {
         />
       </section>
       <section className={css(styles.resumo)} id="resumo">
-        <Resumo resumo={resumo} setresumo={updateResumo} />
-        <section className={css(styles.subtotal)}>
+        <ResumoItens resumo={resumo} setresumo={updateResumo} />
+        <div className={css(styles.subtotal)}>
           <h4>Sub-Total: R$ {subtotal + ",00"}</h4>
           <Button
             class={styles.endBtns}
@@ -179,7 +179,7 @@ const Menu = () => {
             handleClick={() => updateResumo([])}
             disabled={disabledBtns}
           />
-        </section>
+        </div>
       </section>
       <HamburguerOptionModalHtml
         show={showModal}

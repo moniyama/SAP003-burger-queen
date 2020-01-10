@@ -55,31 +55,27 @@ const Resumo = props => {
 
   return (
     <>
-      <h4>Resumo</h4>
-      <section className={css(styles.title)}>
-        <span>Item</span>
-        <span>R$</span>
-      </section>
-      <section className={css(styles.resumoItens)}>
+      <header>
+        <h4>Resumo</h4>
+        <div className={css(styles.title)}>
+          <span>Item</span>
+          <span>R$</span>
+        </div>
+      </header>
+      <div className={css(styles.resumoItens)}>
         <ul className={css(styles.ul)}>
-          {props.resumo.map((itemResumo, index) => {
-            const item = itemResumo.item;
-            const quantia = itemResumo.quantia;
-            const price = itemResumo.value;
-            const unitPrice = itemResumo.unitPrice;
-            return (
-              <CardResumomItem
-                item={item}
-                quantia={quantia}
-                price={price + ",00"}
-                unitprice={unitPrice}
-                handleClick={shortcutQtd}
-                key={"CardResumomItem" + index}
-              />
-            );
-          })}
+          {props.resumo.map((itemResumo, index) => (
+            <CardResumomItem
+              item={itemResumo.item}
+              quantia={itemResumo.quantia}
+              price={itemResumo.value + ",00"}
+              unitprice={itemResumo.unitPrice}
+              handleClick={shortcutQtd}
+              key={"CardResumomItem" + index}
+            />
+          ))}
         </ul>
-      </section>
+      </div>
     </>
   );
 };

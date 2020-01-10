@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
     padding: "1%",
     borderRadius: "5px",
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    
   },
   headerCard: {
     display: "flex",

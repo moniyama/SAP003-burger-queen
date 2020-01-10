@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
 
 const MenuGroup = props => {
   return (
-    <section className={css(styles.menuGroupSection)}>
-      <p className={css(styles.menuTitle)}>{props.title} </p>
+    <div className={css(styles.menuGroupSection)}>
+      <header className={css(styles.menuTitle)}>{props.title} </header>
       <p className={css(styles.menuItem)} id={props.type}>
         {props.menu
           .filter(obj => obj.type === props.type)
@@ -40,7 +40,7 @@ const MenuGroup = props => {
             />
           ))}
       </p>
-    </section>
+    </div>
   );
 };
 export default MenuGroup;

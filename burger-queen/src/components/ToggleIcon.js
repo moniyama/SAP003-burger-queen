@@ -10,19 +10,14 @@ const ToggleIcon = props => {
       : props.setstate(!props.state);
   };
   return (
-    <>
-      <p>
-        {props.title}
-        {props.state ? (
-          <ToggleOnIcon title={props.title} onClick={changeToggleIcon} />
-        ) : (
-          <ToggleOffOutlinedIcon
-            title={props.title}
-            onClick={changeToggleIcon}
-          />
-        )}
-      </p>
-    </>
+    <p>
+      {props.title}
+      {props.state ? (
+        <ToggleOnIcon title={props.title} onClick={changeToggleIcon} />
+      ) : (
+        <ToggleOffOutlinedIcon title={props.title} onClick={changeToggleIcon} />
+      )}
+    </p>
   );
 };
 

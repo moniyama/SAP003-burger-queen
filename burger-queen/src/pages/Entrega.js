@@ -19,11 +19,13 @@ const styles = StyleSheet.create({
     margin: "1%"
   },
   orderSection: {
-    height: "62%",
-    overflow: "auto"
+    height: "65%"
   },
   orderSectionHistory: {
-    height: "38%",
+    height: "35%"
+  },
+  orders: {
+    height: "92%",
     overflow: "auto"
   },
   ul: {
@@ -31,8 +33,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     width: "100%",
-    listStyleType: "none",
-    overflow: "auto"
+    listStyleType: "none"
+  },
+  ulHistory: {
+    overflow: "auto",
+    height: "85%"
   }
 });
 
@@ -71,31 +76,33 @@ const DeliveryPage = () => {
 
   return (
     <main className={css(styles.main)}>
-      <header className={css(styles.title)}>PEDIDOS A ENTREGAR</header>
       <section className={css(styles.orderSection)}>
-        <ul className={css(styles.ul)}>
-          {deliveryOrders
-            .sort((a, b) =>
-              a.time_conclude_order > b.time_conclude_order ? 1 : -1
-            )
-            .filter(
-              element =>
-                element.order_status_cooked === true &&
-                element.order_status_delivered === false
-            )
-            .map((order, index) => (
-              <CardOrder
-                order={order}
-                key={"CardOrderDelivery" + index}
-                handleClick={saveOrderCooked}
-                btntitle={"PEDIDO ENTREGUE"}
-              />
-            ))}
-        </ul>
+        <header className={css(styles.title)}>PEDIDOS A ENTREGAR</header>
+        <div className={css(styles.orders)}>
+          <ul className={css(styles.ul)}>
+            {deliveryOrders
+              .sort((a, b) =>
+                a.time_conclude_order > b.time_conclude_order ? 1 : -1
+              )
+              .filter(
+                element =>
+                  element.order_status_cooked === true &&
+                  element.order_status_delivered === false
+              )
+              .map((order, index) => (
+                <CardOrder
+                  order={order}
+                  key={"CardOrderDelivery" + index}
+                  handleClick={saveOrderCooked}
+                  btntitle={"PEDIDO ENTREGUE"}
+                />
+              ))}
+          </ul>
+        </div>
       </section>
-      <header className={css(styles.title)}>ULTIMOS PEDIDOS ENTREGUES</header>
       <section className={css(styles.orderSectionHistory)}>
-        <ul>
+        <header className={css(styles.title)}>ULTIMOS PEDIDOS ENTREGUES</header>
+        <ul className={css(styles.ulHistory)}>
           {deliveryOrders
             .filter(element => element.order_status_delivered === true)
             .sort((a, b) =>

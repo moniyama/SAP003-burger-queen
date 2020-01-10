@@ -8,7 +8,8 @@ import HourFormate from "./Date.js";
 const styles = StyleSheet.create({
   accordion: {
     width: "100%",
-    border: "none"
+    border: "none",
+    outline: "none"
   },
   history: {
     display: "flex",
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   colorTwo: {
     backgroundColor: "#F2B885"
   },
-  historyUserTime: {
+  historyUserAndTime: {
     width: "35%",
     textAlign: "left"
   },
@@ -38,39 +39,39 @@ const styles = StyleSheet.create({
 const Historic = props => {
   const [timeDiff, setTimeDiff] = useState(0);
 
+  const timeCooked = props.order.time_conclude_order;
+  const timeDelivered = props.order.time_ordered;
+  const initialTime = new Date(props.order.time_conclude_order).getTime();
+  const page = props.page;
+  const index = props.index
+
   useEffect(() => {
     let endTime;
-    props.page === "kitchen"
-      ? (endTime = new Date(props.order.time_conclude_order).getTime())
-      : (endTime = new Date(props.order.time_delivered_order).getTime());
-    const initialTime = new Date(props.order.time_ordered).getTime();
+    page === "kitchen"
+      ? (endTime = new Date(timeCooked).getTime())
+      : (endTime = new Date(timeDelivered).getTime());
     const microSecondsDiff = Math.abs(endTime - initialTime);
     const minDiff = Math.floor(microSecondsDiff / (1000 * 60));
     setTimeDiff(minDiff);
-  }, [
-    props.order.time_conclude_order,
-    props.order.time_delivered_order,
-    props.order.time_ordered,
-    props.page
-  ]);
+  }, [initialTime, page, timeCooked, timeDelivered]);
 
   return (
     <Accordion defaultActiveKey="none">
       <Accordion.Toggle
-        eventKey={props.index}
+        eventKey={index}
         className={css(styles.accordion)}
       >
         <li
-          key={props.index}
+          key={index}
           className={css(
             styles.history,
-            props.index % 2 ? styles.colorOne : styles.colorTwo
+            index % 2 ? styles.colorOne : styles.colorTwo
           )}
         >
-          <div className={css(styles.historyUserTime)}>
+          <div className={css(styles.historyUserAndTime)}>
             MESA {props.order.user_table} - {props.order.user_name}
           </div>
-          <div className={css(styles.historyUserTime)}>
+          <div className={css(styles.historyUserAndTime)}>
             <HourFormate title={"PEDIDO"} time={props.order.time_ordered} />
             <HourFormate
               title={"PRONTO"}
@@ -86,14 +87,14 @@ const Historic = props => {
             )}
           </div>
           <div className={css(styles.historyTimeDiff)}>
-            {props.page === "kitchen"
+            {page === "kitchen"
               ? "Tempo de preparação:"
               : "Tempo de atendimento"}{" "}
             {timeDiff} {timeDiff > 1 ? "minutos" : "minuto"}
           </div>
         </li>
       </Accordion.Toggle>
-      <Accordion.Collapse eventKey={props.index}>
+      <Accordion.Collapse eventKey={index}>
         <section className={css(styles.show)}>
           {props.order.order.map((itemOrdered, index) => (
             <li key={"historyDetails" + index}>
