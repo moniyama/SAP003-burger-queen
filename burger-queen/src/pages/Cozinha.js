@@ -56,12 +56,7 @@ const Kitchen = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log("orders", orders);
-  // }, [orders]);
-
   const saveOrderCooked = e => {
-    console.log(e.currentTarget);
     const id = e.currentTarget.id;
     firebase
       .firestore()
@@ -79,7 +74,7 @@ const Kitchen = () => {
 
   return (
     <main className={css(styles.main)}>
-      <header className={css(styles.title)}>PEDIDOS</header>
+      <header className={css(styles.title)}>PEDIDOS A PREPARAR</header>
       <section className={css(styles.orderSection)}>
         <ul className={css(styles.ul)}>
           {orders
@@ -95,7 +90,7 @@ const Kitchen = () => {
             ))}
         </ul>
       </section>
-      <header className={css(styles.title)}>PREPARADOS HOJE</header>
+      <header className={css(styles.title)}>ULTIMOS PEDIDOS PREPARADOS</header>
       <section className={css(styles.orderSectionHistory)}>
         <ul>
           {orders

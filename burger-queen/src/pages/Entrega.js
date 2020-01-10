@@ -71,7 +71,7 @@ const DeliveryPage = () => {
 
   return (
     <main className={css(styles.main)}>
-      <header className={css(styles.title)}>PEDIDOS PRONTOS</header>
+      <header className={css(styles.title)}>PEDIDOS A ENTREGAR</header>
       <section className={css(styles.orderSection)}>
         <ul className={css(styles.ul)}>
           {deliveryOrders
@@ -93,7 +93,7 @@ const DeliveryPage = () => {
             ))}
         </ul>
       </section>
-      <header className={css(styles.title)}>PEDIDOS ENTREGUES</header>
+      <header className={css(styles.title)}>ULTIMOS PEDIDOS ENTREGUES</header>
       <section className={css(styles.orderSectionHistory)}>
         <ul>
           {deliveryOrders

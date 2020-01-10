@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "./Button";
 import { StyleSheet, css } from "aphrodite";
+import HourFormate from "./Date.js";
 
 const styles = StyleSheet.create({
   orderCard: {
@@ -53,11 +54,7 @@ const CardOrder = props => (
         <p>{props.order.user_name}</p>
       </div>
       <div className={css(styles.orderedTime)}>
-        PEDIDO:{" "}
-        {new Date(props.order.time_ordered).toLocaleTimeString("pt-BR", {
-          hour: "2-digit",
-          minute: "2-digit"
-        })}
+      <HourFormate title={"PEDIDO"} time={props.order.time_ordered} />
       </div>
     </header>
     <div className={css(styles.bodyCard)}>
