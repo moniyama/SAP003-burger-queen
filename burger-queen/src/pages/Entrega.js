@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     display: "flex",
     flexDirection: "column",
-    padding: "0% 2% 2%",
+    padding: "0% 2%",
     height: "78vh"
   },
   title: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   ulHistory: {
     overflow: "auto",
-    height: "85%"
+    height: "80%"
   }
 });
 

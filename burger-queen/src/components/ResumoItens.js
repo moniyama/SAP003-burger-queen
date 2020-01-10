@@ -12,13 +12,13 @@ const styles = StyleSheet.create({
     width: "100%",
     fontWeight: "bold",
     paddingLeft: "2%",
-    fontSize: "2vh"
+    fontSize: "25px"
   },
   resumoItens: {
     overflow: "auto",
     flexGrow: "1",
     paddingLeft: "2%",
-    fontSize: "2vh",
+    fontSize: "20px",
     textAlign: "left"
   }
 });

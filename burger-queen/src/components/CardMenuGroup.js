@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap"
   },
   menuItemBtn: {
-    fontSize: "2vh",
+    fontSize: "20px",
     height: "80px",
     width: "175px"
   }

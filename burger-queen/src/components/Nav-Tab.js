@@ -14,7 +14,7 @@ import DeliveryPage from '../pages/Entrega'
 
 const styles = StyleSheet.create({
   navbar: {
-    fontSize: "24px",
+    fontSize: "25px",
     borderRadius: "8px",
     backgroundColor: "#F2B885",
     fontWeight:'bold',
