@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import Button from "../components/Button";
+import Input from "../components/Input";
 import firebase from "../firebase/firebase-config";
 
 const styles = StyleSheet.create({
@@ -72,21 +73,21 @@ const ModalMesa = props => {
       </Modal.Header>
       <Modal.Body className={css(styles.body)}>
         <form>
-          <input
+          <Input
             id="input-table-name"
             type="text"
             placeholder="NOME DO CLIENTE"
             autoFocus={true}
             className={css(styles.input)}
             onChange={() => setButtonAvailable()}
-          ></input>
-          <input
+          />
+          <Input
             id="input-table-number"
             type="number"
             placeholder="NUMERO DA MESA"
             className={css(styles.input)}
             onChange={() => setButtonAvailable()}
-          ></input>
+          />
         </form>
       </Modal.Body>
       <Modal.Footer className={css(styles.footer)}>

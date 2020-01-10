@@ -18,6 +18,7 @@ const Input = props => (
     placeholder={props.placeholder}
     id={props.id}
     autoFocus={props.autofocus}
+    onChange={props.onChange}
   />
 );
 
