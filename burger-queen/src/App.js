@@ -8,7 +8,7 @@ import { StyleSheet, css } from "aphrodite";
 
 const styles = StyleSheet.create({
   main: {
-    margin: "2% 3%",
+    margin: "2% 3%"
   }
 });
 

@@ -45,8 +45,7 @@ const Kitchen = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    db
-      .collection("ORDERS")
+    db.collection("ORDERS")
       .orderBy("time_ordered", "desc")
       .limit(20)
       .onSnapshot(querySnapshot => {
@@ -60,8 +59,7 @@ const Kitchen = () => {
 
   const saveOrderCooked = e => {
     const id = e.currentTarget.id;
-    db
-      .collection("ORDERS")
+    db.collection("ORDERS")
       .doc(id)
       .update({
         order_status_cooked: true,

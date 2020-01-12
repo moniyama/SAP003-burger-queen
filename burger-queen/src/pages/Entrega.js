@@ -45,8 +45,7 @@ const DeliveryPage = () => {
   const [deliveryOrders, setDeliveryOrders] = useState([]);
 
   useEffect(() => {
-    db
-      .collection("ORDERS")
+    db.collection("ORDERS")
       .where("order_status_cooked", "==", true)
       .onSnapshot(querySnapshot => {
         const newOrder = querySnapshot.docs.map(doc => ({
@@ -54,13 +53,12 @@ const DeliveryPage = () => {
           id: doc.id
         }));
         setDeliveryOrders(newOrder);
-      })
+      });
   }, []);
 
   const saveOrderCooked = e => {
     const id = e.currentTarget.id;
-    db
-      .collection("ORDERS")
+    db.collection("ORDERS")
       .doc(id)
       .update({
         order_status_delivered: true,

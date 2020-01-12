@@ -28,9 +28,9 @@ const ModalMesa = props => {
   const [userTable, setUserTable] = useState("");
 
   useEffect(() => {
-    userName && userTable !== "" 
-    ? setButtonAvailableState(false)
-    : setButtonAvailableState(true);
+    userName && userTable !== ""
+      ? setButtonAvailableState(false)
+      : setButtonAvailableState(true);
   }, [userName, userTable]);
 
   const setUserData = (e, input) => {
@@ -46,17 +46,15 @@ const ModalMesa = props => {
   };
 
   const sendOrderToFirebase = (name, number) => {
-    db
-      .collection("ORDERS")
-      .add({
-        user_name: name,
-        user_table: number,
-        user_total_value: props.subtotal,
-        order: props.resumo,
-        order_status_cooked: false,
-        order_status_delivered: false,
-        time_ordered: new Date().toLocaleString("pt-BR")
-      });
+    db.collection("ORDERS").add({
+      user_name: name,
+      user_table: number,
+      user_total_value: props.subtotal,
+      order: props.resumo,
+      order_status_cooked: false,
+      order_status_delivered: false,
+      time_ordered: new Date().toLocaleString("pt-BR")
+    });
   };
 
   return (

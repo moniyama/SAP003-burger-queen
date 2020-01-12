@@ -72,8 +72,7 @@ const Menu = () => {
   const handleCloseModalMesa = () => setShowModalMesa(false);
 
   useEffect(() => {
-    db
-      .collection("MENU")
+    db.collection("MENU")
       .orderBy("type", "asc")
       .get()
       .then(querySnapshot => {
