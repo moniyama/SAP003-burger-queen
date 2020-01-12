@@ -40,8 +40,8 @@ const Historic = props => {
   const [timeDiff, setTimeDiff] = useState(0);
 
   const timeCooked = new Date(props.order.time_conclude_order).getTime();
-  const timeDelivered = new Date(props.order.time_ordered).getTime();
-  const initialTime = new Date(props.order.time_conclude_order).getTime();
+  const timeDelivered = new Date(props.order.time_delivered_order).getTime();
+  const initialTime = new Date(props.order.time_ordered).getTime();
   const page = props.page;
   const index = props.index;
 
@@ -49,7 +49,7 @@ const Historic = props => {
     let endTime;
     page === "kitchen" ? (endTime = timeCooked) : (endTime = timeDelivered);
     const microSecondsDiff = Math.abs(endTime - initialTime);
-    const minDiff = Math.floor(microSecondsDiff / (1000 * 60));
+    const minDiff = Math.round(microSecondsDiff / (1000 * 60));
     setTimeDiff(minDiff);
   }, [initialTime, page, timeCooked, timeDelivered]);
 
