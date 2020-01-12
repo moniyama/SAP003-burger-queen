@@ -57,9 +57,6 @@ const LoginPage = () => {
   const handleCloseModalRegister = () => setShowModalRegister(false);
 
   useEffect(() => {
-    console.log(loginError);
-  }, [loginError]);
-  useEffect(() => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // const displayName = user.displayName;
@@ -85,8 +82,7 @@ const LoginPage = () => {
         console.log("ir para pagina correta e zerar state de login e de erro")
       )
       .catch(error => {
-        const errorCode = error.code;
-        setLoginError({ ...loginError, state: true, message: errorCode });
+        setLoginError({ ...loginError, state: true, message: error.code });
       });
   };
   const showError = message => {
@@ -124,6 +120,7 @@ const LoginPage = () => {
               onChange={e =>
                 setLoginData({ ...loginData, email: e.target.value })
               }
+              autoComplete={"username"}
             />
             <Input
               class={styles.input}

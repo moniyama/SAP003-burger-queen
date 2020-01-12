@@ -19,6 +19,9 @@ const Input = props => (
     autoFocus={props.autofocus}
     onChange={props.onChange}
     name={props.name}
+    value={props.value}
+    checked={props.checked}
+    autoComplete={props.autoComplete}
   />
 );
 
