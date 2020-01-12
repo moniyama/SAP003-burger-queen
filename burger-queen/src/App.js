@@ -2,7 +2,6 @@ import React from "react";
 import Header from "./components/Header";
 import NavTab from "./components/Nav-Tab";
 import Footer from "./components/Footer";
-import Login from "./pages/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import { StyleSheet, css } from "aphrodite";
