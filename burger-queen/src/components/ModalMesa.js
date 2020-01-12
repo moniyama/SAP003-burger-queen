@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import Button from "../components/Button";
@@ -24,19 +24,23 @@ const styles = StyleSheet.create({
 
 const ModalMesa = props => {
   const [buttonAvailableState, setButtonAvailableState] = useState(true);
+  const [userName, setUserName] = useState("");
+  const [userTable, setUserTable] = useState("");
 
-  const setButtonAvailable = () => {
-    const tableName = document.getElementById("input-table-name").value;
-    const tableNumber = document.getElementById("input-table-number").value;
-    tableName !== "" && tableNumber > 0
-      ? setButtonAvailableState(false)
-      : setButtonAvailableState(true);
+  useEffect(() => {
+    userName && userTable !== "" 
+    ? setButtonAvailableState(false)
+    : setButtonAvailableState(true);
+  }, [userName, userTable]);
+
+  const setUserData = (e, input) => {
+    input === "name"
+      ? setUserName(e.target.value)
+      : setUserTable(e.target.value);
   };
 
   const endOrder = () => {
-    const tableName = document.getElementById("input-table-name").value;
-    const tableNumber = +document.getElementById("input-table-number").value;
-    sendOrderToFirebase(tableName, tableNumber);
+    sendOrderToFirebase(userName, userTable);
     props.setresumo([]);
     props.onHide();
   };
@@ -74,14 +78,14 @@ const ModalMesa = props => {
             placeholder="NOME DO CLIENTE"
             class={styles.input}
             autoFocus={true}
-            onChange={() => setButtonAvailable()}
+            onChange={e => setUserData(e, "name")}
           />
           <Input
             id="input-table-number"
             type="number"
             placeholder="NUMERO DA MESA"
             class={styles.input}
-            onChange={() => setButtonAvailable()}
+            onChange={e => setUserData(e, "table")}
           />
         </form>
       </Modal.Body>
