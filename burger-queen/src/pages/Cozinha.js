@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import firebase from "../firebase/firebase-config";
+import db from "../firebase/firebase-config";
 import CardOrder from "../components/CardOrder";
 import Historic from "../components/CardHistoric";
 
@@ -45,8 +45,7 @@ const Kitchen = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    firebase
-      .firestore()
+    db
       .collection("ORDERS")
       .orderBy("time_ordered", "desc")
       .limit(20)
@@ -61,8 +60,7 @@ const Kitchen = () => {
 
   const saveOrderCooked = e => {
     const id = e.currentTarget.id;
-    firebase
-      .firestore()
+    db
       .collection("ORDERS")
       .doc(id)
       .update({

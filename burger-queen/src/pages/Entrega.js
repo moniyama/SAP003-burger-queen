@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import firebase from "../firebase/firebase-config";
+import db from "../firebase/firebase-config";
 import { StyleSheet, css } from "aphrodite";
 import CardOrder from "../components/CardOrder";
 import Historic from "../components/CardHistoric";
@@ -45,8 +45,7 @@ const DeliveryPage = () => {
   const [deliveryOrders, setDeliveryOrders] = useState([]);
 
   useEffect(() => {
-    firebase
-      .firestore()
+    db
       .collection("ORDERS")
       .where("order_status_cooked", "==", true)
       .onSnapshot(querySnapshot => {
@@ -55,13 +54,12 @@ const DeliveryPage = () => {
           id: doc.id
         }));
         setDeliveryOrders(newOrder);
-      });
+      })
   }, []);
 
   const saveOrderCooked = e => {
     const id = e.currentTarget.id;
-    firebase
-      .firestore()
+    db
       .collection("ORDERS")
       .doc(id)
       .update({

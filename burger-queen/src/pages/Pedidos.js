@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import firebase from "../firebase/firebase-config";
+import db from "../firebase/firebase-config";
 import { StyleSheet, css } from "aphrodite";
 import MenuGroup from "../components/CardMenuGroup";
 import ResumoItens from "../components/ResumoItens";
@@ -72,8 +72,7 @@ const Menu = () => {
   const handleCloseModalMesa = () => setShowModalMesa(false);
 
   useEffect(() => {
-    firebase
-      .firestore()
+    db
       .collection("MENU")
       .orderBy("type", "asc")
       .get()

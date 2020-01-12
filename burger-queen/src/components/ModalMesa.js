@@ -3,7 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import Button from "../components/Button";
 import Input from "../components/Input";
-import firebase from "../firebase/firebase-config";
+import db from "../firebase/firebase-config";
 
 const styles = StyleSheet.create({
   body: {
@@ -46,8 +46,7 @@ const ModalMesa = props => {
   };
 
   const sendOrderToFirebase = (name, number) => {
-    firebase
-      .firestore()
+    db
       .collection("ORDERS")
       .add({
         user_name: name,
