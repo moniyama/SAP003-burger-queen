@@ -1,8 +1,85 @@
 import React, { useState, useEffect } from "react";
-import db from "../firebase/firebase-config";
 import { StyleSheet, css } from "aphrodite";
+import db from "../firebase/firebase-config";
+import CardHistoric from "../components/CardHistoric";
 import CardOrder from "../components/CardOrder";
-import Historic from "../components/CardHistoric";
+
+export default function DeliveryPage() {
+  const [deliveryOrders, setDeliveryOrders] = useState([]);
+
+  useEffect(() => {
+    db.collection("ORDERS")
+      .where("order_status_cooked", "==", true)
+      .onSnapshot(querySnapshot => {
+        const newOrder = querySnapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id
+        }));
+        setDeliveryOrders(newOrder);
+      });
+  }, []);
+
+  const saveOrderDelivered = e => {
+    const id = e.currentTarget.id;
+    db.collection("ORDERS")
+      .doc(id)
+      .update({
+        order_status_delivered: true,
+        time_delivered_order: new Date().toLocaleString("pt-BR")
+      });
+    const update = deliveryOrders.map(order =>
+      order.id === id ? { ...order, order_status_delivered: true } : order
+    );
+    setDeliveryOrders(update);
+  };
+
+  return (
+    <main className={css(styles.main)}>
+      <section className={css(styles.orderSection)}>
+        <header className={css(styles.title)}>PEDIDOS A ENTREGAR</header>
+        <div className={css(styles.orders)}>
+          <ul className={css(styles.ul)}>
+            {deliveryOrders
+              .sort((a, b) =>
+                a.time_conclude_order > b.time_conclude_order ? 1 : -1
+              )
+              .filter(
+                element =>
+                  element.order_status_cooked === true &&
+                  element.order_status_delivered === false
+              )
+              .map((order, index) => (
+                <CardOrder
+                  order={order}
+                  key={"CardOrderDelivery" + index}
+                  handleClick={saveOrderDelivered}
+                  btntitle={"PEDIDO ENTREGUE"}
+                />
+              ))}
+          </ul>
+        </div>
+      </section>
+      <section className={css(styles.orderSectionHistory)}>
+        <header className={css(styles.title)}>ULTIMOS PEDIDOS ENTREGUES</header>
+        <ul className={css(styles.ulHistory)}>
+          {deliveryOrders
+            .filter(element => element.order_status_delivered === true)
+            .sort((a, b) =>
+              a.time_conclude_order > b.time_conclude_order ? -1 : 1
+            )
+            .map((order, index) => (
+              <CardHistoric
+                key={"HistoricDelivery" + index}
+                order={order}
+                index={index}
+                page={"delivery"}
+              />
+            ))}
+        </ul>
+      </section>
+    </main>
+  );
+}
 
 const styles = StyleSheet.create({
   main: {
@@ -40,82 +117,3 @@ const styles = StyleSheet.create({
     height: "80%"
   }
 });
-
-const DeliveryPage = () => {
-  const [deliveryOrders, setDeliveryOrders] = useState([]);
-
-  useEffect(() => {
-    db.collection("ORDERS")
-      .where("order_status_cooked", "==", true)
-      .onSnapshot(querySnapshot => {
-        const newOrder = querySnapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id
-        }));
-        setDeliveryOrders(newOrder);
-      });
-  }, []);
-
-  const saveOrderCooked = e => {
-    const id = e.currentTarget.id;
-    db.collection("ORDERS")
-      .doc(id)
-      .update({
-        order_status_delivered: true,
-        time_delivered_order: new Date().toLocaleString("pt-BR")
-      });
-    const update = deliveryOrders.map(order =>
-      order.id === id ? { ...order, order_status_delivered: true } : order
-    );
-    setDeliveryOrders(update);
-  };
-
-  return (
-    <main className={css(styles.main)}>
-      <section className={css(styles.orderSection)}>
-        <header className={css(styles.title)}>PEDIDOS A ENTREGAR</header>
-        <div className={css(styles.orders)}>
-          <ul className={css(styles.ul)}>
-            {deliveryOrders
-              .sort((a, b) =>
-                a.time_conclude_order > b.time_conclude_order ? 1 : -1
-              )
-              .filter(
-                element =>
-                  element.order_status_cooked === true &&
-                  element.order_status_delivered === false
-              )
-              .map((order, index) => (
-                <CardOrder
-                  order={order}
-                  key={"CardOrderDelivery" + index}
-                  handleClick={saveOrderCooked}
-                  btntitle={"PEDIDO ENTREGUE"}
-                />
-              ))}
-          </ul>
-        </div>
-      </section>
-      <section className={css(styles.orderSectionHistory)}>
-        <header className={css(styles.title)}>ULTIMOS PEDIDOS ENTREGUES</header>
-        <ul className={css(styles.ulHistory)}>
-          {deliveryOrders
-            .filter(element => element.order_status_delivered === true)
-            .sort((a, b) =>
-              a.time_conclude_order > b.time_conclude_order ? -1 : 1
-            )
-            .map((order, index) => (
-              <Historic
-                key={"HistoricDelivery" + index}
-                order={order}
-                index={index}
-                page={"delivery"}
-              />
-            ))}
-        </ul>
-      </section>
-    </main>
-  );
-};
-
-export default DeliveryPage;

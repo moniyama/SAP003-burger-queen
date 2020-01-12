@@ -1,44 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Button from "./Button";
-import { Modal } from "react-bootstrap";
 import { StyleSheet, css } from "aphrodite";
+import { Modal } from "react-bootstrap";
+import Button from "./Button";
 import ToggleIcon from "./ToggleIcon";
 
-// change color dos btns sabores de hamburgueres qdo clicados
-
-const styles = StyleSheet.create({
-  modal: {
-    textAlign: "center"
-  },
-  modalBtnFlavors: {
-    height: "70px",
-    width: "180px"
-  },
-  modalBtnEnd: {
-    width: "45.5%",
-    height: "100px"
-    // ok = ":active": {
-    //backgroundColor: "#6E8C03"
-    // }
-
-    // cancelar= ":active": {
-    //backgroundColor: "#BF190A"
-    // }
-  },
-  modalButtonsOptionsSection: {
-    display: "flex",
-    justifyContent: "space-evenly"
-  },
-  modalAditional: {
-    marginTop: "15px"
-  },
-  modalAditionalItens: {
-    backgroundColor: "beige",
-    fontSize: "large"
-  }
-});
-
-const HamburguerOptionModalHtml = props => {
+export default function ModalHamburguer(props) {
   const [hambResumo, setHambResumo] = useState([]);
 
   const [toggleStateEgg, settoggleStatEgg] = useState(false);
@@ -201,6 +167,35 @@ const HamburguerOptionModalHtml = props => {
       </Modal.Footer>
     </Modal>
   );
-};
+}
+const styles = StyleSheet.create({
+  modal: {
+    textAlign: "center"
+  },
+  modalBtnFlavors: {
+    height: "70px",
+    width: "180px"
+  },
+  modalBtnEnd: {
+    width: "45.5%",
+    height: "100px"
+    // ok = ":active": {
+    //backgroundColor: "#6E8C03"
+    // }
 
-export default HamburguerOptionModalHtml;
+    // cancelar= ":active": {
+    //backgroundColor: "#BF190A"
+    // }
+  },
+  modalButtonsOptionsSection: {
+    display: "flex",
+    justifyContent: "space-evenly"
+  },
+  modalAditional: {
+    marginTop: "15px"
+  },
+  modalAditionalItens: {
+    backgroundColor: "beige",
+    fontSize: "large"
+  }
+});

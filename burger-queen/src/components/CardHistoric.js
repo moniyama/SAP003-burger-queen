@@ -3,55 +3,30 @@ import { StyleSheet, css } from "aphrodite";
 import Accordion from "react-bootstrap/Accordion";
 import HourFormate from "./Date.js";
 
-// atualizar o historico de tempo de entrega
-
-const styles = StyleSheet.create({
-  accordion: {
-    width: "100%",
-    border: "none",
-    outline: "none"
-  },
-  history: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "1%",
-    alignItems: "center"
-  },
-  colorOne: {
-    backgroundColor: "white"
-  },
-  colorTwo: {
-    backgroundColor: "#F2B885"
-  },
-  historyUserAndTime: {
-    width: "35%",
-    textAlign: "left"
-  },
-  historyTimeDiff: {
-    width: "25%"
-  },
-  show: {
-    display: "block",
-    backgroundColor: "#DDDDDD"
-  }
-});
-
-const Historic = props => {
+export default function CardHistoric(props) {
   const [timeDiff, setTimeDiff] = useState(0);
+  const [endTime, setEndTime] = useState("");
+  const [initialTime, setInicialTime] = useState("");
 
-  const timeCooked = new Date(props.order.time_conclude_order).getTime();
-  const timeDelivered = new Date(props.order.time_delivered_order).getTime();
-  const initialTime = new Date(props.order.time_ordered).getTime();
   const page = props.page;
   const index = props.index;
 
   useEffect(() => {
-    let endTime;
-    page === "kitchen" ? (endTime = timeCooked) : (endTime = timeDelivered);
+    setInicialTime(new Date(props.order.time_ordered).getTime());
+    page === "kitchen"
+      ? setEndTime(new Date(props.order.time_conclude_order).getTime())
+      : setEndTime(new Date(props.order.time_delivered_order).getTime());
     const microSecondsDiff = Math.abs(endTime - initialTime);
     const minDiff = Math.round(microSecondsDiff / (1000 * 60));
     setTimeDiff(minDiff);
-  }, [initialTime, page, timeCooked, timeDelivered]);
+  }, [
+    endTime,
+    initialTime,
+    page,
+    props.order.time_conclude_order,
+    props.order.time_delivered_order,
+    props.order.time_ordered
+  ]);
 
   return (
     <Accordion defaultActiveKey="none">
@@ -100,6 +75,35 @@ const Historic = props => {
       </Accordion.Collapse>
     </Accordion>
   );
-};
+}
 
-export default Historic;
+const styles = StyleSheet.create({
+  accordion: {
+    width: "100%",
+    border: "none",
+    outline: "none"
+  },
+  history: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "1%",
+    alignItems: "center"
+  },
+  colorOne: {
+    backgroundColor: "white"
+  },
+  colorTwo: {
+    backgroundColor: "#F2B885"
+  },
+  historyUserAndTime: {
+    width: "35%",
+    textAlign: "left"
+  },
+  historyTimeDiff: {
+    width: "25%"
+  },
+  show: {
+    display: "block",
+    backgroundColor: "#DDDDDD"
+  }
+});

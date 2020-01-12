@@ -1,6 +1,27 @@
 import React from "react";
-import Button from "./Button";
 import { StyleSheet, css } from "aphrodite";
+import Button from "./Button";
+
+export default function MenuGroup(props) {
+  return (
+    <div className={css(styles.menuGroupSection)}>
+      <header className={css(styles.menuTitle)}>{props.title} </header>
+      <p className={css(styles.menuItem)} id={props.type}>
+        {props.menu
+          .filter(obj => obj.type === props.type)
+          .map((item, index) => (
+            <Button
+              key={index}
+              handleClick={props.click}
+              title={item.item}
+              value={"R$" + item.value}
+              class={styles.menuItemBtn}
+            />
+          ))}
+      </p>
+    </div>
+  );
+}
 
 const styles = StyleSheet.create({
   menuGroupSection: {
@@ -22,25 +43,3 @@ const styles = StyleSheet.create({
     width: "175px"
   }
 });
-
-const MenuGroup = props => {
-  return (
-    <div className={css(styles.menuGroupSection)}>
-      <header className={css(styles.menuTitle)}>{props.title} </header>
-      <p className={css(styles.menuItem)} id={props.type}>
-        {props.menu
-          .filter(obj => obj.type === props.type)
-          .map((item, index) => (
-            <Button
-              key={index}
-              handleClick={props.click}
-              title={item.item}
-              value={"R$" + item.value}
-              class={styles.menuItemBtn}
-            />
-          ))}
-      </p>
-    </div>
-  );
-};
-export default MenuGroup;

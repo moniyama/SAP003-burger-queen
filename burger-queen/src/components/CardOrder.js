@@ -1,7 +1,36 @@
 import React from "react";
-import Button from "./Button";
 import { StyleSheet, css } from "aphrodite";
+import Button from "./Button";
 import HourFormate from "./Date.js";
+
+export default function CardOrder(props) {
+  return (
+    <li className={css(styles.orderCard)}>
+      <header className={css(styles.headerCard)}>
+        <div className={css(styles.orderedUser)}>
+          <p>MESA {props.order.user_table}</p>
+          <p>{props.order.user_name}</p>
+        </div>
+        <div className={css(styles.orderedTime)}>
+          <HourFormate title={"PEDIDO"} time={props.order.time_ordered} />
+        </div>
+      </header>
+      <div className={css(styles.bodyCard)}>
+        {props.order.order.map((itemOrdered, key) => (
+          <div className={css(styles.orderedItem)} key={key + itemOrdered}>
+            {itemOrdered.quantia}x {itemOrdered.item}
+          </div>
+        ))}
+      </div>
+      <Button
+        title={props.btntitle}
+        class={styles.btnFinishOrder}
+        handleClick={props.handleClick}
+        id={props.order.id}
+      />
+    </li>
+  );
+}
 
 const styles = StyleSheet.create({
   orderCard: {
@@ -44,32 +73,3 @@ const styles = StyleSheet.create({
     marginTop: "3%"
   }
 });
-
-const CardOrder = props => (
-  <li className={css(styles.orderCard)}>
-    <header className={css(styles.headerCard)}>
-      <div className={css(styles.orderedUser)}>
-        <p>MESA {props.order.user_table}</p>
-        <p>{props.order.user_name}</p>
-      </div>
-      <div className={css(styles.orderedTime)}>
-        <HourFormate title={"PEDIDO"} time={props.order.time_ordered} />
-      </div>
-    </header>
-    <div className={css(styles.bodyCard)}>
-      {props.order.order.map((itemOrdered, key) => (
-        <div className={css(styles.orderedItem)} key={key + itemOrdered}>
-          {itemOrdered.quantia}x {itemOrdered.item}
-        </div>
-      ))}
-    </div>
-    <Button
-      title={props.btntitle}
-      class={styles.btnFinishOrder}
-      handleClick={props.handleClick}
-      id={props.order.id}
-    />
-  </li>
-);
-
-export default CardOrder;

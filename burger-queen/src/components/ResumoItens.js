@@ -2,30 +2,8 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import CardResumomItem from "./CardResumoItem";
 
-const styles = StyleSheet.create({
-  ul: {
-    listStyleType: "none"
-  },
-  title: {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "100%",
-    fontWeight: "bold",
-    paddingLeft: "2%",
-    fontSize: "25px"
-  },
-  resumoItens: {
-    overflow: "auto",
-    flexGrow: "1",
-    paddingLeft: "2%",
-    fontSize: "20px",
-    textAlign: "left"
-  }
-});
-
 // array.find e array.splice
-
-const Resumo = props => {
+export default function Resumo(props) {
   const shortcutQtd = (item, unitprice, plusOrMinus) => {
     const updatedItem = props.resumo
       .filter(obj => obj.item === item)
@@ -78,6 +56,25 @@ const Resumo = props => {
       </div>
     </>
   );
-};
+}
 
-export default Resumo;
+const styles = StyleSheet.create({
+  ul: {
+    listStyleType: "none"
+  },
+  title: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    fontWeight: "bold",
+    paddingLeft: "2%",
+    fontSize: "25px"
+  },
+  resumoItens: {
+    overflow: "auto",
+    flexGrow: "1",
+    paddingLeft: "2%",
+    fontSize: "20px",
+    textAlign: "left"
+  }
+});

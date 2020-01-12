@@ -1,35 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
+import db from "../firebase/firebase-config";
 import Button from "../components/Button";
 import Input from "../components/Input";
-import db from "../firebase/firebase-config";
 
-const styles = StyleSheet.create({
-  body: {
-    display: "block",
-    textAlign: "center"
-  },
-  footer: {
-    justifyContent: "center"
-  },
-  btns: {
-    width: "45%",
-    height: "70px"
-  },
-  input: {
-    display: "block"
-  }
-});
-
-const ModalMesa = props => {
+export default function ModalMesa(props) {
   const [buttonAvailableState, setButtonAvailableState] = useState(true);
   const [userName, setUserName] = useState("");
   const [userTable, setUserTable] = useState("");
 
   useEffect(() => {
-    console.log("userName", userName);
-    console.log("userTable", userTable);
     userName && userTable !== ""
       ? setButtonAvailableState(false)
       : setButtonAvailableState(true);
@@ -109,6 +90,21 @@ const ModalMesa = props => {
       </Modal.Footer>
     </Modal>
   );
-};
+}
 
-export default ModalMesa;
+const styles = StyleSheet.create({
+  body: {
+    display: "block",
+    textAlign: "center"
+  },
+  footer: {
+    justifyContent: "center"
+  },
+  btns: {
+    width: "45%",
+    height: "70px"
+  },
+  input: {
+    display: "block"
+  }
+});

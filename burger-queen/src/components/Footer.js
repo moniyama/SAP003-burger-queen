@@ -1,6 +1,14 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 
+export default function Footer() {
+  return (
+    <footer className={css(styles.footer)}>
+      <p>Desenvolvido por MSAY </p>
+    </footer>
+  );
+}
+
 const styles = StyleSheet.create({
   footer: {
     fontSize: "large",
@@ -13,11 +21,3 @@ const styles = StyleSheet.create({
     bottom: "0"
   }
 });
-
-export default function Footer() {
-  return (
-    <footer className={css(styles.footer)}>
-      <p>Desenvolvido por MSAY </p>
-    </footer>
-  );
-}

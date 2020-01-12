@@ -1,7 +1,7 @@
 import React from "react";
-import { ToggleOffOutlined, ToggleOn } from '@material-ui/icons'
+import { ToggleOffOutlined, ToggleOn } from "@material-ui/icons";
 
-const ToggleIcon = props => {
+export default function ToggleIcon(props) {
   const changeToggleIcon = e => {
     e.currentTarget.attributes.title.value === "ADICIONAL QUEIJO"
       ? props.setstate(!props.state)
@@ -17,6 +17,4 @@ const ToggleIcon = props => {
       )}
     </p>
   );
-};
-
-export default ToggleIcon;
+}

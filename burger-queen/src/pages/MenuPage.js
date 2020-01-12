@@ -1,42 +1,13 @@
 import React, { useState, useEffect } from "react";
-import db from "../firebase/firebase-config";
 import { StyleSheet, css } from "aphrodite";
-import MenuGroup from "../components/CardMenuGroup";
-import ResumoItens from "../components/ResumoItens";
-import HamburguerOptionModalHtml from "../components/ModalHamburguer";
+import db from "../firebase/firebase-config";
 import Button from "../components/Button";
+import MenuGroup from "../components/CardMenuGroup";
+import ModalHamburguer from "../components/ModalHamburguer";
 import ModalMesa from "../components/ModalMesa";
+import ResumoItens from "../components/ResumoItens";
 
-const styles = StyleSheet.create({
-  main: {
-    padding: "3%",
-    display: "flex",
-    height: "78vh"
-  },
-  menu: {
-    width: "60%",
-    height: "100%",
-    overflow: "auto"
-  },
-  resumo: {
-    width: "40%",
-    textAlign: "center",
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "column",
-    height: "100%"
-  },
-  endBtns: {
-    height: "60px",
-    width: "100%",
-    fontSize: "20px"
-  },
-  subtotal: {
-    marginTop: "7%"
-  }
-});
-
-const Menu = () => {
+export default function MenuPage() {
   const [menu, setMenu] = useState([]);
   const [resumo, setResumo] = useState([]);
   const [showModalMesa, setShowModalMesa] = useState(false);
@@ -157,7 +128,7 @@ const Menu = () => {
           />
         </div>
       </section>
-      <HamburguerOptionModalHtml
+      <ModalHamburguer
         show={showModal}
         onHide={handleClose}
         animation={false}
@@ -175,6 +146,33 @@ const Menu = () => {
       />
     </main>
   );
-};
+}
 
-export default Menu;
+const styles = StyleSheet.create({
+  main: {
+    padding: "3%",
+    display: "flex",
+    height: "78vh"
+  },
+  menu: {
+    width: "60%",
+    height: "100%",
+    overflow: "auto"
+  },
+  resumo: {
+    width: "40%",
+    textAlign: "center",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "column",
+    height: "100%"
+  },
+  endBtns: {
+    height: "60px",
+    width: "100%",
+    fontSize: "20px"
+  },
+  subtotal: {
+    marginTop: "7%"
+  }
+});

@@ -3,6 +3,51 @@ import { StyleSheet, css } from "aphrodite";
 import Button from "../components/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+export default function CardResumomItem(props) {
+  return (
+    <li className={css(styles.listaItens)}>
+      <div className={css(styles.itens)}>
+        <p className={css(styles.p)}>{props.item}</p>
+        <div className={css(styles.btns)}>
+          <div className={css(styles.btnsfirst)}>
+            <Button
+              title={"-1"}
+              handleClick={() =>
+                props.handleClick(props.item, props.unitprice, "-1")
+              }
+              class={styles.qtdBtn}
+            />
+            <Button
+              title={props.quantia}
+              class={styles.qtdBox}
+              disabled={true}
+            />
+            <Button
+              title={"+1"}
+              handleClick={() =>
+                props.handleClick(props.item, props.unitprice, "+1")
+              }
+              class={styles.qtdBtn}
+            />
+          </div>
+          <div>
+            <Button
+              title={<DeleteIcon />}
+              handleClick={() =>
+                props.handleClick(props.item, props.unitprice, null)
+              }
+              class={styles.qtdBtn}
+            />
+          </div>
+        </div>
+      </div>
+      <div className={css(styles.price)}>
+        <p>{props.price}</p>
+      </div>
+    </li>
+  );
+}
+
 const styles = StyleSheet.create({
   price: {
     textAlign: "right",
@@ -43,48 +88,3 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
-
-const CardResumomItem = props => (
-  <li className={css(styles.listaItens)}>
-    <div className={css(styles.itens)}>
-      <p className={css(styles.p)}>{props.item}</p>
-      <div className={css(styles.btns)}>
-        <div className={css(styles.btnsfirst)}>
-          <Button
-            title={"-1"}
-            handleClick={() =>
-              props.handleClick(props.item, props.unitprice, "-1")
-            }
-            class={styles.qtdBtn}
-          />
-          <Button
-            title={props.quantia}
-            class={styles.qtdBox}
-            disabled={true}
-          />
-          <Button
-            title={"+1"}
-            handleClick={() =>
-              props.handleClick(props.item, props.unitprice, "+1")
-            }
-            class={styles.qtdBtn}
-          />
-        </div>
-        <div>
-          <Button
-            title={<DeleteIcon />}
-            handleClick={() =>
-              props.handleClick(props.item, props.unitprice, null)
-            }
-            class={styles.qtdBtn}
-          />
-        </div>
-      </div>
-    </div>
-    <div className={css(styles.price)}>
-      <p>{props.price}</p>
-    </div>
-  </li>
-);
-
-export default CardResumomItem;

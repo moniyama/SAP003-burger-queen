@@ -1,47 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import db from "../firebase/firebase-config";
+import CardHistoric from "../components/CardHistoric";
 import CardOrder from "../components/CardOrder";
-import Historic from "../components/CardHistoric";
 
-const styles = StyleSheet.create({
-  main: {
-    textAlign: "center",
-    display: "flex",
-    flexDirection: "column",
-    padding: "0% 2%",
-    height: "78vh"
-  },
-  title: {
-    color: "#BF190A",
-    fontSize: "25px",
-    fontWeight: "bold",
-    margin: "1%"
-  },
-  orderSection: {
-    height: "65%"
-  },
-  orderSectionHistory: {
-    height: "35%"
-  },
-  orders: {
-    height: "92%",
-    overflow: "auto"
-  },
-  ul: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    width: "100%",
-    listStyleType: "none"
-  },
-  ulHistory: {
-    overflow: "auto",
-    height: "80%"
-  }
-});
-
-const Kitchen = () => {
+export default function KitchenPage() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -102,7 +65,7 @@ const Kitchen = () => {
               a.time_conclude_order > b.time_conclude_order ? -1 : 1
             )
             .map((order, index) => (
-              <Historic
+              <CardHistoric
                 key={"Historic" + index}
                 order={order}
                 index={index}
@@ -113,5 +76,41 @@ const Kitchen = () => {
       </section>
     </main>
   );
-};
-export default Kitchen;
+}
+
+const styles = StyleSheet.create({
+  main: {
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    padding: "0% 2%",
+    height: "78vh"
+  },
+  title: {
+    color: "#BF190A",
+    fontSize: "25px",
+    fontWeight: "bold",
+    margin: "1%"
+  },
+  orderSection: {
+    height: "65%"
+  },
+  orderSectionHistory: {
+    height: "35%"
+  },
+  orders: {
+    height: "92%",
+    overflow: "auto"
+  },
+  ul: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    width: "100%",
+    listStyleType: "none"
+  },
+  ulHistory: {
+    overflow: "auto",
+    height: "80%"
+  }
+});
