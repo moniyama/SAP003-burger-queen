@@ -3,6 +3,7 @@ import firebase from "../firebase/firebase-config";
 import { StyleSheet, css } from "aphrodite";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import ModalRegister from "../components/ModalRegister";
 
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -49,16 +50,25 @@ const styles = StyleSheet.create({
 });
 
 const LoginPage = () => {
+  const [showModalRegister, setShowModalRegister] = useState(false);
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [loginError, setLoginError] = useState({ state: false });
+
+  const handleCloseModalRegister = () => setShowModalRegister(false);
+
+  useEffect(() => {
+    console.log(loginError);
+  }, [loginError]);
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        const displayName = user.displayName;
-        const email = user.email;
-        const emailVerified = user.emailVerified;
-        const photoURL = user.photoURL;
-        const isAnonymous = user.isAnonymous;
-        const uid = user.uid;
-        const providerData = user.providerData;
+        // const displayName = user.displayName;
+        // const email = user.email;
+        // const emailVerified = user.emailVerified;
+        // const photoURL = user.photoURL;
+        // const isAnonymous = user.isAnonymous;
+        // const uid = user.uid;
+        // const providerData = user.providerData;
         console.log("user logged");
       } else {
         console.log("user NOT logged");
@@ -68,26 +78,29 @@ const LoginPage = () => {
 
   const login = e => {
     e.preventDefault();
-    const email = document.getElementById("email-login").value;
-    const password = document.getElementById("password-login").value;
     firebase
       .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => console.log("ir para pagina correta"))
+      .signInWithEmailAndPassword(loginData.email, loginData.password)
+      .then(() =>
+        console.log("ir para pagina correta e zerar state de login e de erro")
+      )
       .catch(error => {
-        var errorCode = error.code;
-        var errorMessage = document.getElementById("error");
-        if (errorCode === "auth/invalid-email")
-          errorMessage.textContent = "Email inválido";
-        if (errorCode === "auth/user-disabled")
-          errorMessage.textContent = "Usuário desabilitado";
-        if (errorCode === "auth/user-not-found")
-          errorMessage.textContent = "Usuário não encontrado";
-        if (errorCode === "auth/wrong-password")
-          errorMessage.textContent = "Senha incorreta";
+        const errorCode = error.code;
+        setLoginError({ ...loginError, state: true, message: errorCode });
       });
   };
-
+  const showError = message => {
+    switch (message) {
+      case "auth/invalid-email":
+        return <p>Email inválido</p>;
+      case "auth/user-disabled":
+        return <p>Usuário desabilitado</p>;
+      case "auth/user-not-found":
+        return <p>Usuário não encontrado</p>;
+      default:
+        return <p>Senha incorreta</p>;
+    }
+  };
   return (
     <main className={css(styles.main)}>
       <section>
@@ -108,12 +121,19 @@ const LoginPage = () => {
               placeholder={"Email"}
               id={"email-login"}
               autofocus={true}
+              onChange={e =>
+                setLoginData({ ...loginData, email: e.target.value })
+              }
             />
             <Input
               class={styles.input}
               type={"password"}
               placeholder={"Senha"}
               id={"password-login"}
+              autoComplete={"current-password"}
+              onChange={e =>
+                setLoginData({ ...loginData, password: e.target.value })
+              }
             />
             <Button
               class={styles.loginBtn}
@@ -121,13 +141,20 @@ const LoginPage = () => {
               handleClick={e => login(e)}
             />
           </form>
-          <p className={css(styles.error)} id={"error"}></p>
-          <p className={css(styles.pRegister)}>
+          {loginError.state ? showError(loginError.message) : ""}
+          <p
+            className={css(styles.pRegister)}
+            onClick={() => setShowModalRegister(true)}
+          >
             Ainda não se registrou? Cadastre-se AQUI
           </p>
         </div>
       </section>
-
+      <ModalRegister
+        show={showModalRegister}
+        onHide={handleCloseModalRegister}
+        animation={false}
+      />
     </main>
   );
 };
