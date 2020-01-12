@@ -28,10 +28,17 @@ const ModalMesa = props => {
   const [userTable, setUserTable] = useState("");
 
   useEffect(() => {
+    console.log("userName", userName);
+    console.log("userTable", userTable);
     userName && userTable !== ""
       ? setButtonAvailableState(false)
       : setButtonAvailableState(true);
   }, [userName, userTable]);
+
+  const resetUser = () => {
+    setUserName("");
+    setUserTable("");
+  };
 
   const setUserData = (e, input) => {
     input === "name"
@@ -42,6 +49,7 @@ const ModalMesa = props => {
   const endOrder = () => {
     sendOrderToFirebase(userName, userTable);
     props.setresumo([]);
+    resetUser();
     props.onHide();
   };
 
@@ -55,6 +63,10 @@ const ModalMesa = props => {
       order_status_delivered: false,
       time_ordered: new Date().toLocaleString("pt-BR")
     });
+  };
+  const cancel = () => {
+    resetUser();
+    props.onHide();
   };
 
   return (
@@ -87,11 +99,7 @@ const ModalMesa = props => {
         </form>
       </Modal.Body>
       <Modal.Footer className={css(styles.footer)}>
-        <Button
-          class={styles.btns}
-          title={"Cancelar"}
-          handleClick={props.onHide}
-        />
+        <Button class={styles.btns} title={"Cancelar"} handleClick={cancel} />
         <Button
           class={styles.btns}
           title={"FINALIZAR"}
