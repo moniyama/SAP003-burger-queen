@@ -7,24 +7,6 @@ import HamburguerOptionModalHtml from "../components/ModalHamburguer";
 import Button from "../components/Button";
 import ModalMesa from "../components/ModalMesa";
 
-// tem diferença em usar o forEach ou o map no state, qdo se quer alterar um dado do state?
-// forEach => altera direto,
-// map => tem que dar o setstate
-
-// nos modals, tem um {...props} => pra que serve? eh do bootstrap?
-
-// consigo usar switch qdo tenho duas condições (com &&)? função addHamb
-
-// Erros que aparecem: função como props =>
-// mas não aparece qdo usa handleClick => função handClose
-// vale a pena transformar o item em state? poderia usar o
-// useeffect para realizar a função de checkitens, e passaria apenas a função
-// de setitem.
-
-// aphrodite subtotal/modalbtnends => botões que tem css iguais e 1 diferença
-
-// input na modalMesa => melhor usa o onchange (setar o state no onchange) ou getelementbyid mesmo?
-
 const styles = StyleSheet.create({
   main: {
     padding: "3%",
