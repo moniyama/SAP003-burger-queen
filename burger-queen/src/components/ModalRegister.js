@@ -64,7 +64,7 @@ const ModalRegister = props => {
     firebase
       .firestore()
       .collection("users")
-      .add(user);
+      .add({ ...user, user_uid: firebase.auth().currentUser.uid });
     props.onHide();
   };
 
