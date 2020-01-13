@@ -20,7 +20,7 @@ export default function navTab() {
       <Tab
         className={css(styles.tabBox)}
         eventKey="kitchen"
-        title="EM PREPAÇÂO"
+        title="EM PREPARAÇÃO"
       >
         <KitchenPage />
       </Tab>

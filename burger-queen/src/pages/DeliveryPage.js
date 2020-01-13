@@ -25,7 +25,7 @@ export default function DeliveryPage() {
       .doc(id)
       .update({
         order_status_delivered: true,
-        time_delivered_order: new Date().toLocaleString("pt-BR")
+        timestamp_delivered: new Date().getTime()
       });
     const update = deliveryOrders.map(order =>
       order.id === id ? { ...order, order_status_delivered: true } : order
@@ -41,7 +41,7 @@ export default function DeliveryPage() {
           <ul className={css(styles.ul)}>
             {deliveryOrders
               .sort((a, b) =>
-                a.time_conclude_order > b.time_conclude_order ? 1 : -1
+                a.timestamp_cooked > b.timestamp_cooked ? 1 : -1
               )
               .filter(
                 element =>
@@ -65,7 +65,7 @@ export default function DeliveryPage() {
           {deliveryOrders
             .filter(element => element.order_status_delivered === true)
             .sort((a, b) =>
-              a.time_conclude_order > b.time_conclude_order ? -1 : 1
+              a.timestamp_cooked > b.timestamp_cooked ? -1 : 1
             )
             .map((order, index) => (
               <CardHistoric

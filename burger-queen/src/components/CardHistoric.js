@@ -12,10 +12,10 @@ export default function CardHistoric(props) {
   const index = props.index;
 
   useEffect(() => {
-    setInicialTime(new Date(props.order.time_ordered).getTime());
+    setInicialTime(new Date(props.order.timestamp_ordered).getTime());
     page === "kitchen"
-      ? setEndTime(new Date(props.order.time_conclude_order).getTime())
-      : setEndTime(new Date(props.order.time_delivered_order).getTime());
+      ? setEndTime(new Date(props.order.timestamp_cooked).getTime())
+      : setEndTime(new Date(props.order.timestamp_delivered).getTime());
     const microSecondsDiff = Math.abs(endTime - initialTime);
     const minDiff = Math.round(microSecondsDiff / (1000 * 60));
     setTimeDiff(minDiff);
@@ -23,9 +23,9 @@ export default function CardHistoric(props) {
     endTime,
     initialTime,
     page,
-    props.order.time_conclude_order,
-    props.order.time_delivered_order,
-    props.order.time_ordered
+    props.order.timestamp_cooked,
+    props.order.timestamp_delivered,
+    props.order.timestamp_ordered
   ]);
 
   return (
@@ -42,15 +42,15 @@ export default function CardHistoric(props) {
             MESA {props.order.user_table} - {props.order.user_name}
           </div>
           <div className={css(styles.historyUserAndTime)}>
-            <HourFormate title={"PEDIDO"} time={props.order.time_ordered} />
             <HourFormate
-              title={"PRONTO"}
-              time={props.order.time_conclude_order}
+              title={"PEDIDO"}
+              time={props.order.timestamp_ordered}
             />
+            <HourFormate title={"PRONTO"} time={props.order.timestamp_cooked} />
             {props.page === "delivery" ? (
               <HourFormate
                 title={"ENTREGUE"}
-                time={props.order.time_delivered_order}
+                time={props.order.timestamp_delivered}
               />
             ) : (
               ``

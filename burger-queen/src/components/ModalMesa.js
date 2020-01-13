@@ -42,7 +42,8 @@ export default function ModalMesa(props) {
       order: props.resumo,
       order_status_cooked: false,
       order_status_delivered: false,
-      time_ordered: new Date().toLocaleString("pt-BR")
+      timestamp_ordered: new Date().getTime(),
+      date_ordered:new Date().toLocaleString(undefined)
     });
   };
   const cancel = () => {

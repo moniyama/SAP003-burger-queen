@@ -8,8 +8,12 @@ export default function KitchenPage() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
+    console.log(orders);
+  }, [orders]);
+
+  useEffect(() => {
     db.collection("ORDERS")
-      .orderBy("time_ordered", "desc")
+      .orderBy("timestamp_ordered", "desc")
       .limit(20)
       .onSnapshot(querySnapshot => {
         const newOrders = querySnapshot.docs.map(doc => ({
@@ -26,7 +30,7 @@ export default function KitchenPage() {
       .doc(id)
       .update({
         order_status_cooked: true,
-        time_conclude_order: new Date().toLocaleString("pt-BR")
+        timestamp_cooked: new Date().getTime(),
       });
     const update = orders.map(order =>
       order.id === id ? { ...order, order_status_cooked: true } : order
@@ -41,8 +45,8 @@ export default function KitchenPage() {
         <div className={css(styles.orders)}>
           <ul className={css(styles.ul)}>
             {orders
-              .sort((a, b) => (a.time_ordered > b.time_ordered ? 1 : -1))
               .filter(element => element.order_status_cooked === false)
+              .sort((a, b) => (a.timestamp_ordered > b.timestamp_ordered ? 1 : -1))
               .map((order, index) => (
                 <CardOrder
                   order={order}
@@ -62,7 +66,7 @@ export default function KitchenPage() {
           {orders
             .filter(element => element.order_status_cooked === true)
             .sort((a, b) =>
-              a.time_conclude_order > b.time_conclude_order ? -1 : 1
+              a.timestamp_cooked> b.timestamp_cooked ? -1 : 1
             )
             .map((order, index) => (
               <CardHistoric

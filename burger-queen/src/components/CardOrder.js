@@ -12,7 +12,7 @@ export default function CardOrder(props) {
           <p>{props.order.user_name}</p>
         </div>
         <div className={css(styles.orderedTime)}>
-          <HourFormate title={"PEDIDO"} time={props.order.time_ordered} />
+          <HourFormate title={"PEDIDO"} time={props.order.timestamp_ordered} />
         </div>
       </header>
       <div className={css(styles.bodyCard)}>
