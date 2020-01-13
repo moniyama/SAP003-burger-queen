@@ -5,6 +5,8 @@ import CardResumomItem from "./CardResumoItem";
 // array.find e array.splice
 export default function Resumo(props) {
   const shortcutQtd = (item, unitprice, plusOrMinus) => {
+    // const foundItem = props.resumo.find(obj => obj.item === item);
+
     const updatedItem = props.resumo
       .filter(obj => obj.item === item)
       .map(element => {

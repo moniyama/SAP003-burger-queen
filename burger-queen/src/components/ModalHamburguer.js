@@ -179,13 +179,6 @@ const styles = StyleSheet.create({
   modalBtnEnd: {
     width: "45.5%",
     height: "100px"
-    // ok = ":active": {
-    //backgroundColor: "#6E8C03"
-    // }
-
-    // cancelar= ":active": {
-    //backgroundColor: "#BF190A"
-    // }
   },
   modalButtonsOptionsSection: {
     display: "flex",

@@ -59,8 +59,10 @@ export default function CardHistoric(props) {
           <div className={css(styles.historyTimeDiff)}>
             {page === "kitchen"
               ? "Tempo de preparação:"
-              : "Tempo de atendimento"}{" "}
-            {timeDiff} {timeDiff > 1 ? "minutos" : "minuto"}
+              : "Tempo de atendimento"}
+            <div>
+              {timeDiff} {timeDiff > 1 ? "minutos" : "minuto"}
+            </div>
           </div>
         </li>
       </Accordion.Toggle>
