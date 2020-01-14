@@ -57,6 +57,7 @@ export default function ModalMesa(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      backdrop="static"
     >
       <Modal.Header>
         <Modal.Title>CLIENTE</Modal.Title>

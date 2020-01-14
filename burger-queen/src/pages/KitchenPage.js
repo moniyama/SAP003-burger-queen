@@ -8,10 +8,6 @@ export default function KitchenPage() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    console.log(orders);
-  }, [orders]);
-
-  useEffect(() => {
     db.collection("ORDERS")
       .orderBy("timestamp_ordered", "desc")
       .limit(20)

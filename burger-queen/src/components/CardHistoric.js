@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import Accordion from "react-bootstrap/Accordion";
-import HourFormate from "./Date.js";
+import HourFormate from "./HourFormate.js";
 
 export default function CardHistoric(props) {
   const [timeDiff, setTimeDiff] = useState(0);
@@ -60,9 +60,7 @@ export default function CardHistoric(props) {
             {page === "kitchen"
               ? "Tempo de preparação:"
               : "Tempo de atendimento"}
-            <div>
-              {timeDiff} {timeDiff > 1 ? "minutos" : "minuto"}
-            </div>
+            <div>{timeDiff === isNaN ? "" : `${timeDiff} minutos`} </div>
           </div>
         </li>
       </Accordion.Toggle>
