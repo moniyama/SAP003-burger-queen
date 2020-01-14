@@ -15,7 +15,7 @@ A finalidade do projeto é a criação de uma interface para gerir os pedidos de
 
 Os pedidos ao serem realizados devem ser encaminhados para a cozinha. Ao finalizar a preparação do itens, o pedido deve ser encaminhado para entrega.
 
-![burger-queen](Tablet_web.png)
+![burger-queen](Tablet_web.png | width=100)
 
 ### 1.1 Funcionamento
 
