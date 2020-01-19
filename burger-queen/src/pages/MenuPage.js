@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import db from "../firebase/firebase-config";
+import { db } from "../firebase/firebase-config";
 import Button from "../components/Button";
 import MenuGroup from "../components/CardMenuGroup";
 import ModalHamburguer from "../components/ModalHamburguer";

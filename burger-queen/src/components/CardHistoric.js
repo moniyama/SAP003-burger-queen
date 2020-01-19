@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import Accordion from "react-bootstrap/Accordion";
-import HourFormate from "./HourFormate.js";
+import HourFormate from "../Utils/HourFormate";
 
 export default function CardHistoric(props) {
   const [timeDiff, setTimeDiff] = useState(0);

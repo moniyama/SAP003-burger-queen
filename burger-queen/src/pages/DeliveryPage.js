@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import db from "../firebase/firebase-config";
+import {db} from "../firebase/firebase-config";
 import CardHistoric from "../components/CardHistoric";
 import CardOrder from "../components/CardOrder";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import Button from "./Button";
-import HourFormate from "./HourFormate.js";
+import HourFormate from "../Utils/HourFormate";
 
 export default function CardOrder(props) {
   return (

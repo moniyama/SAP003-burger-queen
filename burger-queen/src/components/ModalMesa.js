@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
-import db from "../firebase/firebase-config";
+import {db} from "../firebase/firebase-config";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
