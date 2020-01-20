@@ -44,21 +44,6 @@ export default function ModalHamburguer(props) {
     setHambResumo(newHambResumo);
   };
 
-  // const setNewEggState = newState => {
-  //   settoggleStatEgg(newState);
-  //   const newHambResumo = hambResumo.map(elem => ({ ...elem, ovo: newState }));
-  //   setHambResumo(newHambResumo);
-  // };
-
-  // const setNewCheeseState = newState => {
-  //   settoggleStatCheese(newState);
-  //   const newHambResumo = hambResumo.map(elem => ({
-  //     ...elem,
-  //     queijo: newState
-  //   }));
-  //   setHambResumo(newHambResumo);
-  // };
-
   const addHamb = () => {
     const obj = hambResumo[0];
     const { ovo, queijo, type, hamburguer, value } = obj;

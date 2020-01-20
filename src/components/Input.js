@@ -20,7 +20,6 @@ export default function Input(props) {
 
 const styles = StyleSheet.create({
   input: {
-    height: "30px",
     padding: "5%",
     margin: "2% 3%",
     width: "94%"

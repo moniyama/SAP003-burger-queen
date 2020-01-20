@@ -9,7 +9,7 @@ export default function DeliveryPage() {
   const [deliveryOrders, setDeliveryOrders] = useState([]);
 
   useEffect(() => {
-    GetOrderFirebase("Kitchen", setDeliveryOrders);
+    GetOrderFirebase("Delivery", setDeliveryOrders);
   }, []);
 
   const saveOrderDelivered = e => {
