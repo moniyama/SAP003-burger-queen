@@ -6,6 +6,9 @@ import MenuGroup from "../components/CardMenuGroup";
 import ModalHamburguer from "../components/ModalHamburguer";
 import ModalMesa from "../components/ModalMesa";
 import ResumoItens from "../components/ResumoItens";
+import { Check, Close } from "@material-ui/icons/";
+
+//add check and close to endbtns
 
 export default function MenuPage() {
   const [menu, setMenu] = useState([]);
@@ -35,7 +38,7 @@ export default function MenuPage() {
     const updateSubtotal = () => {
       setSubtotal(
         resumo.reduce(
-          (acumulador, valorAtual) => acumulador + valorAtual.value,
+          (acc, curr) => acc + curr.value,
           0
         )
       );
@@ -57,8 +60,8 @@ export default function MenuPage() {
     if (hasItem) {
       let newResumo = resumo.map(item => {
         if (item.item === itemAdded) {
-          item.quantia += 1;
-          item.value = itemPrice * item.quantia;
+          item.quantity += 1;
+          item.value = itemPrice * item.quantity;
           return item;
         } else return item;
       });
@@ -66,7 +69,7 @@ export default function MenuPage() {
     } else {
       addItemResumo({
         item: itemAdded,
-        quantia: 1,
+        quantity: 1,
         value: itemPrice,
         unitPrice: itemPrice
       });
@@ -116,7 +119,7 @@ export default function MenuPage() {
           <h4>Sub-Total: R$ {subtotal + ",00"}</h4>
           <Button
             class={styles.endBtns}
-            title={"Finalizar Pedido"}
+            title={<Check />}
             handleClick={() => setShowModalMesa(true)}
             disabled={disabledBtns}
           />

@@ -12,15 +12,15 @@ export default function Resumo(props) {
       .map(element => {
         if (plusOrMinus === "+1")
           return {
-            item: item,
-            quantia: element.quantia + 1,
+            item,
+            quantity: element.quantity + 1,
             value: element.value + unitprice,
             unitPrice: unitprice
           };
-        else if (element.quantia > 1 && plusOrMinus !== null)
+        else if (element.quantity > 1 && plusOrMinus !== null)
           return {
-            item: item,
-            quantia: element.quantia - 1,
+            item,
+            quantity: element.quantity - 1,
             value: element.value - unitprice,
             unitPrice: unitprice
           };
@@ -47,7 +47,7 @@ export default function Resumo(props) {
           {props.resumo.map((itemResumo, index) => (
             <CardResumomItem
               item={itemResumo.item}
-              quantia={itemResumo.quantia}
+              quantity={itemResumo.quantity}
               price={itemResumo.value + ",00"}
               unitprice={itemResumo.unitPrice}
               handleClick={shortcutQtd}

@@ -18,7 +18,7 @@ export default function CardResumomItem(props) {
               class={styles.qtdBtn}
             />
             <Button
-              title={props.quantia}
+              title={props.quantity}
               class={styles.qtdBox}
               disabled={true}
             />

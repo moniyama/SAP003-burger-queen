@@ -18,7 +18,7 @@ export default function CardOrder(props) {
       <div className={css(styles.bodyCard)}>
         {props.order.order.map((itemOrdered, key) => (
           <div className={css(styles.orderedItem)} key={key + itemOrdered}>
-            {itemOrdered.quantia}x {itemOrdered.item}
+            {itemOrdered.quantity}x {itemOrdered.item}
           </div>
         ))}
       </div>

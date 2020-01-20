@@ -53,7 +53,7 @@ export default function CardHistoric(props) {
         <section className={css(styles.show)}>
           {props.order.order.map((itemOrdered, index) => (
             <li key={"historyDetails" + index}>
-              {itemOrdered.quantia}x {itemOrdered.item}
+              {itemOrdered.quantity}x {itemOrdered.item}
             </li>
           ))}
         </section>

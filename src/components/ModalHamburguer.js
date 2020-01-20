@@ -19,8 +19,8 @@ export default function ModalHamburguer(props) {
       {
         type,
         hamburguer: "",
-        queijo: false,
-        ovo: false,
+        cheese: false,
+        egg: false,
         value
       }
     ]);
@@ -32,27 +32,27 @@ export default function ModalHamburguer(props) {
   const setNewState = (newState, setState, aditional) => {
     setState(newState);
     let newHambResumo;
-    aditional === "ovo"
+    aditional === "egg"
       ? (newHambResumo = hambResumo.map(elem => ({
           ...elem,
-          ovo: newState
+          egg: newState
         })))
       : (newHambResumo = hambResumo.map(elem => ({
           ...elem,
-          queijo: newState
+          cheese: newState
         })));
     setHambResumo(newHambResumo);
   };
 
   const addHamb = () => {
     const obj = hambResumo[0];
-    const { ovo, queijo, type, hamburguer, value } = obj;
+    const { egg, cheese, type, hamburguer, value } = obj;
 
     let finalItemPrice = "";
-    const addQueijo = queijo ? "adicional queijo" : "";
+    const addCheese = cheese ? "adicional queijo" : "";
     const additional =
-      addQueijo +
-      (addQueijo === "" ? (ovo ? "adicional ovo" : "") : ovo ? " e ovo" : "");
+    addCheese +
+      (addCheese === "" ? (egg ? "adicional ovo" : "") : egg ? " e ovo" : "");
 
     const itemAdded = ` ${type} ${hamburguer} ${additional} `;
 
@@ -67,7 +67,7 @@ export default function ModalHamburguer(props) {
         finalItemPrice = value + 1;
     }
 
-    const newItem = { item: itemAdded, quantia: 1, value: finalItemPrice };
+    const newItem = { item: itemAdded, quantity: 1, value: finalItemPrice };
 
     props.additemresumo(newItem);
     props.checkitem(itemAdded, finalItemPrice);
@@ -126,14 +126,14 @@ export default function ModalHamburguer(props) {
               title={"ADICIONAL QUEIJO"}
               state={toggleStateCheese}
               setstate={newState =>
-                setNewState(newState, settoggleStatCheese, "queijo")
+                setNewState(newState, settoggleStatCheese, "cheese")
               }
             />
             <ToggleIcon
               title={"ADICIONAL OVO"}
               state={toggleStateEgg}
               setstate={newState =>
-                setNewState(newState, settoggleStatEgg, "ovo")
+                setNewState(newState, settoggleStatEgg, "egg")
               }
               resumo={hambResumo}
             />
