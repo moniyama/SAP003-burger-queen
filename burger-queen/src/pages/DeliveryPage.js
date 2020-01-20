@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import {db} from "../firebase/firebase-config";
 import CardHistoric from "../components/CardHistoric";
 import CardOrder from "../components/CardOrder";
+import UpdateOrderFirebase from "../Utils/UpdateOrderFirebase";
 
 export default function DeliveryPage() {
   const [deliveryOrders, setDeliveryOrders] = useState([]);
@@ -20,17 +21,7 @@ export default function DeliveryPage() {
   }, []);
 
   const saveOrderDelivered = e => {
-    const id = e.currentTarget.id;
-    db.collection("ORDERS")
-      .doc(id)
-      .update({
-        order_status_delivered: true,
-        timestamp_delivered: new Date().getTime()
-      });
-    const update = deliveryOrders.map(order =>
-      order.id === id ? { ...order, order_status_delivered: true } : order
-    );
-    setDeliveryOrders(update);
+    UpdateOrderFirebase(e, "Delivery", deliveryOrders, setDeliveryOrders);
   };
 
   return (

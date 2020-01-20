@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import {db} from "../firebase/firebase-config";
+import { db } from "../firebase/firebase-config";
 import CardHistoric from "../components/CardHistoric";
 import CardOrder from "../components/CardOrder";
+import UpdateOrderFirebase from "../Utils/UpdateOrderFirebase";
 
 export default function KitchenPage() {
   const [orders, setOrders] = useState([]);
@@ -20,18 +21,8 @@ export default function KitchenPage() {
       });
   }, []);
 
-  const saveOrderCooked = e => {
-    const id = e.currentTarget.id;
-    db.collection("ORDERS")
-      .doc(id)
-      .update({
-        order_status_cooked: true,
-        timestamp_cooked: new Date().getTime(),
-      });
-    const update = orders.map(order =>
-      order.id === id ? { ...order, order_status_cooked: true } : order
-    );
-    setOrders(update);
+  const saveOrder = e => {
+    UpdateOrderFirebase(e, "Kitchen", orders, setOrders);
   };
 
   return (
@@ -42,12 +33,14 @@ export default function KitchenPage() {
           <ul className={css(styles.ul)}>
             {orders
               .filter(element => element.order_status_cooked === false)
-              .sort((a, b) => (a.timestamp_ordered > b.timestamp_ordered ? 1 : -1))
+              .sort((a, b) =>
+                a.timestamp_ordered > b.timestamp_ordered ? 1 : -1
+              )
               .map((order, index) => (
                 <CardOrder
                   order={order}
                   key={"CardOrderKitchen" + index}
-                  handleClick={saveOrderCooked}
+                  handleClick={saveOrder}
                   btntitle={"PEDIDO PRONTO"}
                 />
               ))}
@@ -61,9 +54,7 @@ export default function KitchenPage() {
         <ul className={css(styles.ulHistory)}>
           {orders
             .filter(element => element.order_status_cooked === true)
-            .sort((a, b) =>
-              a.timestamp_cooked> b.timestamp_cooked ? -1 : 1
-            )
+            .sort((a, b) => (a.timestamp_cooked > b.timestamp_cooked ? -1 : 1))
             .map((order, index) => (
               <CardHistoric
                 key={"Historic" + index}

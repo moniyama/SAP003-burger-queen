@@ -1,9 +1,6 @@
 import React from "react";
 
 export default function timeDiff(props) {
-  console.log(typeof props.timeDelivered);
-  console.log(typeof props.timeCooked);
-
   const calculate = () => {
     const inicialTime = new Date(props.timeOrdered).getTime();
     let endTime;
