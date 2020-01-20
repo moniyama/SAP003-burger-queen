@@ -3,6 +3,7 @@ import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import Button from "./Button";
 import ToggleIcon from "./ToggleIcon";
+import SetToggleState from '../Utils/ChangeToggleIcon'
 
 export default function ModalHamburguer(props) {
   const [hambResumo, setHambResumo] = useState([]);
@@ -29,13 +30,31 @@ export default function ModalHamburguer(props) {
     settoggleStatCheese(false);
   }, [hambType, hambValue]);
 
+  // const setNewState = (setState, aditional, newState) => {
+  //   setState(!newState);
+  //   let newHambResumo;
+  //   aditional === "ovo"
+  //     ? (newHambResumo = hambResumo.map(elem => ({
+  //         ...elem,
+  //         ovo: newState
+  //       })))
+  //     : (newHambResumo = hambResumo.map(elem => ({
+  //         ...elem,
+  //         queijo: newState
+  //       })));
+  //       console.log(newHambResumo)
+  //   setHambResumo(newHambResumo);
+  // };
+
   const setNewEggState = newState => {
+    console.log(newState);
     settoggleStatEgg(newState);
     const newHambResumo = hambResumo.map(elem => ({ ...elem, ovo: newState }));
     setHambResumo(newHambResumo);
   };
 
   const setNewCheeseState = newState => {
+    console.log(newState);
     settoggleStatCheese(newState);
     const newHambResumo = hambResumo.map(elem => ({
       ...elem,
@@ -46,35 +65,26 @@ export default function ModalHamburguer(props) {
 
   const addHamb = () => {
     const obj = hambResumo[0];
-    const additionalEgg = obj.ovo;
-    const additionalCheese = obj.queijo;
-    const hamburguerType = obj.type;
-    const hamburguerFlavor = obj.hamburguer;
-    const initialPrice = obj.value;
+    const { ovo, queijo, type, hamburguer, value } = obj;
 
     let finalItemPrice = "";
-    let additional = "";
+    const addQueijo = queijo ? "adicional queijo" : "";
+    const additional =
+      addQueijo +
+      (addQueijo === "" ? (ovo ? "adicional ovo" : "") : ovo ? " e ovo" : "");
 
-    if (additionalCheese === true && additionalEgg === false) {
-      additional = "queijo adicional";
-    } else if (additionalCheese === false && additionalEgg === true) {
-      additional = "ovo adicional";
-    } else if (additionalCheese === true && additionalEgg === true) {
-      additional = "queijo e ovo adicional";
-    }
-
-    const itemArray = [hamburguerType, hamburguerFlavor, additional];
+    const itemArray = [type, hamburguer, additional];
     const itemAdded = itemArray.join(" ");
 
     switch (additional) {
-      case "queijo e ovo adicional":
-        finalItemPrice = initialPrice + 2;
+      case "adicional queijo e ovo":
+        finalItemPrice = value + 2;
         break;
       case "":
-        finalItemPrice = initialPrice;
+        finalItemPrice = value;
         break;
       default:
-        finalItemPrice = initialPrice + 1;
+        finalItemPrice = value + 1;
     }
 
     const newItem = { item: itemAdded, quantia: 1, value: finalItemPrice };
