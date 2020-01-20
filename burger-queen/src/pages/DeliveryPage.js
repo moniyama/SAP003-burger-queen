@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import {db} from "../firebase/firebase-config";
 import CardHistoric from "../components/CardHistoric";
 import CardOrder from "../components/CardOrder";
 import UpdateOrderFirebase from "../Utils/UpdateOrderFirebase";
+import GetOrderFirebase from "../Utils/GetOrderFirebase";
 
 export default function DeliveryPage() {
   const [deliveryOrders, setDeliveryOrders] = useState([]);
 
   useEffect(() => {
-    db.collection("ORDERS")
-      .where("order_status_cooked", "==", true)
-      .onSnapshot(querySnapshot => {
-        const newOrder = querySnapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id
-        }));
-        setDeliveryOrders(newOrder);
-      });
+    GetOrderFirebase("Kitchen", setDeliveryOrders);
   }, []);
 
   const saveOrderDelivered = e => {
@@ -55,9 +47,7 @@ export default function DeliveryPage() {
         <ul className={css(styles.ulHistory)}>
           {deliveryOrders
             .filter(element => element.order_status_delivered === true)
-            .sort((a, b) =>
-              a.timestamp_cooked > b.timestamp_cooked ? -1 : 1
-            )
+            .sort((a, b) => (a.timestamp_cooked > b.timestamp_cooked ? -1 : 1))
             .map((order, index) => (
               <CardHistoric
                 key={"HistoricDelivery" + index}

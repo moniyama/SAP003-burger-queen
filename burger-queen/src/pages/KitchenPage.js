@@ -1,24 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
-import { db } from "../firebase/firebase-config";
 import CardHistoric from "../components/CardHistoric";
 import CardOrder from "../components/CardOrder";
 import UpdateOrderFirebase from "../Utils/UpdateOrderFirebase";
+import GetOrderFirebase from "../Utils/GetOrderFirebase";
 
 export default function KitchenPage() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    db.collection("ORDERS")
-      .orderBy("timestamp_ordered", "desc")
-      .limit(20)
-      .onSnapshot(querySnapshot => {
-        const newOrders = querySnapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id
-        }));
-        setOrders(newOrders);
-      });
+    GetOrderFirebase("Kitchen", setOrders);
   }, []);
 
   const saveOrder = e => {
