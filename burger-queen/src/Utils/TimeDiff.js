@@ -9,7 +9,13 @@ export default function timeDiff(props) {
       : (endTime = new Date(props.timeDelivered).getTime());
     const microSecondsDiff = Math.abs(endTime - inicialTime);
     const minDiff = Math.round(microSecondsDiff / (1000 * 60));
-    return <div>{`${minDiff} minutos`}</div>;
+    return (
+      <div>
+        {minDiff < 60
+          ? `${minDiff} minutos`
+          : `${Math.round(minDiff / 60)}h ${minDiff % 60}min`}
+      </div>
+    );
   };
 
   return props.timeDelivered !== undefined || props.timeCooked !== undefined

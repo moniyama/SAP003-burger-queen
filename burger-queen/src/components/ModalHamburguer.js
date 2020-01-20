@@ -3,7 +3,6 @@ import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
 import Button from "./Button";
 import ToggleIcon from "./ToggleIcon";
-import SetToggleState from '../Utils/ChangeToggleIcon'
 
 export default function ModalHamburguer(props) {
   const [hambResumo, setHambResumo] = useState([]);
@@ -12,23 +11,24 @@ export default function ModalHamburguer(props) {
   const [toggleStateCheese, settoggleStatCheese] = useState(false);
   const [btnModalDisabledStatus, setBtnModalDisabledStatus] = useState(true);
 
-  const hambType = props.initialhambstate.type;
-  const hambValue = props.initialhambstate.value;
+  const initialhambstate = props.initialhambstate;
+  const { type, value } = initialhambstate;
 
   useEffect(() => {
     setHambResumo([
       {
-        type: hambType,
+        type,
         hamburguer: "",
         queijo: false,
         ovo: false,
-        value: hambValue
+        value
       }
     ]);
     setBtnModalDisabledStatus(true);
     settoggleStatEgg(false);
     settoggleStatCheese(false);
-  }, [hambType, hambValue]);
+
+  }, [type, value]);
 
   // const setNewState = (setState, aditional, newState) => {
   //   setState(!newState);
@@ -47,14 +47,12 @@ export default function ModalHamburguer(props) {
   // };
 
   const setNewEggState = newState => {
-    console.log(newState);
     settoggleStatEgg(newState);
     const newHambResumo = hambResumo.map(elem => ({ ...elem, ovo: newState }));
     setHambResumo(newHambResumo);
   };
 
   const setNewCheeseState = newState => {
-    console.log(newState);
     settoggleStatCheese(newState);
     const newHambResumo = hambResumo.map(elem => ({
       ...elem,
@@ -73,8 +71,7 @@ export default function ModalHamburguer(props) {
       addQueijo +
       (addQueijo === "" ? (ovo ? "adicional ovo" : "") : ovo ? " e ovo" : "");
 
-    const itemArray = [type, hamburguer, additional];
-    const itemAdded = itemArray.join(" ");
+    const itemAdded = ` ${type} ${hamburguer} ${additional} `;
 
     switch (additional) {
       case "adicional queijo e ovo":
@@ -113,7 +110,9 @@ export default function ModalHamburguer(props) {
       centered
     >
       <Modal.Header>
-        <Modal.Title>{hambType}</Modal.Title>
+        <Modal.Title>
+          {type}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <section

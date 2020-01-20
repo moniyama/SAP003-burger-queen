@@ -9,9 +9,7 @@ import "./index.css";
 export default function App() {
   return (
     <>
-      <div>
-        <Header />
-      </div>
+      <Header />
       <div className={css(styles.main)}>
         <NavTab />
         <Footer />
