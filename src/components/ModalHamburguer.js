@@ -27,39 +27,37 @@ export default function ModalHamburguer(props) {
     setBtnModalDisabledStatus(true);
     settoggleStatEgg(false);
     settoggleStatCheese(false);
-
   }, [type, value]);
 
-  // const setNewState = (setState, aditional, newState) => {
-  //   setState(!newState);
-  //   let newHambResumo;
-  //   aditional === "ovo"
-  //     ? (newHambResumo = hambResumo.map(elem => ({
-  //         ...elem,
-  //         ovo: newState
-  //       })))
-  //     : (newHambResumo = hambResumo.map(elem => ({
-  //         ...elem,
-  //         queijo: newState
-  //       })));
-  //       console.log(newHambResumo)
+  const setNewState = (newState, setState, aditional) => {
+    setState(newState);
+    let newHambResumo;
+    aditional === "ovo"
+      ? (newHambResumo = hambResumo.map(elem => ({
+          ...elem,
+          ovo: newState
+        })))
+      : (newHambResumo = hambResumo.map(elem => ({
+          ...elem,
+          queijo: newState
+        })));
+    setHambResumo(newHambResumo);
+  };
+
+  // const setNewEggState = newState => {
+  //   settoggleStatEgg(newState);
+  //   const newHambResumo = hambResumo.map(elem => ({ ...elem, ovo: newState }));
   //   setHambResumo(newHambResumo);
   // };
 
-  const setNewEggState = newState => {
-    settoggleStatEgg(newState);
-    const newHambResumo = hambResumo.map(elem => ({ ...elem, ovo: newState }));
-    setHambResumo(newHambResumo);
-  };
-
-  const setNewCheeseState = newState => {
-    settoggleStatCheese(newState);
-    const newHambResumo = hambResumo.map(elem => ({
-      ...elem,
-      queijo: newState
-    }));
-    setHambResumo(newHambResumo);
-  };
+  // const setNewCheeseState = newState => {
+  //   settoggleStatCheese(newState);
+  //   const newHambResumo = hambResumo.map(elem => ({
+  //     ...elem,
+  //     queijo: newState
+  //   }));
+  //   setHambResumo(newHambResumo);
+  // };
 
   const addHamb = () => {
     const obj = hambResumo[0];
@@ -110,9 +108,7 @@ export default function ModalHamburguer(props) {
       centered
     >
       <Modal.Header>
-        <Modal.Title>
-          {type}
-        </Modal.Title>
+        <Modal.Title>{type}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <section
@@ -144,12 +140,16 @@ export default function ModalHamburguer(props) {
             <ToggleIcon
               title={"ADICIONAL QUEIJO"}
               state={toggleStateCheese}
-              setstate={setNewCheeseState}
+              setstate={newState =>
+                setNewState(newState, settoggleStatCheese, "queijo")
+              }
             />
             <ToggleIcon
               title={"ADICIONAL OVO"}
               state={toggleStateEgg}
-              setstate={setNewEggState}
+              setstate={newState =>
+                setNewState(newState, settoggleStatEgg, "ovo")
+              }
               resumo={hambResumo}
             />
           </section>
