@@ -18,17 +18,16 @@ export default function App() {
 
   const userLogged = () => {
     auth.onAuthStateChanged(user => {
-      if (user) {
-        db.collection("users")
-          .where("user_uid", "==", user.uid)
-          .get()
-          .then(snapshot => {
-            const user = snapshot.docs.map(doc => doc.data());
-            setUser(user);
-          });
-      } else {
-        return false;
-      }
+      user
+        ? db
+            .collection("users")
+            .where("user_uid", "==", user.uid)
+            .get()
+            .then(snapshot => {
+              const user = snapshot.docs.map(doc => doc.data());
+              setUser(user);
+            })
+        : setUser([]);
     });
   };
 
@@ -38,7 +37,11 @@ export default function App() {
 
   return (
     <Router>
-      {user.length !== 0 ? <Redirect to={user[0].job} /> : <LoginPage />}
+      {user.length !== 0 ? (
+        <Redirect to={user[0].job} />
+      ) : (
+        <Redirect to={"/"} />
+      )}
       <Switch>
         <Route path="/kitchen" component={KitchenPage} />
         <Route path="/hall" component={Hall} />

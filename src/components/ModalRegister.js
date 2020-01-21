@@ -124,11 +124,11 @@ export default function ModalRegister(props) {
               <div className={css(styles.radioLabelSection)}>
                 <Input
                   type="radio"
-                  id={"radio-coz"}
+                  id="radio-coz"
                   class={styles.radio}
-                  name={"job"}
+                  name="job"
                   onChange={e => setUser({ ...user, job: e.target.value })}
-                  value={"kitchen"}
+                  value="kitchen"
                   checked={true}
                 />
                 <label htmlFor={"radio-coz"} className={css(styles.radioLabel)}>

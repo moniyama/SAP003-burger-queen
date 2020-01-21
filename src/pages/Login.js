@@ -17,14 +17,12 @@ export default function LoginPage() {
     e.preventDefault();
     auth
       .signInWithEmailAndPassword(loginData.email, loginData.password)
-      .then(console.log("logado!"))
       .catch(error => {
         setLoginError({ ...loginError, state: true, message: error.code });
       });
   };
 
   const showError = message => {
-    console.log("erro");
     switch (message) {
       case "auth/invalid-email":
         return <p className={css(styles.error)}>Email inválido</p>;
@@ -44,7 +42,7 @@ export default function LoginPage() {
           <img
             className={css(styles.logo)}
             src={require("../img/logo_vert.PNG")}
-            alt={"logo"}
+            alt="logo"
           ></img>
         </figure>
       </section>
@@ -53,28 +51,28 @@ export default function LoginPage() {
           <form>
             <Input
               class={styles.input}
-              type={"email"}
-              placeholder={"Email"}
-              id={"email-login"}
+              type="email"
+              placeholder="Email"
+              // id="login-email"
               autofocus={true}
               onChange={e =>
                 setLoginData({ ...loginData, email: e.target.value })
               }
-              autoComplete={"username"}
+              autoComplete="username"
             />
             <Input
               class={styles.input}
-              type={"password"}
-              placeholder={"Senha"}
-              id={"password-login"}
-              autoComplete={"current-password"}
+              type="password"
+              placeholder="Senha"
+              // id="login-password"
+              autoComplete="current-password"
               onChange={e =>
                 setLoginData({ ...loginData, password: e.target.value })
               }
             />
             <Button
               class={styles.loginBtn}
-              title={"ENTRAR"}
+              title="ENTRAR"
               handleClick={e => login(e)}
             />
           </form>

@@ -10,20 +10,15 @@ import {
 import LoginPage from "../pages/Login";
 
 export default function LogOutFunction() {
-  auth
-    .signOut()
-    .then(function() {
-      console.log("saiu!");
-      return (
-        <Router>
-          <Redirect to={"/login"} />
-          <Switch>
-            <Route exact path="/login" component={LoginPage} />
-          </Switch>
-        </Router>
-      );
-    })
-    .catch(function(error) {
-      // An error happened.
-    });
+  auth.signOut().then(() => {
+    return (
+      <Router>
+        <Redirect to={"/"} />
+        <Switch>
+          <Route exact path="/" component={LoginPage} />
+        </Switch>
+      </Router>
+    );
+  })
+  .catch(()=> console.log('erro'))
 }

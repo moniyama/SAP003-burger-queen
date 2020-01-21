@@ -1,6 +1,7 @@
 import { db } from "../firebase/firebase-config";
 
 export default function getOrder(page, setState) {
+  let isSubscribed = true;
   page === "Kitchen"
     ? db
         .collection("ORDERS")
@@ -11,16 +12,17 @@ export default function getOrder(page, setState) {
             ...doc.data(),
             id: doc.id
           }));
-          setState(newOrders);
+          if (isSubscribed) setState(newOrders);
         })
     : db
         .collection("ORDERS")
         .where("order_status_cooked", "==", true)
         .onSnapshot(querySnapshot => {
-          const newOrder = querySnapshot.docs.map(doc => ({
+          const newOrders = querySnapshot.docs.map(doc => ({
             ...doc.data(),
             id: doc.id
           }));
-          setState(newOrder);
+          if (isSubscribed) setState(newOrders);
         });
+  return () => (isSubscribed = false);
 }

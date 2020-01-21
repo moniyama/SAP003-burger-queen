@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
 import Button from "../components/Button";
-import LogOutFunction from '../Utils/LogOutFunction'
+import { auth } from "../firebase/firebase-config";
 
-export default function Header() {
+export default function Header(props) {
   return (
     <header className={css(styles.header)}>
       <figure>
@@ -13,7 +13,7 @@ export default function Header() {
           alt={"logo"}
         ></img>
       </figure>
-      <Button title={'Sair'} handleClick={LogOutFunction} />
+      <Button title={"Sair"} handleClick={() => auth.signOut()} />
     </header>
   );
 }

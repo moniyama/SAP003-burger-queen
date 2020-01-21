@@ -23,13 +23,13 @@ export default function CardHistoric(props) {
           </div>
           <div className={css(styles.historyUserAndTime)}>
             <HourFormate
-              title={"PEDIDO"}
+              title="PEDIDO"
               time={props.order.timestamp_ordered}
             />
-            <HourFormate title={"PRONTO"} time={props.order.timestamp_cooked} />
+            <HourFormate title="PRONTO" time={props.order.timestamp_cooked} />
             {props.page === "delivery" ? (
               <HourFormate
-                title={"ENTREGUE"}
+                title="ENTREGUE"
                 time={props.order.timestamp_delivered}
               />
             ) : (
