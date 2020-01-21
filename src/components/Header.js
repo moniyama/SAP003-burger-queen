@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite";
+import Button from "../components/Button";
+import LogOutFunction from '../Utils/LogOutFunction'
 
 export default function Header() {
   return (
@@ -11,6 +13,7 @@ export default function Header() {
           alt={"logo"}
         ></img>
       </figure>
+      <Button title={'Sair'} handleClick={LogOutFunction} />
     </header>
   );
 }

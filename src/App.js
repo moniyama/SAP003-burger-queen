@@ -1,25 +1,49 @@
-import React from "react";
-import { StyleSheet, css } from "aphrodite";
-import Header from "./components/Header";
-import NavTab from "./components/Nav-Tab";
-import Footer from "./components/Footer";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import { auth, db } from "./firebase/firebase-config";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+
+import KitchenPage from "./pages/KitchenPage";
+import LoginPage from "./pages/Login";
+import Hall from "./pages/Hall";
 
 export default function App() {
+  const [user, setUser] = useState([]);
+
+  const userLogged = () => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        db.collection("users")
+          .where("user_uid", "==", user.uid)
+          .get()
+          .then(snapshot => {
+            const user = snapshot.docs.map(doc => doc.data());
+            setUser(user);
+          });
+      } else {
+        return false;
+      }
+    });
+  };
+
+  useEffect(() => {
+    userLogged();
+  }, []);
+
   return (
-    <>
-      <Header />
-      <div className={css(styles.main)}>
-        <NavTab />
-        <Footer />
-      </div>
-    </>
+    <Router>
+      {user.length !== 0 ? <Redirect to={user[0].job} /> : <LoginPage />}
+      <Switch>
+        <Route path="/kitchen" component={KitchenPage} />
+        <Route path="/hall" component={Hall} />
+        <Route exact path="/" component={LoginPage} />
+      </Switch>
+    </Router>
   );
 }
-
-const styles = StyleSheet.create({
-  main: {
-    margin: "2% 3%"
-  }
-});
