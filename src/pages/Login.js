@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import ModalRegister from "../components/ModalRegister";
 import Footer from "../components/Footer";
+import Image from "../components/Image";
 
 export default function LoginPage() {
   const [showModalRegister, setShowModalRegister] = useState(false);
@@ -38,13 +39,11 @@ export default function LoginPage() {
   return (
     <main className={css(styles.main)}>
       <section>
-        <figure>
-          <img
-            className={css(styles.logo)}
-            src={require("../img/logo_vert.PNG")}
-            alt="logo"
-          ></img>
-        </figure>
+        <Image
+          class={styles.logo}
+          src={require("../img/logo_vert.PNG")}
+          alt={"logo"}
+        />
       </section>
       <section className={css(styles.formSection)}>
         <div className={css(styles.form)}>
