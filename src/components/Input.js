@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, css } from "aphrodite";
+import { css } from "aphrodite";
 
 export default function Input(props) {
   return (
     <input
-      className={css(styles.input, props.class)}
+      className={css(props.class)}
       type={props.type}
       placeholder={props.placeholder}
       id={props.id}
@@ -17,11 +17,3 @@ export default function Input(props) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  input: {
-    padding: "5%",
-    margin: "2% 3%",
-    width: "94%"
-  }
-});

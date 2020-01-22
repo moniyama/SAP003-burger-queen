@@ -93,7 +93,11 @@ export default function ModalHamburguer(props) {
       centered
     >
       <Modal.Header>
-        <Modal.Title>{type}</Modal.Title>
+        <Modal.Title>
+          {hambResumo.length === 0
+            ? { type }
+            : ` ${type} ${hambResumo[0].hamburguer}`}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <section
@@ -101,36 +105,36 @@ export default function ModalHamburguer(props) {
           aria-label="First group"
         >
           <Button
-            title={"Bovino"}
+            title={"BOVINO"}
             handleClick={getHamburguerFlavor}
             disabled={false}
             class={styles.modalBtnFlavors}
           />
           <Button
-            title={"Frango"}
+            title={"FRANGO"}
             handleClick={getHamburguerFlavor}
             disabled={false}
             class={styles.modalBtnFlavors}
           />
           <Button
-            title={"Vegetariano"}
+            title={"VEGETARIANO"}
             handleClick={getHamburguerFlavor}
             disabled={false}
             class={styles.modalBtnFlavors}
           />
         </section>
         <section className={css(styles.modalAditional)}>
-          <h4>ADICIONAL POR R$ 1,00</h4>
+          <h4>ADICIONAL POR R$ 1,00 CADA</h4>
           <section className={css(styles.modalAditionalItens)}>
             <ToggleIcon
-              title={"ADICIONAL QUEIJO"}
+              title={"QUEIJO"}
               state={toggleStateCheese}
               setstate={newState =>
                 setNewState(newState, settoggleStatCheese, "cheese")
               }
             />
             <ToggleIcon
-              title={"ADICIONAL OVO"}
+              title={"OVO"}
               state={toggleStateEgg}
               setstate={newState =>
                 setNewState(newState, settoggleStatEgg, "egg")
@@ -183,6 +187,8 @@ const styles = StyleSheet.create({
   },
   modalAditionalItens: {
     backgroundColor: "beige",
-    fontSize: "large"
+    fontSize: "large",
+    display: "flex",
+    justifyContent: "space-evenly"
   }
 });

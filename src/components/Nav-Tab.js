@@ -6,34 +6,52 @@ import MenuPage from "../pages/MenuPage";
 import KitchenPage from "../pages/KitchenPage";
 import DeliveryPage from "../pages/DeliveryPage";
 
-export default function navTab() {
+export default function NavTab(props) {
   return (
-    <Tabs
-      className={css(styles.navbar)}
-      transition={false}
-      defaultActiveKey="menu"
-      id="uncontrolled-tab-example"
-    >
-      <Tab className={css(styles.tabBox)} eventKey="menu" title="MENU PEDIDOS">
-        <MenuPage />
-      </Tab>
-      <Tab
-        className={css(styles.tabBox)}
-        eventKey="kitchen"
-        title="EM PREPARAÇÃO"
-      >
-        <KitchenPage />
-      </Tab>
-      <Tab
-        className={css(styles.tabBox)}
-        eventKey="delivery"
-        title="EM ENTREGA"
-      >
-        <DeliveryPage />
-      </Tab>
-    </Tabs>
+    <>
+      {props.page === "kitchen" ? (
+        <Tabs
+          className={css(styles.navbar)}
+          transition={false}
+          defaultActiveKey="kitchen"
+          id="uncontrolled-tab-example"
+        >
+          <Tab
+            className={css(styles.tabBox)}
+            eventKey="kitchen"
+            title="COZINHA"
+          >
+            <KitchenPage />
+          </Tab>
+        </Tabs>
+      ) : (
+        <Tabs
+          className={css(styles.navbar)}
+          transition={false}
+          defaultActiveKey="pedidos"
+          id="uncontrolled-tab-example"
+        >
+          <Tab
+            className={css(styles.tabBox)}
+            eventKey="pedidos"
+            title="REALIZAR PEDIDO"
+          >
+            <MenuPage />
+          </Tab>
+          <Tab
+            className={css(styles.tabBox)}
+            eventKey="pronto"
+            title="REALIZAR ENTREGA"
+          >
+            <DeliveryPage />
+          </Tab>
+        </Tabs>
+      )}
+    </>
   );
 }
+
+//inserir essa navTab na pagina de hall do garçom
 
 const styles = StyleSheet.create({
   navbar: {
@@ -48,3 +66,5 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   }
 });
+
+

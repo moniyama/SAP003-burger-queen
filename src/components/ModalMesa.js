@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, css } from "aphrodite";
 import { Modal } from "react-bootstrap";
-import {db} from "../firebase/firebase-config";
+import { db } from "../firebase/firebase-config";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
@@ -43,7 +43,7 @@ export default function ModalMesa(props) {
       order_status_cooked: false,
       order_status_delivered: false,
       timestamp_ordered: new Date().getTime(),
-      date_ordered:new Date().toLocaleString(undefined)
+      date_ordered: new Date().toLocaleString(undefined)
     });
   };
   const cancel = () => {
@@ -107,6 +107,8 @@ const styles = StyleSheet.create({
     height: "70px"
   },
   input: {
-    display: "block"
-  }
+    display: "block",
+    padding: "4%",
+    margin: "0% 3% 2%",
+    width: "94%"}
 });
