@@ -13,11 +13,14 @@ export default function Header(props) {
         src={require("../img/Capturar2.PNG")}
         alt={"logo"}
       />
-      <Button
-        class={styles.btnLogout}
-        title={<ExitToAppIcon />}
-        handleClick={() => auth.signOut()}
-      />
+      <div className={css(styles.logout)}>
+        <p>SAIR</p>
+        <Button
+          class={styles.btnLogout}
+          title={<ExitToAppIcon />}
+          handleClick={() => auth.signOut()}
+        />
+      </div>
     </header>
   );
 }
@@ -31,7 +34,12 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-evenly"
   },
+  logout: {
+    width: "20%",
+    textAlign:'center',
+  },
   btnLogout: {
-    width: "10%"
+    width: "70%",
+    height: "60%"
   }
 });

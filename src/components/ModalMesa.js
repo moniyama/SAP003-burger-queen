@@ -107,6 +107,8 @@ const styles = StyleSheet.create({
     height: "70px"
   },
   input: {
-    display: "block"
-  }
+    display: "block",
+    padding: "4%",
+    margin: "0% 3% 2%",
+    width: "94%"}
 });

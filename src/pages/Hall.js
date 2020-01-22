@@ -16,8 +16,8 @@ export default function Hall() {
       <Header />
       <div className={css(styles.main)}>
         <NavTab page={"hall"} />
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 }

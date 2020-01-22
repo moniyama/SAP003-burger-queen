@@ -118,7 +118,12 @@ export default function ModalRegister(props) {
             }
             autoComplete={"new-password"}
           />
-          <div>
+          {password.password === "" || samePassword ? (
+            ""
+          ) : (
+            <p className={css(styles.errorMessage)}>Senha não confere</p>
+          )}
+          <div className={css(styles.jobSection)}>
             <h4>SETOR:</h4>
             <div className={css(styles.radioSection)}>
               <div className={css(styles.radioLabelSection)}>
@@ -151,11 +156,6 @@ export default function ModalRegister(props) {
             </div>
           </div>
         </form>
-        {password.password === "" || samePassword ? (
-          ""
-        ) : (
-          <p>Senha não confere</p>
-        )}
       </Modal.Body>
       <Modal.Footer className={css(styles.footer)}>
         <div>
@@ -180,10 +180,14 @@ export default function ModalRegister(props) {
 
 const styles = StyleSheet.create({
   radio: {
-    width: "10%"
+    width: "10%",
+    transform: "scale(2)"
   },
   input: {
-    display: "block"
+    display: "block",
+    padding: "4%",
+    margin: "0% 3% 2%",
+    width: "94%"
   },
   radioSection: {
     display: "flex",
@@ -200,5 +204,14 @@ const styles = StyleSheet.create({
   footer: {
     display: "block",
     textAlign: "center"
+  },
+  jobSection: {
+    marginTop: "5%"
+  },
+  errorMessage: {
+    color: "red",
+    fontWeight: "bold",
+    textAlign: "center",
+    font: "large"
   }
 });

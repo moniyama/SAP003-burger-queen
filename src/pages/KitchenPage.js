@@ -5,6 +5,7 @@ import CardOrder from "../components/CardOrder";
 import Header from "../components/Header";
 import UpdateOrderFirebase from "../Utils/UpdateOrderFirebase";
 import GetOrderFirebase from "../Utils/GetOrderFirebase";
+import Footer from "../components/Footer";
 
 export default function KitchenPage() {
   const [orders, setOrders] = useState([]);
@@ -59,6 +60,7 @@ export default function KitchenPage() {
           </ul>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     padding: "0% 2%",
-    height: "78vh",
+    height: "83vh",
     backgroundColor: "white",
     margin: "2% 3%",
     borderRadius: "5px"
