@@ -1,5 +1,5 @@
 import React from "react";
-import { ToggleOffOutlined, ToggleOn, Height } from "@material-ui/icons";
+import { ToggleOffOutlined, ToggleOn } from "@material-ui/icons";
 import changeToggleIcon from "../Utils/changeToggleIcon";
 import { css, StyleSheet } from "aphrodite";
 

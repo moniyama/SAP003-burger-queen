@@ -160,12 +160,12 @@ export default function ModalRegister(props) {
       <Modal.Footer className={css(styles.footer)}>
         <div>
           <Button
-            // class={styles.btns}
+            class={styles.btns}
             title={"CANCELAR"}
             handleClick={props.onHide}
           />
           <Button
-            // class={styles.btns}
+            class={styles.btns}
             type={"submit"}
             title={"CRIAR CONTA"}
             handleClick={createAcc}
@@ -196,7 +196,8 @@ const styles = StyleSheet.create({
   radioLabelSection: {
     width: "48%",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center"
   },
   radioLabel: {
     margin: "2% 3% "
@@ -213,5 +214,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     font: "large"
+  },
+  btns: {
+    padding:"3%",
+    width:"40%"
   }
 });

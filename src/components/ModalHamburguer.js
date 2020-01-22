@@ -93,7 +93,11 @@ export default function ModalHamburguer(props) {
       centered
     >
       <Modal.Header>
-        <Modal.Title>{type}</Modal.Title>
+        <Modal.Title>
+          {hambResumo.length === 0
+            ? { type }
+            : ` ${type} ${hambResumo[0].hamburguer}`}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <section
