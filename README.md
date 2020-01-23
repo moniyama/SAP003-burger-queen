@@ -18,7 +18,7 @@ Os pedidos ao serem realizados devem ser encaminhados para a cozinha. Ao finaliz
 
 Temos portanto, dois usuários distintos: quem permanece no salão, realizando e entregando os pedidos e quem prepara os pedidos na cozinha. Portanto, o login foi implantado para que o usuário possa visualizar apenas o que é relevante para a sua função.
 
-![Página de Login](imgs/login.png)
+| ![Página de Login](imgs/login.png) | ![Página de Login](imgs/hall.png) | ![Página de Login](imgs/kitchen.png)
 
 ### 1.1 Funcionamento
 
@@ -30,13 +30,9 @@ O usuário do salão tem duas abas de utilização:
 
 - Em Entrega: O usuário consegue visualizar em ordem de preparação, todo os pedidos disponíveis para serem entregues. Além disso, consegue visualizar os ultimos pedidos entregues e o tempo de atendimento total (da realização do pedido até ser entregue)
 
-![Página de Login](imgs/hall.png)
-
 O usuário da cozinha tem apenas um ambiente de utilização:
 
 - O usuário visualiza os pedidos em ordem. Ao finalizar a preparação, o usuário deve concluir o pedido, para que seja feita a entrega. Além disso, consegue visualizar os últimos pedidos e o tempo de preparo (ao ser pedido até a finalização do preparo)
-
-![Página de Login](imgs/kitchen.png)
 
 ## 2. Considerações Técnicas
 
