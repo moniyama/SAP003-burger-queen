@@ -78,9 +78,7 @@ export default function ModalRegister(props) {
       <Modal.Header>
         <Modal.Title>CADASTRO</Modal.Title>
       </Modal.Header>
-      <Modal.Body
-      // className={css(styles.body)}
-      >
+      <Modal.Body>
         <form>
           <Input
             id="input-register-name"
@@ -216,7 +214,7 @@ const styles = StyleSheet.create({
     font: "large"
   },
   btns: {
-    padding:"3%",
-    width:"40%"
+    padding: "3%",
+    width: "40%"
   }
 });

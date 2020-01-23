@@ -8,8 +8,6 @@ import ModalMesa from "../components/ModalMesa";
 import ResumoItens from "../components/ResumoItens";
 import { Check, Close } from "@material-ui/icons/";
 
-//add check and close to endbtns
-
 export default function MenuPage() {
   const [menu, setMenu] = useState([]);
   const [resumo, setResumo] = useState([]);
