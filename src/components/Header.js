@@ -5,7 +5,7 @@ import { auth } from "../firebase/firebase-config";
 import Image from "../components/Image";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
-export default function Header(props) {
+export default function Header() {
   return (
     <header className={css(styles.header)}>
       <Image

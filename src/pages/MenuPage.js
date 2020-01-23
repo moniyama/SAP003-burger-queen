@@ -36,12 +36,7 @@ export default function MenuPage() {
 
   useEffect(() => {
     const updateSubtotal = () => {
-      setSubtotal(
-        resumo.reduce(
-          (acc, curr) => acc + curr.value,
-          0
-        )
-      );
+      setSubtotal(resumo.reduce((acc, curr) => acc + curr.value, 0));
     };
 
     resumo.length === 0 ? setDisabledBtns(true) : setDisabledBtns(false);
@@ -119,13 +114,15 @@ export default function MenuPage() {
           <h4>Sub-Total: R$ {subtotal + ",00"}</h4>
           <Button
             class={styles.endBtns}
-            title={<Check />}
+            title={'Finalizar Pedido'}
+            value={<Check />}
             handleClick={() => setShowModalMesa(true)}
             disabled={disabledBtns}
           />
           <Button
             class={styles.endBtns}
             title={"Cancelar Pedido"}
+            value={<Close />}
             handleClick={() => updateResumo([])}
             disabled={disabledBtns}
           />
