@@ -34,14 +34,14 @@ export default function NavTab(props) {
           <Tab
             className={css(styles.tabBox)}
             eventKey="pedidos"
-            title="REALIZAR PEDIDO"
+            title="MENU PEDIDOS"
           >
             <MenuPage />
           </Tab>
           <Tab
             className={css(styles.tabBox)}
             eventKey="pronto"
-            title="REALIZAR ENTREGA"
+            title="EM ENTREGA"
           >
             <DeliveryPage />
           </Tab>
@@ -50,8 +50,6 @@ export default function NavTab(props) {
     </>
   );
 }
-
-//inserir essa navTab na pagina de hall do garçom
 
 const styles = StyleSheet.create({
   navbar: {
