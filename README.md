@@ -18,6 +18,17 @@ Os pedidos ao serem realizados devem ser encaminhados para a cozinha. Ao finaliz
 
 Temos portanto, dois usuários distintos: quem permanece no salão, realizando e entregando os pedidos e quem prepara os pedidos na cozinha. Portanto, o login foi implantado para que o usuário possa visualizar apenas o que é relevante para a sua função.
 
+Para acessar a aplicação, pode-se utilizar os perfis:
+
+```bash
+- Cozinha : usuario@cozinha.com
+- Salão: usuario@salao.com
+```
+
+```bash
+A senha para ambos usuarios é: 123123
+```
+
 ![Página de Login](imgs/login.png) ![Hall/Atendendte](imgs/hall.png) ![Cozinha](imgs/kitchen.png)
 
 ### 1.1 Funcionamento
