@@ -4,11 +4,7 @@ import { css, StyleSheet } from "aphrodite";
 export default function Image(props) {
   return (
     <figure className={css(styles.img)}>
-      <img
-        className={css(props.class)}
-        src={props.src}
-        alt={props.alt}
-      ></img>
+      <img className={css(props.class)} src={props.src} alt={props.alt}></img>
     </figure>
   );
 }
@@ -16,6 +12,7 @@ export default function Image(props) {
 const styles = StyleSheet.create({
   img: {
     textAlign: "center",
-    margin:'0'
+    margin: "0",
+    background: "white"
   }
 });

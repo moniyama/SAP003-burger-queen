@@ -129,7 +129,8 @@ const styles = StyleSheet.create({
   },
   pRegister: {
     margin: "3%",
-    fontSize: "20px"
+    fontSize: "20px",
+    cursor: "pointer"
   },
   error: {
     fontSize: "20px",
