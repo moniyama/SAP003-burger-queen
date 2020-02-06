@@ -39,57 +39,55 @@ export default function LoginPage() {
   return (
     <>
       <main className={css(styles.main)}>
-        <section>
+        <header>
           <Image
             class={styles.logo}
             src={require("../img/logo_vert.PNG")}
             alt={"logo"}
           />
-        </section>
+        </header>
         <section className={css(styles.formSection)}>
-          <div className={css(styles.form)}>
-            <form>
-              <Input
-                class={styles.input}
-                type="email"
-                placeholder="Email"
-                autofocus={true}
-                onChange={e =>
-                  setLoginData({ ...loginData, email: e.target.value })
-                }
-                autoComplete="username"
-              />
-              <Input
-                class={styles.input}
-                type="password"
-                placeholder="Senha"
-                autoComplete="current-password"
-                onChange={e =>
-                  setLoginData({ ...loginData, password: e.target.value })
-                }
-              />
-              <Button
-                class={styles.loginBtn}
-                title="ENTRAR"
-                handleClick={e => login(e)}
-              />
-            </form>
-            {loginError.state ? showError(loginError.message) : ""}
-            <p
-              className={css(styles.pRegister)}
-              onClick={() => setShowModalRegister(true)}
-            >
-              Ainda não se registrou? Cadastre-se AQUI
-            </p>
-          </div>
+          <form>
+            <Input
+              class={styles.input}
+              type="email"
+              placeholder="Email"
+              autofocus={true}
+              onChange={e =>
+                setLoginData({ ...loginData, email: e.target.value })
+              }
+              autoComplete="username"
+            />
+            <Input
+              class={styles.input}
+              type="password"
+              placeholder="Senha"
+              autoComplete="current-password"
+              onChange={e =>
+                setLoginData({ ...loginData, password: e.target.value })
+              }
+            />
+            <Button
+              class={styles.loginBtn}
+              title="ENTRAR"
+              handleClick={e => login(e)}
+            />
+          </form>
+          {loginError.state ? showError(loginError.message) : ""}
+          <p
+            className={css(styles.pRegister)}
+            onClick={() => setShowModalRegister(true)}
+          >
+            Ainda não se registrou? Cadastre-se AQUI
+          </p>
         </section>
         <ModalRegister
           show={showModalRegister}
           onHide={handleCloseModalRegister}
           animation={false}
         />
+        <Footer class={styles.footer} />
       </main>
-      <Footer class={styles.footer} />
     </>
   );
 }
@@ -98,21 +96,27 @@ const styles = StyleSheet.create({
   main: {
     textAlign: "center",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    height: "100vh"
   },
   logo: {
-    width: "100%"
+    width: "100%",
+    "@media (min-width: 800px)": {
+      height: "30vh",
+      width: "auto"
+    }
   },
   formSection: {
     display: "flex",
     flexDirection: "column",
-    height: "53%",
-    margin: "2vw 3vw 15%"
-  },
-  form: {
     justifyContent: "center",
-    width: "100%",
-    marginTop: "10%"
+    alignItems: "center",
+    padding: "10%",
+    marginBottom: "10%",
+    "@media (min-width: 800px)": {
+      padding: "3% 3% 0",
+      marginBottom: "0"
+    }
   },
   loginBtn: {
     backgroundColor: "#99AABF",
@@ -125,7 +129,12 @@ const styles = StyleSheet.create({
     fontSize: "25px",
     padding: "4%",
     margin: "0% 3% 2%",
-    width: "94%"
+    width: "94%",
+    "@media (min-width: 800px)": {
+      padding: "3%",
+      width: "60vw",
+      height: "5vh",
+    }
   },
   pRegister: {
     margin: "3%",
@@ -138,6 +147,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   footer: {
-    bottom: "0"
+    height: "5vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });

@@ -68,7 +68,10 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     padding: "0% 2%",
-    height: "78vh"
+    height: "78vh",
+    backgroundColor: "white",
+    margin: "2% 3%",
+    borderRadius: "5px"
   },
   title: {
     color: "#BF190A",
@@ -77,24 +80,35 @@ const styles = StyleSheet.create({
     margin: "1%"
   },
   orderSection: {
-    height: "65%"
+    height: "65%",
+    "@media (min-width: 800px)": {
+      height: "48vh"
+    }
   },
   orderSectionHistory: {
     height: "35%"
   },
   orders: {
     height: "92%",
-    overflow: "auto"
+    overflow: "auto",
+    "@media (min-width: 800px)": {
+      height: "40vh"
+    }
   },
   ul: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
     width: "100%",
-    listStyleType: "none"
+    listStyleType: "none",
+    margin: "0"
   },
   ulHistory: {
     overflow: "auto",
-    height: "80%"
+    height: "80%",
+    "@media (min-width: 800px)": {
+      height: "20vh"
+    }
   }
 });
+
