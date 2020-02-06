@@ -83,24 +83,34 @@ const styles = StyleSheet.create({
     margin: "1%"
   },
   orderSection: {
-    height: "65%"
+    height: "65%",
+    "@media (min-width: 800px)": {
+      height: "48vh"
+    }
   },
   orderSectionHistory: {
     height: "35%"
   },
   orders: {
     height: "92%",
-    overflow: "auto"
+    overflow: "auto",
+    "@media (min-width: 800px)": {
+      height: "40vh"
+    }
   },
   ul: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
     width: "100%",
-    listStyleType: "none"
+    listStyleType: "none",
+    margin: "0"
   },
   ulHistory: {
     overflow: "auto",
-    height: "80%"
+    height: "80%",
+    "@media (min-width: 800px)": {
+      height: "25vh"
+    }
   }
 });
