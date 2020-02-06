@@ -39,13 +39,13 @@ export default function LoginPage() {
   return (
     <>
       <main className={css(styles.main)}>
-        <section>
+        <header>
           <Image
             class={styles.logo}
             src={require("../img/logo_vert.PNG")}
             alt={"logo"}
           />
-        </section>
+        </header>
         <section className={css(styles.formSection)}>
           <form>
             <Input
@@ -86,7 +86,7 @@ export default function LoginPage() {
           onHide={handleCloseModalRegister}
           animation={false}
         />
-      <Footer class={styles.footer} />
+        <Footer class={styles.footer} />
       </main>
     </>
   );
@@ -100,7 +100,11 @@ const styles = StyleSheet.create({
     height: "100vh"
   },
   logo: {
-    width: "100%"
+    width: "100%",
+    "@media (min-width: 800px)": {
+      height: "30vh",
+      width: "auto"
+    }
   },
   formSection: {
     display: "flex",
@@ -108,7 +112,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: "10%",
-    marginBottom: "10%"
+    marginBottom: "10%",
+    "@media (min-width: 800px)": {
+      padding: "3% 3% 0",
+      marginBottom: "0"
+    }
   },
   loginBtn: {
     backgroundColor: "#99AABF",
@@ -121,7 +129,12 @@ const styles = StyleSheet.create({
     fontSize: "25px",
     padding: "4%",
     margin: "0% 3% 2%",
-    width: "94%"
+    width: "94%",
+    "@media (min-width: 800px)": {
+      padding: "3%",
+      width: "60vw",
+      height: "5vh",
+    }
   },
   pRegister: {
     margin: "3%",
