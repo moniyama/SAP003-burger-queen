@@ -74,6 +74,7 @@ export default function ModalRegister(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      dialogClassName="modal-80w"
     >
       <Modal.Header>
         <Modal.Title>CADASTRO</Modal.Title>
@@ -185,7 +186,10 @@ const styles = StyleSheet.create({
     display: "block",
     padding: "4%",
     margin: "0% 3% 2%",
-    width: "94%"
+    width: "94%",
+    "@media (min-width: 800px)": {
+      padding: "2%"
+    }
   },
   radioSection: {
     display: "flex",
