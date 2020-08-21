@@ -4,6 +4,7 @@ import Button from "./Button";
 import Input from "./Input";
 import { StyleSheet, css } from "aphrodite";
 import { auth, db } from "../firebase/firebase-config";
+import translateError from "../Utils/translateError";
 
 export default function ModalRegister(props) {
   const [user, setUser] = useState({});
@@ -52,19 +53,6 @@ export default function ModalRegister(props) {
           message: error.code
         });
       });
-  };
-
-  const showError = message => {
-    switch (message) {
-      case "auth/weak-password":
-        return <p>A senha deve possuir no mínimo 6 caracteres</p>;
-      case "auth/email-already-in-use":
-        return <p>O e-mail informado já está em uso</p>;
-      case "auth/operation-not-allowed":
-        return <p>Conta não ativada</p>;
-      default:
-        return <p>Email inválido</p>;
-    }
   };
 
   return (
@@ -171,7 +159,7 @@ export default function ModalRegister(props) {
             disabled={btnState}
           />
         </div>
-        {registerError.state ? showError(registerError.message) : ""}
+          {registerError.state && <p>{translateError(registerError.message)}</p>}
       </Modal.Footer>
     </Modal>
   );
